@@ -30,8 +30,9 @@ const draw = (canvas, ctx, img, scale, pos) => {
 
 const scaleMulti = 0.005;
 const posMulti = 1;
-let scale = 0.3;
+let scale = 1;
 let pos = { x: 0, y: 0 };
+let drawing = false;
 
 const clampPos = (canvasLen, imgLen, scale, pos) => {
   const max = canvasLen / 2;
@@ -48,12 +49,15 @@ const clampPos = (canvasLen, imgLen, scale, pos) => {
 };
 
 const clampScale = (canvas, img, scale) => {
+  const max = 3;
   const min = canvas.width - 50;
   if (img.width * scale < min) {
     return min / img.width;
-  } else {
-    return scale;
   }
+  if (scale > max) {
+    return max;
+  }
+  return scale;
 };
 
 window.addEventListener("load", () => {

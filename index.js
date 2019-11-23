@@ -28,7 +28,7 @@ const draw = (canvas, ctx, img, scale, pos) => {
   ctx.restore();
 };
 
-const scaleMulti = 0.005;
+const scaleMulti = 0.01;
 const posMulti = 1;
 let scale = 1;
 let pos = { x: 0, y: 0 };
@@ -60,6 +60,15 @@ const clampScale = (canvas, img, scale) => {
   return scale;
 };
 
+const updatePosOnScale = (img, pos, prevScale, scale, cursorPos) => {
+  let wp = (cursorPos.x - pos.x) / (img.width * prevScale);
+  let hp = (cursorPos.y - pos.y) / (img.height * prevScale);
+  return {
+    x: cursorPos.x - (img.width * scale) * wp,
+    y: cursorPos.y - (img.height * scale) * hp
+  };
+};
+
 window.addEventListener("load", () => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
@@ -70,12 +79,13 @@ window.addEventListener("load", () => {
 
     canvas.addEventListener("wheel", (e) => {
       e.preventDefault();
-      e.stopPropagation();
 
       // This is scale
       if (e.ctrlKey) {
+        let prevScale = scale;
         scale -= e.deltaY * scaleMulti;
         scale = clampScale(canvas, img, scale);
+        pos = updatePosOnScale(img, pos, prevScale, scale, { x: e.offsetX, y: e.offsetY });
       } else {
         // this is moving
         pos.x -= e.deltaX * posMulti;

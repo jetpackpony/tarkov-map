@@ -75,7 +75,16 @@ window.addEventListener("load", () => {
 
   const img = new Image();
   img.addEventListener("load", () => {
-    draw(canvas, ctx, img, scale, pos);
+    const drawStuff = () => {
+      draw(canvas, ctx, img, scale, pos);
+    };
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawStuff();
+    };
+    window.addEventListener("resize", resizeCanvas, false);
+    resizeCanvas();
 
     canvas.addEventListener("wheel", (e) => {
       e.preventDefault();
@@ -96,7 +105,7 @@ window.addEventListener("load", () => {
 
       if (!drawing) {
         requestAnimationFrame(() => {
-          draw(canvas, ctx, img, scale, pos);
+          drawStuff();
           drawing = false;
         });
         drawing = true;

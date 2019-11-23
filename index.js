@@ -67,7 +67,6 @@ window.addEventListener("load", () => {
     canvas.addEventListener("wheel", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log("wheel", e);
 
       // This is scale
       if (e.ctrlKey) {
@@ -80,7 +79,14 @@ window.addEventListener("load", () => {
         pos.x = clampPos(canvas.width, img.width, scale, pos.x);
         pos.y = clampPos(canvas.height, img.height, scale, pos.y);
       }
-      draw(canvas, ctx, img, scale, pos);
+
+      if (!drawing) {
+        requestAnimationFrame(() => {
+          draw(canvas, ctx, img, scale, pos);
+          drawing = false;
+        });
+        drawing = true;
+      }
     }, false);
   }, false);
   img.src = map;

@@ -1,35 +1,21 @@
 import { h } from 'preact';
 import { useEffect, useRef } from 'preact/compat';
-import {
-  useCanvasWithResizeHandler,
-  useImageLoader
-} from './hooks';
-
-const draw = (state) => {
-  console.log("Drawing", state);
-};
+import { useCanvasWithResizeHandler } from './hooks';
 
 const resizeHandler = (canvasRef) => {
   canvasRef.current.width = window.innerWidth;
   canvasRef.current.height = window.innerHeight;
 };
 
-const CanvasWrapper = ({ imgPath, count }) => {
+const CanvasWrapper = ({ redrawCanvas, onWheel }) => {
   console.log("===> re-rendering");
   const canvasRef = useCanvasWithResizeHandler(resizeHandler);
-  const imgObj = useImageLoader(imgPath);
-  const viewportState = useRef({ scale: 1, count });
   const isDrawing = useRef(false);
 
-  const redrawCanvas = () => {
+  const redrawCanvasDebounced = () => {
     requestAnimationFrame(() => {
-      if (imgObj) {
-        const ctx = canvasRef.current.getContext("2d");
-        viewportState.current.count = count;
-        draw(viewportState.current);
-      } else {
-        console.log("Trying to draw while image is not ready");
-      }
+      const ctx = canvasRef.current.getContext("2d");
+      redrawCanvas(canvasRef.current, ctx);
       isDrawing.current = false;
     });
     isDrawing.current = true;
@@ -37,16 +23,16 @@ const CanvasWrapper = ({ imgPath, count }) => {
 
   // change the state of the viewport, then redraw
   const handleWheel = (e) => {
-    viewportState.current.scale -= e.deltaY;
+    onWheel(e);
     if (!isDrawing.current) {
-      redrawCanvas();
+      redrawCanvasDebounced();
     }
   };
 
   // Redraw every time anything changes
   useEffect(() => {
     console.log("General useeffect");
-    redrawCanvas();
+    redrawCanvasDebounced();
   });
 
   return (

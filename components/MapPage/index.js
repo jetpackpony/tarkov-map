@@ -4,13 +4,15 @@ import MapInfo from './MapInfo';
 import map from '../../Customs.png';
 import { useState } from 'preact/compat';
 
+const rand = () => Math.random() * 1000;
+
 const MapPage = () => {
-  const [count, setCount] = useState(0);
+  const [markers, setMarkers] = useState([]);
   return (
     <div>
       <div>MapPage</div>
-      <button onClick={() => setCount(count + 1)}>Button</button>
-      <MapCanvas imgPath={map} count={count} />
+      <button onClick={() => setMarkers(markers.concat([{ x: rand(), y: rand() }]))}>Add Marker</button>
+      <MapCanvas imgPath={map} markers={markers} />
       <MapInfo />
     </div>
   );

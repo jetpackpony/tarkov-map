@@ -6,7 +6,18 @@ import { useImageLoader } from './hooks';
 const scaleMulti = 0.01;
 const posMulti = 1;
 
-const draw = (canvas, ctx, img, { scale, pos }) => {
+const drawMarker = (ctx, x, y) => {
+  ctx.save();
+  ctx.strokeStyle = "rgb(214, 19, 51)";
+  ctx.lineWidth = 3;
+  ctx.translate(x, y);
+  ctx.beginPath();
+  ctx.arc(0, 0, 15, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+};
+
+const draw = (canvas, ctx, img, { scale, pos }, markers) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
     ctx.translate(pos.x, pos.y);
@@ -14,7 +25,7 @@ const draw = (canvas, ctx, img, { scale, pos }) => {
       ctx.scale(scale, scale);
       ctx.drawImage(img, 0, 0);
     ctx.restore();
-    //drawMarker(ctx, marker.x * scale, marker.y * scale);
+    markers.forEach((m) => drawMarker(ctx, m.x * scale, m.y * scale));
   ctx.restore();
 };
 
@@ -58,7 +69,7 @@ const clampPos = (canvasLen, imgLen, scale, pos) => {
   return pos;
 };
 
-const MapCanvas = ({ imgPath }) => {
+const MapCanvas = ({ imgPath, markers }) => {
   const imgObj = useImageLoader(imgPath);
   const viewportState = useRef(initViewportState);
 
@@ -80,7 +91,7 @@ const MapCanvas = ({ imgPath }) => {
     }
   };
   const redrawCanvas = (canvas, ctx) => {
-    draw(canvas, ctx, imgObj, viewportState.current);
+    draw(canvas, ctx, imgObj, viewportState.current, markers);
   };
 
   return (

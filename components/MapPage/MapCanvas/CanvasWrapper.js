@@ -10,12 +10,15 @@ const resizeHandler = (canvasRef) => {
 const CanvasWrapper = ({ redrawCanvas, onWheel }) => {
   console.log("===> re-rendering");
   const canvasRef = useCanvasWithResizeHandler(resizeHandler);
+  const ctxRef = useRef(null);
+  useEffect(() => {
+    ctxRef.current = canvasRef.current.getContext("2d");
+  });
   const isDrawing = useRef(false);
 
   const redrawCanvasDebounced = () => {
     requestAnimationFrame(() => {
-      const ctx = canvasRef.current.getContext("2d");
-      redrawCanvas(canvasRef.current, ctx);
+      redrawCanvas(canvasRef.current, ctxRef.current);
       isDrawing.current = false;
     });
     isDrawing.current = true;
@@ -23,7 +26,7 @@ const CanvasWrapper = ({ redrawCanvas, onWheel }) => {
 
   // change the state of the viewport, then redraw
   const handleWheel = (e) => {
-    onWheel(e);
+    onWheel(canvasRef.current, ctxRef.current, e);
     if (!isDrawing.current) {
       redrawCanvasDebounced();
     }

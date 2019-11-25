@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const rand = () => Math.random() * 1000;
 
-const MapPage = ({ imgPath, markers, dispatch }) => {
+export const MapPage = ({ imgPath, markers, dispatch }) => {
   return (
     <div>
       <div>MapPage</div>

@@ -25,7 +25,7 @@ const draw = (canvas, ctx, img, { scale, pos }, markers) => {
       ctx.scale(scale, scale);
       ctx.drawImage(img, 0, 0);
     ctx.restore();
-    markers.forEach((m) => drawMarker(ctx, m.x * scale, m.y * scale));
+    markers.forEach((m) => drawMarker(ctx, m.coords.x * scale, m.coords.y * scale));
   ctx.restore();
 };
 

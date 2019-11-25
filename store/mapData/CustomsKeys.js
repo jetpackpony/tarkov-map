@@ -1,4 +1,4 @@
-import customsKeysImg from '../../mapImages/Customs-Keys.jpg';
+import customsKeysImg from '../../mapImages/CustomsKeys.jpg';
 
 const mapData = {
   title: "Customs Keys",

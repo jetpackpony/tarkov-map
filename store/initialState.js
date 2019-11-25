@@ -11,7 +11,9 @@ const initState = {
     }, {})
   ),
   ui: {
-    currentMap: 'customs-keys'
+    currentMap: 'customs-main'
+    //currentMap: 'customs-keys'
+    //currentMap: 'customs-hidden-stashes'
   }
 };
 

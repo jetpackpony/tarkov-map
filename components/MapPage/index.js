@@ -13,13 +13,18 @@ export const MapPage =
     toggleExtract
   }) => {
     const currentMapData = mapData.maps[currentMap];
-
+    const extractionMarkers =
+      currentMapData.extracts
+        .filter((e) => selectedExtracts.includes(e.id))
+        .map((e) => {
+          return { id: e.id, coords: e.coords };
+        });
     return (
       <div>
         <div>Current map: {currentMapData.title}</div>
         <MapCanvas
           imgPath={currentMapData.imgPath}
-          markers={markers}
+          markers={markers.concat(extractionMarkers)}
         />
         <MapInfo
           extracts={currentMapData.extracts}

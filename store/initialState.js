@@ -11,9 +11,12 @@ const initState = {
     }, {})
   ),
   ui: {
-    currentMap: 'customs-main'
+    //currentMap: 'customs-main'
     //currentMap: 'customs-keys'
     //currentMap: 'customs-hidden-stashes'
+    //currentMap: 'shoreline-main'
+    //currentMap: 'shoreline-keys'
+    currentMap: 'shoreline-resort'
   }
 };
 

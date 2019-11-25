@@ -2,16 +2,13 @@ import { h } from 'preact';
 import MapCanvas from './MapCanvas';
 import MapInfo from './MapInfo';
 import { connect } from 'react-redux';
+import { addMarker } from '../../store/actions';
 
-const rand = () => Math.random() * 1000;
-
-export const MapPage = ({ imgPath, markers, dispatch }) => {
+export const MapPage = ({ imgPath, markers, addMarker }) => {
   return (
     <div>
       <div>MapPage</div>
-      <button onClick={
-        () => dispatch({ type: 'ADD_MARKER', coords: { x: rand(), y: rand() } })
-      }>
+      <button onClick={addMarker}>
         Add Marker
       </button>
       <MapCanvas imgPath={imgPath} markers={markers} />
@@ -21,6 +18,8 @@ export const MapPage = ({ imgPath, markers, dispatch }) => {
 };
 
 const stateToProps = (state) => state;
-const dispatchToProps = null;
+const dispatchToProps = (dispatch) => ({
+  addMarker: () => dispatch(addMarker())
+});
 
 export default connect(stateToProps, dispatchToProps)(MapPage);

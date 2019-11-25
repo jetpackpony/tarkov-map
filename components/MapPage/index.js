@@ -1,12 +1,11 @@
 import { h } from 'preact';
 import MapCanvas from './MapCanvas';
 import MapInfo from './MapInfo';
-import map from '../../Customs.png';
 import { connect } from 'react-redux';
 
 const rand = () => Math.random() * 1000;
 
-const MapPage = ({ markers, dispatch }) => {
+const MapPage = ({ imgPath, markers, dispatch }) => {
   return (
     <div>
       <div>MapPage</div>
@@ -15,7 +14,7 @@ const MapPage = ({ markers, dispatch }) => {
       }>
         Add Marker
       </button>
-      <MapCanvas imgPath={map} markers={markers} />
+      <MapCanvas imgPath={imgPath} markers={markers} />
       <MapInfo />
     </div>
   );

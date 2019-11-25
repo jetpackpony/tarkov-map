@@ -2,9 +2,10 @@ import { h } from 'preact';
 import MapPage from '../MapPage';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import mapImages from '../../mapImages/*.*';
 
 const initState = {
-  imgPath: "Customs.png",
+  imgPath: mapImages.Customs.png,
   markers: [
     { x: 300, y: 500 },
     { x: 400, y: 600 },

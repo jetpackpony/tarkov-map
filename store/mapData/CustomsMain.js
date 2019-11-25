@@ -13,7 +13,7 @@ const mapData = {
       coords: { x: 100, y: 100 }
     },
     {
-      id: "ext-1",
+      id: "ext-2",
       names: {
         en: "test-2",
         ru: "тест-2"

@@ -5,6 +5,7 @@ const mapData = {
   imgPath: customsKeysImg,
   extracts: [
     {
+      id: "ext-1",
       names: {
         en: "test-1",
         ru: "тест-1"
@@ -12,6 +13,7 @@ const mapData = {
       coords: { x: 100, y: 100 }
     },
     {
+      id: "ext-2",
       names: {
         en: "test-2",
         ru: "тест-2"

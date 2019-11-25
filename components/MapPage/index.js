@@ -2,25 +2,30 @@ import { h } from 'preact';
 import MapCanvas from './MapCanvas';
 import MapInfo from './MapInfo';
 import { connect } from 'react-redux';
-import { addMarker } from '../../store/actions';
+import { toggleExtractAction } from '../../store/actions';
 import mapData from '../../store/mapData';
 
 export const MapPage =
   ({
     currentMap,
     markers,
-    addMarker
+    selectedExtracts,
+    toggleExtract
   }) => {
     const currentMapData = mapData.maps[currentMap];
 
     return (
       <div>
         <div>Current map: {currentMapData.title}</div>
-        <button onClick={addMarker}>
-          Add Marker
-        </button>
-        <MapCanvas imgPath={currentMapData.imgPath} markers={markers} />
-        <MapInfo />
+        <MapCanvas
+          imgPath={currentMapData.imgPath}
+          markers={markers}
+        />
+        <MapInfo
+          extracts={currentMapData.extracts}
+          selected={selectedExtracts}
+          toggleExtract={toggleExtract}
+        />
       </div>
     );
   };
@@ -28,13 +33,15 @@ export const MapPage =
 const stateToProps = (state) => {
   const currentMap = state.ui.currentMap;
   const markers = state.mapState[currentMap].markers;
+  const selectedExtracts = state.mapState[currentMap].selectedExtracts;
   return {
     currentMap,
-    markers
+    markers,
+    selectedExtracts
   };
 };
 const dispatchToProps = (dispatch) => ({
-  addMarker: () => dispatch(addMarker())
+  toggleExtract: (extId) => dispatch(toggleExtractAction(extId))
 });
 
 export default connect(stateToProps, dispatchToProps)(MapPage);

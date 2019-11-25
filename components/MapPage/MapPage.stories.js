@@ -11,7 +11,7 @@ const markers = [
 ];
 export const page = () => (
   <MapPage
-    currentMap={['customs', 'keys']}
+    currentMap='customs-keys'
     markers={markers}
   />
 );

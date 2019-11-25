@@ -11,11 +11,11 @@ export const MapPage =
     markers,
     addMarker
   }) => {
-    const currentMapData = mapData.mapGroups[currentMap[0]].maps[currentMap[1]];
+    const currentMapData = mapData.maps[currentMap];
 
     return (
       <div>
-        <div>Current map: {currentMap.join(" - ")}</div>
+        <div>Current map: {currentMapData.title}</div>
         <button onClick={addMarker}>
           Add Marker
         </button>
@@ -26,9 +26,11 @@ export const MapPage =
   };
 
 const stateToProps = (state) => {
+  const currentMap = state.ui.currentMap;
+  const markers = state.mapState[currentMap].markers;
   return {
-    currentMap: state.ui.currentMap,
-    markers: state.markers
+    currentMap,
+    markers
   };
 };
 const dispatchToProps = (dispatch) => ({

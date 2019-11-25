@@ -1,11 +1,26 @@
-import mapGroups from './mapData';
+import mapData from './mapData';
 
-export default {
-  markers: [
-    { id: 'dsafasdf', coords: { x: 300, y: 500 } },
-    { id: 'wk3jkjk', coords: { x: 400, y: 600 } },
-  ],
+const initState = {
+  mapState: (
+    Object.keys(mapData.maps).reduce((acc, k) => {
+      acc[k] = {
+        markers: []
+      };
+      return acc;
+    }, {})
+  ),
   ui: {
-    currentMap: ['customs', 'keys']
+    currentMap: 'customs-main'
   }
 };
+
+initState.mapState["customs-main"].markers = [
+  { id: 'dsafasdf', coords: { x: 300, y: 500 } },
+  { id: 'wk3jkjk', coords: { x: 400, y: 600 } },
+];
+initState.mapState["customs-keys"].markers = [
+  { id: 'dsafasdf', coords: { x: 100, y: 300 } },
+  { id: 'wk3jkjk', coords: { x: 200, y: 200 } },
+];
+
+export default initState;

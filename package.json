@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "keywords": [],
   "author": "",
@@ -11,7 +13,12 @@
   "description": "",
   "devDependencies": {
     "@babel/core": "^7.7.4",
-    "@babel/plugin-transform-react-jsx": "^7.7.4"
+    "@babel/plugin-transform-react-jsx": "^7.7.4",
+    "@storybook/addon-actions": "^5.2.6",
+    "@storybook/addon-links": "^5.2.6",
+    "@storybook/addons": "^5.2.6",
+    "@storybook/preact": "^5.2.6",
+    "babel-loader": "^8.0.6"
   },
   "dependencies": {
     "preact": "^10.0.5"

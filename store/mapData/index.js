@@ -8,6 +8,7 @@ import InterchangeMain from './InterchangeMain';
 import InterchangeHiddenStashes from './InterchangeHiddenStashes';
 import WoodsMain from './WoodsMain';
 import ReserveMain from './ReserveMain';
+import FactoryMain from './FactoryMain';
 
 const mapData = {
   maps: {
@@ -21,6 +22,7 @@ const mapData = {
     "interchange-hidden-stashes": InterchangeHiddenStashes,
     "woods-main": WoodsMain,
     "reserve-main": ReserveMain,
+    "factory-main": FactoryMain,
   }
 };
 

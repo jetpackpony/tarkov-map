@@ -12,7 +12,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? нажать рычаг, звучит сирена. Сирена звучит 4 минуты после нажатия",
-      coords: { x: 2770, y: 2165 }
+      coords: { x: 2770, y: 2165 },
+      activationCoords: { x: 1525, y: 942 }
     },
     {
       id: "ext-2",

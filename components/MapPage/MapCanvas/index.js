@@ -69,7 +69,7 @@ const clampPos = (canvasLen, imgLen, scale, pos) => {
   return pos;
 };
 
-const MapCanvas = ({ imgPath, markers }) => {
+const MapCanvas = ({ imgPath, markers, addMarker }) => {
   const imgObj = useImageLoader(imgPath);
   const viewportState = useRef(initViewportState);
 
@@ -93,6 +93,14 @@ const MapCanvas = ({ imgPath, markers }) => {
   const redrawCanvas = (canvas, ctx) => {
     draw(canvas, ctx, imgObj, viewportState.current, markers);
   };
+  const onClick = (canvas, ctx, e) => {
+    e.preventDefault();
+    const x = Math.round((e.offsetX - viewportState.current.pos.x) / viewportState.current.scale);
+    const y = Math.round((e.offsetY - viewportState.current.pos.y) / viewportState.current.scale);
+    if (x >= 0 && y >= 0 && x <= imgObj.width && y <= imgObj.height) {
+      addMarker({ x, y });
+    }
+  };
 
   return (
     (imgObj)
@@ -100,6 +108,7 @@ const MapCanvas = ({ imgPath, markers }) => {
         <CanvasWrapper
           redrawCanvas={redrawCanvas}
           onWheel={onWheel}
+          onClick={onClick}
         />
       )
       : <div>Loading image...</div>

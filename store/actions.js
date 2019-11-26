@@ -1,12 +1,14 @@
+import nanoid from 'nanoid';
+
 export const ACTION_TYPES = {
   ADD_MARKER: 'ADD_MARKER',
   TOGGLE_EXTRACT: 'TOGGLE_EXTRACT'
 };
 
-const rand = () => Math.random() * 1000;
-export const addMarker = () => ({
+export const addMarker = (coords) => ({
   type: ACTION_TYPES.ADD_MARKER,
-  coords: { x: rand(), y: rand() }
+  id: nanoid(5),
+  coords
 });
 
 export const toggleExtractAction = (extId) => ({

@@ -7,7 +7,7 @@ const resizeHandler = (canvasRef) => {
   canvasRef.current.height = window.innerHeight;
 };
 
-const CanvasWrapper = ({ redrawCanvas, onWheel }) => {
+const CanvasWrapper = ({ redrawCanvas, onWheel, onClick }) => {
   console.log("===> re-rendering");
   const canvasRef = useCanvasWithResizeHandler(resizeHandler);
   const ctxRef = useRef(null);
@@ -32,6 +32,10 @@ const CanvasWrapper = ({ redrawCanvas, onWheel }) => {
     }
   };
 
+  const handleClick = (e) => {
+    onClick(canvasRef.current, ctxRef.current, e)
+  };
+
   // Redraw every time anything changes
   useEffect(() => {
     console.log("General useeffect");
@@ -45,6 +49,7 @@ const CanvasWrapper = ({ redrawCanvas, onWheel }) => {
       width={window.innerWidth}
       height={window.innerHeight}
       onWheel={handleWheel}
+      onMouseUp={handleClick}
     >
     </canvas>
   );

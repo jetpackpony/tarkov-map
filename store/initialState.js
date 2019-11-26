@@ -18,7 +18,8 @@ const initState = {
     //currentMap: 'shoreline-keys'
     //currentMap: 'shoreline-resort'
     //currentMap: 'interchange-main'
-    currentMap: 'interchange-hidden-stashes'
+    //currentMap: 'interchange-hidden-stashes'
+    currentMap: 'woods-main'
   }
 };
 

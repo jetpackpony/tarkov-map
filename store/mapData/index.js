@@ -6,6 +6,7 @@ import ShorelineKeys from './ShorelineKeys';
 import ShorelineResort from './ShorelineResort';
 import InterchangeMain from './InterchangeMain';
 import InterchangeHiddenStashes from './InterchangeHiddenStashes';
+import WoodsMain from './WoodsMain';
 
 const mapData = {
   maps: {
@@ -17,6 +18,7 @@ const mapData = {
     "shoreline-resort": ShorelineResort,
     "interchange-main": InterchangeMain,
     "interchange-hidden-stashes": InterchangeHiddenStashes,
+    "woods-main": WoodsMain,
   }
 };
 

@@ -21,7 +21,8 @@ const initState = {
     //currentMap: 'interchange-hidden-stashes'
     //currentMap: 'woods-main'
     //currentMap: 'reserve-main'
-    currentMap: 'factory-main'
+    //currentMap: 'factory-main'
+    currentMap: 'labs-main'
   }
 };
 

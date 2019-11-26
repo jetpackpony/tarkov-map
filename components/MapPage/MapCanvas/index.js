@@ -69,7 +69,17 @@ const clampPos = (canvasLen, imgLen, scale, pos) => {
   return pos;
 };
 
-const MapCanvas = ({ imgPath, markers, addMarker }) => {
+const maxDist = 20;
+const getCloseMarkers = (scale, markers, { x, y }) => (
+  markers
+    .filter((m) => {
+      const dist = ((m.coords.x - x) * (m.coords.x - x) + (m.coords.y - y) * (m.coords.y - y));
+      return Math.sqrt(dist) * scale < maxDist;
+    })
+    .map((m) => m.id)
+);
+
+const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
   const imgObj = useImageLoader(imgPath);
   const viewportState = useRef(initViewportState);
 
@@ -97,8 +107,15 @@ const MapCanvas = ({ imgPath, markers, addMarker }) => {
     e.preventDefault();
     const x = Math.round((e.offsetX - viewportState.current.pos.x) / viewportState.current.scale);
     const y = Math.round((e.offsetY - viewportState.current.pos.y) / viewportState.current.scale);
-    if (x >= 0 && y >= 0 && x <= imgObj.width && y <= imgObj.height) {
+    if (!(x >= 0 && y >= 0 && x <= imgObj.width && y <= imgObj.height)) return;
+    if (e.button === 0) {
       addMarker({ x, y });
+    }
+    if (e.button === 2) {
+      const markersToRemove = getCloseMarkers(viewportState.current.scale, markers, { x, y });
+      if (markersToRemove.length > 0) {
+        removeMarkers(markersToRemove);
+      }
     }
   };
 

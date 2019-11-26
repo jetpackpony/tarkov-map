@@ -48,6 +48,7 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick }) => {
       id="canvas"
       width={window.innerWidth}
       height={window.innerHeight}
+      onContextMenu={(e) => e.preventDefault()}
       onWheel={handleWheel}
       onMouseUp={handleClick}
     >

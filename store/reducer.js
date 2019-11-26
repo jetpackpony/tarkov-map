@@ -13,12 +13,24 @@ const toggleExtract = (state, extId) => {
   return R.set(selLens, newExtracts, state);
 };
 
+const getMarkerLens = (state) =>
+  R.lensPath(['mapState', state.ui.currentMap, 'markers']);
+const getMarkers = (state) => {
+  return R.view(getMarkerLens(state), state);
+};
 const addMarker = (state, id, coords) => {
-  const markersLens = R.lensPath(['mapState', state.ui.currentMap, 'markers']);
-  const markers = R.view(markersLens, state);
   const newMarker = { id, coords };
+  const markers = getMarkers(state);
+  return R.set(getMarkerLens(state), R.append(newMarker, markers), state);
+};
 
-  return R.set(markersLens, R.append(newMarker, markers), state);
+const removeMarker = (state, ids) => {
+  const markers = getMarkers(state);
+  const newMarkers = R.reject(
+    (m) => R.includes(m.id, ids),
+    markers
+  );
+  return R.set(getMarkerLens(state), newMarkers, state);
 };
 
 const reducer = (state = initState, action) => {
@@ -27,6 +39,8 @@ const reducer = (state = initState, action) => {
       return toggleExtract(state, action.extId);
     case ACTION_TYPES.ADD_MARKER:
       return addMarker(state, action.id, action.coords);
+    case ACTION_TYPES.REMOVE_MARKER:
+      return removeMarker(state, action.ids);
     default:
       return state;
   }

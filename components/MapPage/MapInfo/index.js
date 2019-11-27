@@ -22,6 +22,25 @@ const groupExtracts = (extracts) => {
   return res;
 };
 
+const ExtractItem = ({ extract, isSelected }) => {
+  return (
+    <li onClick={() => toggleExtract(extract.id)}>
+      {extract.names.ru}
+      {
+        (isSelected)
+          ? "(selected)"
+          : null
+      }
+      {
+        (extract.activationCoords) ? <div>нужна активация</div> : null
+      }
+      {
+        (extract.specialConditions) ? extract.specialConditions : null
+      }
+    </li>
+  );
+};
+
 const MapInfo = ({
   extracts = [],
   selected = [],
@@ -37,14 +56,10 @@ const MapInfo = ({
       <ul>
         {
           groups.pmc.map((e) => (
-            <li onClick={() => toggleExtract(e.id)}>
-              {e.names.ru}
-              {
-                selected.includes(e.id)
-                  ? "(selected)"
-                  : null
-              }
-            </li>
+            <ExtractItem
+              extract={e}
+              isSelected={selected.includes(e.id)}
+            />
           ))
         }
       </ul>
@@ -52,14 +67,10 @@ const MapInfo = ({
       <ul>
         {
           groups.scav.map((e) => (
-            <li onClick={() => toggleExtract(e.id)}>
-              {e.names.ru}
-              {
-                selected.includes(e.id)
-                  ? "(selected)"
-                  : null
-              }
-            </li>
+            <ExtractItem
+              extract={e}
+              isSelected={selected.includes(e.id)}
+            />
           ))
         }
       </ul>

@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import {
   addMarker,
   removeMarkers,
-  toggleExtractAction
+  toggleExtractAction,
+  selectMap
 } from '../../store/actions';
 import mapData from '../../store/mapData';
+import MapHeader from './MapHeader';
 
 export const MapPage =
   ({
@@ -16,7 +18,8 @@ export const MapPage =
     selectedExtracts,
     toggleExtract,
     addMarker,
-    removeMarkers
+    removeMarkers,
+    onMapSelected
   }) => {
     const currentMapData = mapData.maps[currentMap];
     const extractionMarkers =
@@ -28,7 +31,10 @@ export const MapPage =
 
     return (
       <div>
-        <div>Current map: {currentMapData.title}</div>
+        <MapHeader
+          currentMap={currentMap}
+          onMapSelected={onMapSelected}
+        />
         <MapCanvas
           imgPath={currentMapData.imgPath}
           markers={markers.concat(extractionMarkers)}
@@ -57,7 +63,8 @@ const stateToProps = (state) => {
 const dispatchToProps = (dispatch) => ({
   toggleExtract: (extId) => dispatch(toggleExtractAction(extId)),
   addMarker: (coords) => dispatch(addMarker(coords)),
-  removeMarkers: (ids) => dispatch(removeMarkers(ids))
+  removeMarkers: (ids) => dispatch(removeMarkers(ids)),
+  onMapSelected: (mapId) => dispatch(selectMap(mapId))
 });
 
 export default connect(stateToProps, dispatchToProps)(MapPage);

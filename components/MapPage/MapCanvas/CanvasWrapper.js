@@ -18,7 +18,9 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick }) => {
 
   const redrawCanvasDebounced = () => {
     requestAnimationFrame(() => {
-      redrawCanvas(canvasRef.current, ctxRef.current);
+      if (canvasRef.current && ctxRef.current) {
+        redrawCanvas(canvasRef.current, ctxRef.current);
+      }
       isDrawing.current = false;
     });
     isDrawing.current = true;

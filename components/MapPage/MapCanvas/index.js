@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import CanvasWrapper from './CanvasWrapper';
-import { useRef } from 'preact/compat';
+import { useRef, useEffect } from 'preact/compat';
 import { useImageLoader } from './hooks';
 
 const scaleMulti = 0.01;
@@ -29,10 +29,10 @@ const draw = (canvas, ctx, img, { scale, pos }, markers) => {
   ctx.restore();
 };
 
-const initViewportState = {
+const getInitViewportState = () => ({
   scale: 1,
   pos: { x: 0, y: 0 },
-};
+});
 
 const clampScale = (canvas, img, scale) => {
   const max = 3;
@@ -81,7 +81,11 @@ const getCloseMarkers = (scale, markers, { x, y }) => (
 
 const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
   const imgObj = useImageLoader(imgPath);
-  const viewportState = useRef(initViewportState);
+  const viewportState = useRef(getInitViewportState());
+  // Reset vieport state every time the map is changed
+  useEffect(() => {
+    viewportState.current = getInitViewportState();
+  }, [imgPath])
 
   const onWheel = (canvas, ctx, e) => {
     e.preventDefault();

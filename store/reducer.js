@@ -33,6 +33,16 @@ const removeMarker = (state, ids) => {
   return R.set(getMarkerLens(state), newMarkers, state);
 };
 
+const selectMap = (state, mapId) => {
+  return {
+    ...state,
+    ui: {
+      ...state.ui,
+      currentMap: mapId
+    }
+  };
+};
+
 const reducer = (state = initState, action) => {
   switch(action.type) {
     case ACTION_TYPES.TOGGLE_EXTRACT:
@@ -41,6 +51,8 @@ const reducer = (state = initState, action) => {
       return addMarker(state, action.id, action.coords);
     case ACTION_TYPES.REMOVE_MARKER:
       return removeMarker(state, action.ids);
+    case ACTION_TYPES.SELECT_MAP:
+      return selectMap(state, action.mapId);
     default:
       return state;
   }

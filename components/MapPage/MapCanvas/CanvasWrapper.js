@@ -1,10 +1,12 @@
 import { h } from 'preact';
 import { useEffect, useRef } from 'preact/compat';
 import { useCanvasWithResizeHandler } from './hooks';
+import './canvas.css';
 
 const resizeHandler = (canvasRef) => {
-  canvasRef.current.width = window.innerWidth;
-  canvasRef.current.height = window.innerHeight;
+  const parent = canvasRef.current.parentElement;
+  canvasRef.current.width = parent.clientWidth;
+  canvasRef.current.height = parent.clientHeight;
 };
 
 const CanvasWrapper = ({ redrawCanvas, onWheel, onClick }) => {
@@ -44,12 +46,17 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick }) => {
     redrawCanvasDebounced();
   });
 
+  // Resize canvas after initial load
+  useEffect(() => {
+    resizeHandler(canvasRef);
+  }, []);
+
   return (
     <canvas
       ref={canvasRef}
       id="canvas"
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={100}
+      height={100}
       onContextMenu={(e) => e.preventDefault()}
       onWheel={handleWheel}
       onMouseUp={handleClick}

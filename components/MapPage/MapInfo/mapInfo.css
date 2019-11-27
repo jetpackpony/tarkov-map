@@ -1,0 +1,8 @@
+.map-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30em;
+  bottom: 0;
+  background-color: darkcyan;
+}

@@ -10,6 +10,7 @@ import {
 } from '../../store/actions';
 import mapData from '../../store/mapData';
 import MapHeader from './MapHeader';
+import './mapPage.css';
 
 export const MapPage =
   ({
@@ -30,7 +31,7 @@ export const MapPage =
         });
 
     return (
-      <div>
+      <main class="map-page">
         <MapHeader
           currentMap={currentMap}
           onMapSelected={onMapSelected}
@@ -46,7 +47,7 @@ export const MapPage =
           selected={selectedExtracts}
           toggleExtract={toggleExtract}
         />
-      </div>
+      </main>
     );
   };
 

@@ -1,5 +1,6 @@
 import { h} from 'preact';
 import * as R from 'ramda';
+import './mapInfo.css'
 
 const sortByRuName = R.sortBy(R.compose(R.toLower, R.path(['names', 'ru'])));
 const groupExtracts = (extracts) => {
@@ -47,11 +48,15 @@ const MapInfo = ({
   toggleExtract
 }) => {
   if (extracts.length === 0) {
-    return <div>No extracts for this map</div>;
+    return (
+      <div class="map-info">
+        <div>No extracts for this map</div>
+      </div>
+    );
   }
   const groups = groupExtracts(extracts);
   return (
-    <div>
+    <div class="map-info">
       <h3>ЧВК</h3>
       <ul>
         {

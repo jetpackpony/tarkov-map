@@ -124,15 +124,19 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
   };
 
   return (
-    (imgObj)
-      ? (
-        <CanvasWrapper
-          redrawCanvas={redrawCanvas}
-          onWheel={onWheel}
-          onClick={onClick}
-        />
-      )
-      : <div>Loading image...</div>
+    <div class="map-canvas">
+      {
+        (imgObj)
+          ? (
+            <CanvasWrapper
+              redrawCanvas={redrawCanvas}
+              onWheel={onWheel}
+              onClick={onClick}
+            />
+          )
+          : <div>Loading image...</div>
+      }
+    </div>
   );
 };
 

@@ -23,7 +23,7 @@ const groupExtracts = (extracts) => {
   return res;
 };
 
-const ExtractItem = ({ extract, isSelected }) => {
+const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
   return (
     <li onClick={() => toggleExtract(extract.id)}>
       {extract.names.ru}
@@ -64,6 +64,7 @@ const MapInfo = ({
             <ExtractItem
               extract={e}
               isSelected={selected.includes(e.id)}
+              toggleExtract={toggleExtract}
             />
           ))
         }
@@ -75,6 +76,7 @@ const MapInfo = ({
             <ExtractItem
               extract={e}
               isSelected={selected.includes(e.id)}
+              toggleExtract={toggleExtract}
             />
           ))
         }

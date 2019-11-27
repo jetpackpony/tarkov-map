@@ -1,7 +1,8 @@
 import img from '../../mapImages/InterchangeHiddenStashes.jpg';
 
 const mapData = {
-  title: "Interchange Hidden Stashes",
+  groupName: "Развязка / Interchange",
+  title: "Тайники",
   imgPath: img,
   extracts: []
 };

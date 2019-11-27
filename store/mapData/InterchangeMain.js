@@ -1,7 +1,8 @@
 import img from '../../mapImages/InterchangeMain.jpg';
 
 const mapData = {
-  title: "Interchange Main",
+  groupName: "Развязка / Interchange",
+  title: "Главная",
   imgPath: img,
   extracts: [
     {

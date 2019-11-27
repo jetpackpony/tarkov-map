@@ -1,7 +1,8 @@
 import customsKeysImg from '../../mapImages/CustomsKeys.jpg';
 
 const mapData = {
-  title: "Customs Keys",
+  groupName: "Таможня / Customs",
+  title: "Ключи",
   imgPath: customsKeysImg,
   extracts: []
 };

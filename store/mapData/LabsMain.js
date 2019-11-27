@@ -1,7 +1,8 @@
 import img from '../../mapImages/LabsMain.webp';
 
 const mapData = {
-  title: "Labs Main",
+  groupName: "Лаборатория / Labs",
+  title: "Главная",
   imgPath: img,
   extracts: [
     {

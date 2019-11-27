@@ -1,7 +1,8 @@
 import img from '../../mapImages/ShorelineResort.png';
 
 const mapData = {
-  title: "Shoreline Resort",
+  groupName: "Берег / Shoreline",
+  title: "Санаторий",
   imgPath: img,
   extracts: []
 };

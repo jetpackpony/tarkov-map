@@ -1,7 +1,8 @@
 import img from '../../mapImages/ShorelineMain.png';
 
 const mapData = {
-  title: "Shoreline Main",
+  groupName: "Берег / Shoreline",
+  title: "Главная",
   imgPath: img,
   extracts: [
     {

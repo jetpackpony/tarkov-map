@@ -1,7 +1,8 @@
 import img from '../../mapImages/WoodsMain.jpg';
 
 const mapData = {
-  title: "Woods Main",
+  groupName: "Лес / Woods",
+  title: "Главная",
   imgPath: img,
   extracts: [
     {

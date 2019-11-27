@@ -1,7 +1,8 @@
 import customsMainImg from '../../mapImages/Customs.png';
 
 const mapData = {
-  title: "Customs Main",
+  groupName: "Таможня / Customs",
+  title: "Главная",
   imgPath: customsMainImg,
   extracts: [
     {

@@ -1,7 +1,8 @@
 import img from '../../mapImages/FactoryMain.png';
 
 const mapData = {
-  title: "Factory Main",
+  groupName: "Завод / Factory",
+  title: "Главная",
   imgPath: img,
   extracts: [
     {

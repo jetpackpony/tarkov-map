@@ -1,7 +1,8 @@
 import img from '../../mapImages/ReserveMain.png';
 
 const mapData = {
-  title: "Reserve Main",
+  groupName: "Резерв / Reserve",
+  title: "Главная",
   imgPath: img,
   extracts: [
     {

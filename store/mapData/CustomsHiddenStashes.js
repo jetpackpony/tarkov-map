@@ -1,7 +1,8 @@
 import img from '../../mapImages/CustomsHiddenStashes.jpg';
 
 const mapData = {
-  title: "Customs Hidden Stashes",
+  groupName: "Таможня / Customs",
+  title: "Тайники",
   imgPath: img,
   extracts: []
 };

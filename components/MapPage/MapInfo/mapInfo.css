@@ -5,4 +5,5 @@
   width: 30em;
   bottom: 0;
   background-color: darkcyan;
+  z-index: 9999;
 }

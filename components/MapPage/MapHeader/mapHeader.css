@@ -1,0 +1,30 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #000000;
+  box-shadow: 0 0 100px rgba(65,61,52,1), 0 0 6px rgba(232,190,107,0.8);
+  z-index: 999;
+}
+
+select {
+  color: #9a8866;
+  cursor: pointer;
+  border: 1px dashed #9a8866;
+  background-color: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+.menu-icon {
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+.menu-icon > div {
+  width: 35px;
+  height: 5px;
+  background-color: #9a8866;
+  margin: 6px 0;
+}

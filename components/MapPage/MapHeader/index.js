@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import mapData from '../../../store/mapData';
+import './mapHeader.css';
 
 const mapObject = (f, obj) => (
   Object.keys(obj).map((key) => f(key, obj[key], obj))
@@ -39,42 +40,49 @@ const objectLength = (obj) => Object.keys(obj).length;
 const MapHeader = ({ currentMap, onMapSelected }) => {
   const mapGroups = getMapGroups();
   return (
-    <select
-      id="map-select"
-      onChange={(e) => onMapSelected(e.target.value)}
-    >
-      {
-        mapObject(
-          (groupName, maps) => (
-            (objectLength(maps) === 1)
-              ? (
-                <MapOption
-                  mapId={getFirstKey(maps)}
-                  name={groupName}
-                  isSelected={getFirstKey(maps) === currentMap}
-                />
-              )
-              : (
-                <MapOptGroup label={groupName}>
-                  {
-                    mapObject(
-                      (mapId, name) => (
-                        <MapOption
-                          mapId={mapId}
-                          name={`${groupName} - ${name}`}
-                          isSelected={mapId === currentMap}
-                        />
-                      ),
-                      maps
-                    )
-                  }
-                </MapOptGroup>
-              )
-          ),
-          mapGroups
-        )
-      }
-    </select>
+    <header>
+      <select
+        id="map-select"
+        onChange={(e) => onMapSelected(e.target.value)}
+      >
+        {
+          mapObject(
+            (groupName, maps) => (
+              (objectLength(maps) === 1)
+                ? (
+                  <MapOption
+                    mapId={getFirstKey(maps)}
+                    name={groupName}
+                    isSelected={getFirstKey(maps) === currentMap}
+                  />
+                )
+                : (
+                  <MapOptGroup label={groupName}>
+                    {
+                      mapObject(
+                        (mapId, name) => (
+                          <MapOption
+                            mapId={mapId}
+                            name={`${groupName} - ${name}`}
+                            isSelected={mapId === currentMap}
+                          />
+                        ),
+                        maps
+                      )
+                    }
+                  </MapOptGroup>
+                )
+            ),
+            mapGroups
+          )
+        }
+      </select>
+      <button class="menu-icon">
+        <div></div>
+        <div></div>
+        <div></div>
+      </button>
+    </header>
   );
 };
 

@@ -1,5 +1,5 @@
 .map-page {
   height: 100%;
   display: grid;
-  grid-template-rows: 50px auto;
+  grid-template-rows: auto 1fr;
 }

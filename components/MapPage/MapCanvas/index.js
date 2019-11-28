@@ -7,15 +7,105 @@ import './mapCanvas.css';
 const scaleMulti = 0.01;
 const posMulti = 1;
 
-const drawMarker = (ctx, x, y) => {
+const drawActivationPoint = (ctx, scale, marker) => {
   ctx.save();
-  ctx.strokeStyle = "rgb(214, 19, 51)";
+  ctx.strokeStyle = "#0E8871";
+  ctx.lineWidth = 2;
+  ctx.translate(marker.activationCoords.x * scale, marker.activationCoords.y * scale);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(
+    (marker.coords.x - marker.activationCoords.x) * scale,
+    (marker.coords.y - marker.activationCoords.y) * scale
+  );
+  ctx.stroke();
+  ctx.restore();
+
+  ctx.save();
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "#0E8871";
   ctx.lineWidth = 3;
-  ctx.translate(x, y);
+  ctx.translate(marker.activationCoords.x * scale, marker.activationCoords.y * scale);
   ctx.beginPath();
   ctx.arc(0, 0, 15, 0, Math.PI * 2);
   ctx.stroke();
+  ctx.fill();
   ctx.restore();
+};
+
+const drawSpecialConditions = (ctx, scale, marker) => {
+  const innerScale = 0.04;
+  ctx.save();
+  ctx.fillStyle = "white";
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 0;
+  ctx.translate(marker.coords.x * scale, marker.coords.y * scale);
+  ctx.scale(innerScale, innerScale);
+  ctx.translate(-180, -250);
+  const q = new Path2D('m 33.955001,176.99411 c 7.33,-1.663 14.429,-76.689 110.738999,-98.989 78.27,-18.129 157.672,1.854 157.227,19.08 -0.438,17.227 -139.347,116.667 -174.496,176.083 -28.745,48.592 -11.726,111.07 5.026,120.576 16.751,9.504 24.896,1.307 18.848,-4.455 -6.047,-5.773 -29.844,-39.824 8.489,-86.835 38.333,-47.022 216.049,-134.298 167.463,-229.474 C 290.79,1.5571097 100.522,-3.2668903 36.711001,93.21311 c -31.5490002,47.723 -10.087,85.456 -2.756,83.781 z');
+  const p = new Path2D('m 133.103,501.47211 c 19.058,2.031 81.753,-10.787 37.608,-38.207 -28.085,-17.454 -77.01,33.99 -37.608,38.207 z');
+  ctx.fill(q);
+  ctx.fill(p);
+  ctx.restore();
+};
+
+const drawExtractionWithActivation = (ctx, scale, marker) => {
+  ctx.save();
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "#045C96";
+  ctx.lineWidth = 3;
+  ctx.translate(marker.coords.x * scale, marker.coords.y * scale);
+  ctx.beginPath();
+  ctx.arc(0, 0, 15, Math.PI / 2, Math.PI * 3 / 2);
+  ctx.stroke();
+  ctx.fill();
+
+  ctx.fillStyle = "#0E8871";
+  ctx.beginPath();
+  ctx.arc(0, 0, 15, Math.PI * 3 / 2, Math.PI / 2);
+  ctx.stroke();
+  ctx.fill();
+  ctx.restore();
+};
+
+const drawNormalExtraction = (ctx, scale, marker) => {
+  ctx.save();
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = "#045C96";
+  ctx.lineWidth = 3;
+  ctx.translate(marker.coords.x * scale, marker.coords.y * scale);
+  ctx.beginPath();
+  ctx.arc(0, 0, 15, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.fill();
+  ctx.restore();
+};
+
+const drawExtraction = (ctx, scale, marker) => {
+  if (marker.activationCoords) {
+    drawActivationPoint(ctx, scale, marker);
+    drawExtractionWithActivation(ctx, scale, marker);
+  } else {
+    drawNormalExtraction(ctx, scale, marker);
+  }
+  if (marker.specialConditions) {
+    drawSpecialConditions(ctx, scale, marker);
+  }
+};
+
+const drawUserMarker = (ctx, scale, marker) => {
+  console.log("User marker: ", marker);
+};
+
+const drawMarker = (ctx, scale, marker) => {
+  switch(marker.type) {
+    case "extraction":
+      return drawExtraction(ctx, scale, marker);
+    case "user":
+    default:
+      return drawUserMarker(ctx, scale, marker);
+  }
 };
 
 const draw = (canvas, ctx, img, { scale, pos }, markers) => {
@@ -26,7 +116,13 @@ const draw = (canvas, ctx, img, { scale, pos }, markers) => {
       ctx.scale(scale, scale);
       ctx.drawImage(img, 0, 0);
     ctx.restore();
-    markers.forEach((m) => drawMarker(ctx, m.coords.x * scale, m.coords.y * scale));
+    ctx.shadowColor = 'black';
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 5;
+    ctx.shadowOffsetY = 5;
+    markers.forEach((m) => (
+      drawMarker(ctx, scale, m)
+    ));
   ctx.restore();
 };
 

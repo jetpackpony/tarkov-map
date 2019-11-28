@@ -30,7 +30,10 @@ export const MapPage =
       currentMapData.extracts
         .filter((e) => selectedExtracts.includes(e.id))
         .map((e) => {
-          return { id: e.id, coords: e.coords };
+          return {
+            ...e,
+            type: "extraction"
+          };
         });
 
     return (

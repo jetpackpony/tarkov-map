@@ -1,6 +1,7 @@
-import { h} from 'preact';
+import { h } from 'preact';
 import * as R from 'ramda';
 import './mapInfo.css'
+import { useState } from 'preact/compat';
 
 const sortByRuName = R.sortBy(R.compose(R.toLower, R.path(['names', 'ru'])));
 const groupExtracts = (extracts) => {
@@ -46,10 +47,27 @@ const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
   );
 };
 
+const FactionList = ({ title, children }) => {
+  const [unfolded, setUnfolded] = useState(false);
+  return (
+    <div>
+      <h3>
+        <button onClick={() => setUnfolded(!unfolded)}>
+          {title}
+          <i class={`arrow ${unfolded ? "up" : "down"}`}></i>
+        </button>
+      </h3>
+      <ul class={`extracts-list ${(unfolded) ? "" : "hidden"}`}>
+        {children}
+      </ul>
+    </div>
+  );
+}
+
 const MapInfo = ({
   extracts = [],
   selected = [],
-  toggleExtract
+  toggleExtract,
 }) => {
   if (extracts.length === 0) {
     return (
@@ -61,8 +79,7 @@ const MapInfo = ({
   const groups = groupExtracts(extracts);
   return (
     <div class="map-info">
-      <h3>ЧВК</h3>
-      <ul class="extracts-list">
+      <FactionList title="PCM">
         {
           groups.pmc.map((e) => (
             <ExtractItem
@@ -72,9 +89,8 @@ const MapInfo = ({
             />
           ))
         }
-      </ul>
-      <h3>Дикий</h3>
-      <ul class="extracts-list">
+      </FactionList>
+      <FactionList title="Scav">
         {
           groups.scav.map((e) => (
             <ExtractItem
@@ -84,7 +100,7 @@ const MapInfo = ({
             />
           ))
         }
-      </ul>
+      </FactionList>
     </div>
   );
 };

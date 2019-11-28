@@ -1,0 +1,45 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30rem;
+  bottom: 0;
+  z-index: 9999;
+  transition: right 0.1s;
+  padding: 1rem;
+  box-shadow: 0 0 100px rgba(65,61,52,1), 0 0 6px rgba(232,190,107,0.8);
+  background-color: inherit;
+}
+
+.sidebar.hidden {
+  right: -35rem;
+}
+
+.sidebar header {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-bottom: .5rem;
+  margin-bottom: 1rem;
+}
+
+button.close {
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+button.close > div {
+  width: 35px;
+  height: 3px;
+  background-color: #9a8866;
+  margin: 10px 0;
+}
+
+button.close > div:first-child {
+  transform: translate(0px, 6px) rotate(45deg);
+}
+
+button.close > div:last-child {
+  transform: translate(0px, -7px) rotate(-45deg);
+}

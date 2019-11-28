@@ -11,6 +11,8 @@ import {
 import mapData from '../../store/mapData';
 import MapHeader from './MapHeader';
 import './mapPage.css';
+import Sidebar from './Sidebar';
+import { useState } from 'preact/compat';
 
 export const MapPage =
   ({
@@ -22,6 +24,7 @@ export const MapPage =
     removeMarkers,
     onMapSelected
   }) => {
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
     const currentMapData = mapData.maps[currentMap];
     const extractionMarkers =
       currentMapData.extracts
@@ -35,6 +38,7 @@ export const MapPage =
         <MapHeader
           currentMap={currentMap}
           onMapSelected={onMapSelected}
+          openSidebar={() => setSidebarOpen(true)}
         />
         <MapCanvas
           imgPath={currentMapData.imgPath}
@@ -42,11 +46,16 @@ export const MapPage =
           addMarker={addMarker}
           removeMarkers={removeMarkers}
         />
-        <MapInfo
-          extracts={currentMapData.extracts}
-          selected={selectedExtracts}
-          toggleExtract={toggleExtract}
-        />
+        <Sidebar
+          isOpen={isSidebarOpen}
+          close={() => setSidebarOpen(false)}
+        >
+          <MapInfo
+            extracts={currentMapData.extracts}
+            selected={selectedExtracts}
+            toggleExtract={toggleExtract}
+          />
+        </Sidebar>
       </main>
     );
   };

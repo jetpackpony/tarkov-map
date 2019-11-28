@@ -37,10 +37,10 @@ const MapOption = ({ mapId, name, isSelected }) => (
 const getFirstKey = (obj) => Object.keys(obj)[0];
 const objectLength = (obj) => Object.keys(obj).length;
 
-const MapHeader = ({ currentMap, onMapSelected }) => {
+const MapHeader = ({ currentMap, onMapSelected, openSidebar }) => {
   const mapGroups = getMapGroups();
   return (
-    <header>
+    <header class="page">
       <select
         id="map-select"
         onChange={(e) => onMapSelected(e.target.value)}
@@ -77,7 +77,7 @@ const MapHeader = ({ currentMap, onMapSelected }) => {
           )
         }
       </select>
-      <button class="menu-icon">
+      <button class="menu-icon" onClick={openSidebar}>
         <div></div>
         <div></div>
         <div></div>

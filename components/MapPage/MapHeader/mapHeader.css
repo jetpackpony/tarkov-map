@@ -1,4 +1,4 @@
-header {
+header.page {
   display: flex;
   justify-content: space-between;
   padding: 1rem;
@@ -24,7 +24,7 @@ select {
 }
 .menu-icon > div {
   width: 35px;
-  height: 5px;
+  height: 3px;
   background-color: #9a8866;
-  margin: 6px 0;
+  margin: 8px 0;
 }

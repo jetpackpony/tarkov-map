@@ -10,6 +10,7 @@
   box-shadow: 0 0 100px rgba(65,61,52,1), 0 0 6px rgba(232,190,107,0.8);
   background-color: inherit;
   display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 .sidebar.hidden {

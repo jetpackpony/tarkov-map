@@ -7,7 +7,11 @@ export default {
 };
 
 const markers = [
-  { id: 'dsafasdf', coords: { x: 300, y: 500 } },
-  { id: 'wk3jkjk', coords: { x: 400, y: 600 } },
+  { id: 'dsafasdf', coords: { x: 100, y: 100 } },
+  { id: 'wk3jkjk', coords: { x: 200, y: 200 } },
 ];
-export const withMarkers = () => <MapCanvas imgPath={map} markers={markers} />;
+export const withMarkers = () => (
+  <div style={{ height: "500px" }}>
+    <MapCanvas imgPath={map} markers={markers} />
+  </div>
+);

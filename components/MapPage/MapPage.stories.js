@@ -13,19 +13,23 @@ const markers = [
 const toggleExtract = action("toggled");
 
 export const noExtractsSelected = () => (
-  <MapPage
-    currentMap='customs-main'
-    markers={markers}
-    selectedExtracts={[]}
-    toggleExtract={toggleExtract}
-  />
+  <div style={{ height: "500px" }}>
+    <MapPage
+      currentMap='customs-main'
+      markers={markers}
+      selectedExtracts={[]}
+      toggleExtract={toggleExtract}
+    />
+  </div>
 );
 
 export const withExtractsSelected = () => (
-  <MapPage
-    currentMap='customs-main'
-    markers={markers}
-    selectedExtracts={["ext-2"]}
-    toggleExtract={toggleExtract}
-  />
+  <div style={{ height: "500px" }}>
+    <MapPage
+      currentMap='customs-main'
+      markers={markers}
+      selectedExtracts={["ext-2"]}
+      toggleExtract={toggleExtract}
+    />
+  </div>
 );

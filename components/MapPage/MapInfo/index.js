@@ -25,18 +25,22 @@ const groupExtracts = (extracts) => {
 
 const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
   return (
-    <li onClick={() => toggleExtract(extract.id)}>
-      {extract.names.ru}
+    <li
+      class={(isSelected) ? "selected" : null}
+      onClick={() => toggleExtract(extract.id)}
+    >
+      <div>
+        <div>{extract.names.ru}</div>
+        {
+          (extract.activationCoords)
+            ? <div title="Нужна активация" class="activation-required"></div>
+            : null
+        }
+      </div>
       {
-        (isSelected)
-          ? "(selected)"
+        (extract.specialConditions)
+          ? <div class="special-conds">{extract.specialConditions}</div>
           : null
-      }
-      {
-        (extract.activationCoords) ? <div>нужна активация</div> : null
-      }
-      {
-        (extract.specialConditions) ? extract.specialConditions : null
       }
     </li>
   );
@@ -58,7 +62,7 @@ const MapInfo = ({
   return (
     <div class="map-info">
       <h3>ЧВК</h3>
-      <ul>
+      <ul class="extracts-list">
         {
           groups.pmc.map((e) => (
             <ExtractItem
@@ -70,7 +74,7 @@ const MapInfo = ({
         }
       </ul>
       <h3>Дикий</h3>
-      <ul>
+      <ul class="extracts-list">
         {
           groups.scav.map((e) => (
             <ExtractItem

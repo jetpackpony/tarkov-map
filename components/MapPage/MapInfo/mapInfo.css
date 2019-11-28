@@ -1,2 +1,44 @@
 .map-info {
+  color: #aeaeb0;
+}
+
+.map-info h3 {
+  color: #9a8866;
+}
+
+.extracts-list {
+  margin-bottom: 1em;
+}
+
+.extracts-list > li {
+  padding: .3em 1em;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.extracts-list > li:hover {
+  background-color: #074a71 !important;
+}
+
+.extracts-list > li.selected {
+  background-color: #053652;
+}
+
+.extracts-list > li > div:first-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.extracts-list > li .activation-required {
+  margin: 0 .5em;
+  width: 1em;
+  height: 1em;
+  border-radius: .5em;
+  background-color: lightseagreen;
+}
+
+.extracts-list > li .special-conds {
+  font-size: 14px;
+  /* padding-left: .5em; */
 }

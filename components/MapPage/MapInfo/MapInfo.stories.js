@@ -62,23 +62,36 @@ const extracts = [
 ];
 
 const toggleExtract = action("toggled");
+const Wrapper = ({ children }) => {
+  return (
+    <div style={{ width: "30rem", padding: "1rem" }}>
+      {children}
+    </div>
+  );
+};
 
 export const emptyExtracts = () => (
-  <MapInfo />
+  <Wrapper>
+    <MapInfo />
+  </Wrapper>
 );
 
 export const noneSelected = () => (
-  <MapInfo
-    extracts={extracts}
-    selected={[]}
-    toggleExtract={toggleExtract}
-  />
+  <Wrapper>
+    <MapInfo
+      extracts={extracts}
+      selected={[]}
+      toggleExtract={toggleExtract}
+    />
+  </Wrapper>
 );
 
 export const withSelected = () => (
-  <MapInfo
-    extracts={extracts}
-    selected={["ext-2"]}
-    toggleExtract={toggleExtract}
-  />
+  <Wrapper>
+    <MapInfo
+      extracts={extracts}
+      selected={["ext-2", "ext-5"]}
+      toggleExtract={toggleExtract}
+    />
+  </Wrapper>
 );

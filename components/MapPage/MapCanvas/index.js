@@ -180,7 +180,7 @@ const maxDist = 20;
 const getCloseMarkers = (scale, markers, { x, y }) => (
   markers
     .filter((m) => {
-      const dist = ((m.coords.x - x) * (m.coords.x - x) + (m.coords.y - y) * (m.coords.y - y));
+      const dist = Math.pow(m.coords.x - x, 2) + Math.pow(m.coords.y - y - 30 * scale, 2);
       return Math.sqrt(dist) * scale < maxDist;
     })
     .map((m) => m.id)

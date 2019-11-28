@@ -10,7 +10,9 @@ const Sidebar = ({ children, isOpen, close }) => {
           <div></div>
         </button>
       </header>
-      {children}
+      <div class="sidebar-content">
+        {children}
+      </div>
     </div>
   );
 };

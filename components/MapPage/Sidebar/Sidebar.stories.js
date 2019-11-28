@@ -16,3 +16,38 @@ export const open = () => (
     Some children here
   </Sidebar>
 );
+
+export const longList = () => (
+  <Sidebar
+    isOpen={true}
+    close={closeSidebar}
+  >
+    <div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item 2</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item 3</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item 6</div>
+      <div>Item</div>
+      <div>Item</div>
+      <div>Item</div>
+    </div>
+  </Sidebar>
+);

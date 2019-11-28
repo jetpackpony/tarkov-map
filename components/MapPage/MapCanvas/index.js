@@ -95,7 +95,17 @@ const drawExtraction = (ctx, scale, marker) => {
 };
 
 const drawUserMarker = (ctx, scale, marker) => {
-  console.log("User marker: ", marker);
+  const initScale = 0.08;
+  ctx.save();
+  ctx.strokeStyle = "black";
+  ctx.fillStyle = marker.color;
+  ctx.lineWidth = 3;
+  ctx.translate(marker.coords.x * scale, marker.coords.y * scale);
+  ctx.scale(initScale, initScale);
+  ctx.translate(-200, -600);
+  const m = new Path2D('M182.9,551.7c0,0.1,0.2,0.3,0.2,0.3S358.3,283,358.3,194.6c0-130.1-88.8-186.7-175.4-186.9   C96.3,7.9,7.5,64.5,7.5,194.6c0,88.4,175.3,357.4,175.3,357.4S182.9,551.7,182.9,551.7z M122.2,187.2c0-33.6,27.2-60.8,60.8-60.8   c33.6,0,60.8,27.2,60.8,60.8S216.5,248,182.9,248C149.4,248,122.2,220.8,122.2,187.2z');
+  ctx.fill(m);
+  ctx.restore();
 };
 
 const drawMarker = (ctx, scale, marker) => {

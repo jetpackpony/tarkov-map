@@ -7,8 +7,8 @@ export default {
 };
 
 const markers = [
-  { id: 'dsafasdf', coords: { x: 100, y: 100 }, type: "user", color: "pink" },
-  { id: 'wk3jkjk', coords: { x: 200, y: 200 }, type: "user", color: "blue" },
+  { id: 'dsafasdf', coords: { x: 100, y: 100 }, type: "user", color: "#ffc0cb" },
+  { id: 'wk3jkjk', coords: { x: 200, y: 200 }, type: "user", color: "#0000ff" },
 ];
 export const withUserMarkers = () => (
   <div style={{ height: "500px" }}>

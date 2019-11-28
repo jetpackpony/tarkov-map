@@ -19,7 +19,7 @@ const getMarkers = (state) => {
   return R.view(getMarkerLens(state), state);
 };
 const addMarker = (state, id, coords) => {
-  const newMarker = { id, coords };
+  const newMarker = { id, coords, color: state.ui.markerColor };
   const markers = getMarkers(state);
   return R.set(getMarkerLens(state), R.append(newMarker, markers), state);
 };
@@ -43,6 +43,16 @@ const selectMap = (state, mapId) => {
   };
 };
 
+const changeMarkerColor = (state, color) => {
+  return {
+    ...state,
+    ui: {
+      ...state.ui,
+      markerColor: color
+    }
+  };
+};
+
 const reducer = (state = initState, action) => {
   switch(action.type) {
     case ACTION_TYPES.TOGGLE_EXTRACT:
@@ -53,6 +63,8 @@ const reducer = (state = initState, action) => {
       return removeMarker(state, action.ids);
     case ACTION_TYPES.SELECT_MAP:
       return selectMap(state, action.mapId);
+    case ACTION_TYPES.CHANGE_MARKER_COLOR:
+      return changeMarkerColor(state, action.color);
     default:
       return state;
   }

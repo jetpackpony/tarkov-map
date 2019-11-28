@@ -12,6 +12,7 @@ export const open = () => (
   <Sidebar
     isOpen={true}
     close={closeSidebar}
+    headerElement={<div>Marker Color: </div>}
   >
     Some children here
   </Sidebar>

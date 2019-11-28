@@ -23,7 +23,8 @@
 
 .sidebar header {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: flex-end;
   padding-bottom: .5rem;
   margin-bottom: 1rem;
 }

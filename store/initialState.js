@@ -11,8 +11,8 @@ const initState = {
     }, {})
   ),
   ui: {
-    //currentMap: 'customs-main'
-    //currentMap: 'customs-keys'
+    currentMap: 'customs-main'
+    // currentMap: 'customs-keys'
     //currentMap: 'customs-hidden-stashes'
     //currentMap: 'shoreline-main'
     //currentMap: 'shoreline-keys'
@@ -22,7 +22,9 @@ const initState = {
     //currentMap: 'woods-main'
     //currentMap: 'reserve-main'
     //currentMap: 'factory-main'
-    currentMap: 'labs-main'
+    //currentMap: 'labs-main'
+    ,
+    markerColor: "#ff0000"
   }
 };
 

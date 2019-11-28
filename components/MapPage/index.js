@@ -6,23 +6,27 @@ import {
   addMarker,
   removeMarkers,
   toggleExtractAction,
-  selectMap
+  selectMap,
+  changeMarkerColor
 } from '../../store/actions';
 import mapData from '../../store/mapData';
 import MapHeader from './MapHeader';
 import './mapPage.css';
 import Sidebar from './Sidebar';
 import { useState } from 'preact/compat';
+import ColorPicker from './ColorPicker';
 
 export const MapPage =
   ({
     currentMap,
     markers,
     selectedExtracts,
+    markerColor,
     toggleExtract,
     addMarker,
     removeMarkers,
-    onMapSelected
+    onMapSelected,
+    onMarkerColorChanged
   }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const currentMapData = mapData.maps[currentMap];
@@ -52,6 +56,12 @@ export const MapPage =
         <Sidebar
           isOpen={isSidebarOpen}
           close={() => setSidebarOpen(false)}
+          headerElement={
+            <ColorPicker
+              color={markerColor}
+              onChange={onMarkerColorChanged}
+            />
+          }
         >
           <MapInfo
             extracts={currentMapData.extracts}
@@ -70,14 +80,16 @@ const stateToProps = (state) => {
   return {
     currentMap,
     markers,
-    selectedExtracts
+    selectedExtracts,
+    markerColor: state.ui.markerColor
   };
 };
 const dispatchToProps = (dispatch) => ({
   toggleExtract: (extId) => dispatch(toggleExtractAction(extId)),
   addMarker: (coords) => dispatch(addMarker(coords)),
   removeMarkers: (ids) => dispatch(removeMarkers(ids)),
-  onMapSelected: (mapId) => dispatch(selectMap(mapId))
+  onMapSelected: (mapId) => dispatch(selectMap(mapId)),
+  onMarkerColorChanged: (color) => dispatch(changeMarkerColor(color))
 });
 
 export default connect(stateToProps, dispatchToProps)(MapPage);

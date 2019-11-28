@@ -79,7 +79,7 @@ const MapInfo = ({
   const groups = groupExtracts(extracts);
   return (
     <div class="map-info">
-      <FactionList title="PCM">
+      <FactionList title="ЧВК">
         {
           groups.pmc.map((e) => (
             <ExtractItem
@@ -90,7 +90,7 @@ const MapInfo = ({
           ))
         }
       </FactionList>
-      <FactionList title="Scav">
+      <FactionList title="Дикий">
         {
           groups.scav.map((e) => (
             <ExtractItem

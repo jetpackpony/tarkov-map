@@ -220,12 +220,11 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
     const y = Math.round((e.offsetY - viewportState.current.pos.y) / viewportState.current.scale);
     if (!(x >= 0 && y >= 0 && x <= imgObj.width && y <= imgObj.height)) return;
     if (e.button === 0) {
-      addMarker({ x, y });
-    }
-    if (e.button === 2) {
-      const markersToRemove = getCloseMarkers(viewportState.current.scale, markers, { x, y });
-      if (markersToRemove.length > 0) {
-        removeMarkers(markersToRemove);
+      const closeMarkers = getCloseMarkers(viewportState.current.scale, markers, { x, y });
+      if (closeMarkers.length > 0) {
+        removeMarkers(closeMarkers);
+      } else {
+        addMarker({ x, y });
       }
     }
   };

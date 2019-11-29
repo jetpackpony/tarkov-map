@@ -176,15 +176,18 @@ const clampPos = (canvasLen, imgLen, scale, pos) => {
   return pos;
 };
 
-const maxDist = 20;
-const getCloseMarkers = (scale, markers, { x, y }) => (
-  markers
+const maxX = 20;
+const maxY = 30;
+const getCloseMarkers = (scale, markers, { x, y }) => {
+  return markers
     .filter((m) => {
-      const dist = Math.pow(m.coords.x - x, 2) + Math.pow(m.coords.y - y - 30 * scale, 2);
-      return Math.sqrt(dist) * scale < maxDist;
+      const distX = Math.abs(m.coords.x - x);
+      const distY = Math.abs(m.coords.y - y - 25 / scale);
+      console.log("dist x,y", distX, distY);
+      return (distX * scale < maxX && distY * scale < maxY);
     })
     .map((m) => m.id)
-);
+};
 
 const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
   const imgObj = useImageLoader(imgPath);

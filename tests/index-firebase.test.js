@@ -1,6 +1,10 @@
 import initFirebase from '../firebase';
 
 const db = initFirebase();
+db.addDataListener((data) => {
+  console.log("Data here: ", data);
+});
+db.listen();
 
 const mapName = "customs-main";
 const markerId = "unN3md";

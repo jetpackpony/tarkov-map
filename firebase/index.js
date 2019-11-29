@@ -6,15 +6,23 @@ const initFirebase = () => {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
   const mapObjectsRef = db.collection("mapObjects");
+  const listeners = [];
 
   // Sub to updates
-  const unSubscribe = mapObjectsRef.onSnapshot((querySnapshot) => {
-    querySnapshot.docChanges().forEach((docChange) => {
-      const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';
-      console.log("Docchange: ", docChange);
-      console.log("Source: ", source);
-    })
-  });
+  const listen = () => {
+    return mapObjectsRef.onSnapshot((querySnapshot) => {
+      querySnapshot.docChanges().forEach((docChange) => {
+        const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';
+        if (source !== 'local') {
+          listeners.forEach((f) => f(docChange.type, docChange.doc.data()));
+        }
+      })
+    });
+  };
+  
+  const addDataListener = (f) => {
+    listeners.push(f);
+  };
 
   const addMarker = (id, mapName, data) => {
     const docName = `${mapName}-${id}`;
@@ -53,7 +61,8 @@ const initFirebase = () => {
     removeMarker,
     addExtraction,
     removeExtraction,
-    unSubscribe
+    addDataListener,
+    listen
   };
 }
 

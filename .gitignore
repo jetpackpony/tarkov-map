@@ -4,3 +4,6 @@ node_modules/
 # Parcel stuff
 dist/
 .cache/
+
+# Firebase config
+firebase/config.js

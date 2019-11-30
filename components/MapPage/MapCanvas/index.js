@@ -183,7 +183,6 @@ const getCloseMarkers = (scale, markers, { x, y }) => {
     .filter((m) => {
       const distX = Math.abs(m.coords.x - x);
       const distY = Math.abs(m.coords.y - y - 25 / scale);
-      console.log("dist x,y", distX, distY);
       return (distX * scale < maxX && distY * scale < maxY);
     })
     .map((m) => m.id)

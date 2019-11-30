@@ -4,7 +4,6 @@ export const useImageLoader = (imgPath) => {
   const [imgObj, setImgObj] = useState(null);
   const onImageLoaded = (e) => {
     setImgObj(e.target);
-    console.log("image loaded and set");
   };
   useEffect(() => {
     if (imgObj) setImgObj(null);
@@ -30,7 +29,6 @@ export const useCanvasWithResizeHandler = (handler) => {
   };
 
   useLayoutEffect(() => {
-    console.log("On component mount useeffect");
     window.addEventListener("resize", resizeCanvas);
     return () => {
       window.removeEventListener("resize", resizeCanvas);

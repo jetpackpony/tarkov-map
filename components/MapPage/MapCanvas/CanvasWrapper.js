@@ -10,7 +10,6 @@ const resizeHandler = (canvasRef) => {
 };
 
 const CanvasWrapper = ({ redrawCanvas, onWheel, onClick }) => {
-  console.log("===> re-rendering");
   const canvasRef = useCanvasWithResizeHandler(resizeHandler);
   const ctxRef = useRef(null);
   useEffect(() => {
@@ -42,7 +41,6 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick }) => {
 
   // Redraw every time anything changes
   useEffect(() => {
-    console.log("General useeffect");
     redrawCanvasDebounced();
   });
 

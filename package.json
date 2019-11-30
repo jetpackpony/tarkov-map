@@ -6,7 +6,8 @@
     "start": "parcel index.html",
     "build": "parcel build index.html",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "local": "firebase serve --only hosting"
   },
   "keywords": [],
   "author": "",

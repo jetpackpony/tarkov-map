@@ -213,6 +213,13 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
       viewportState.current.pos.y = clampPos(canvas.height, imgObj.height, viewportState.current.scale, viewportState.current.pos.y);
     }
   };
+  const onPan = (canvas, deltaX, deltaY) => {
+    // this is moving
+    viewportState.current.pos.x -= deltaX * posMulti;
+    viewportState.current.pos.y -= deltaY * posMulti;
+    viewportState.current.pos.x = clampPos(canvas.width, imgObj.width, viewportState.current.scale, viewportState.current.pos.x);
+    viewportState.current.pos.y = clampPos(canvas.height, imgObj.height, viewportState.current.scale, viewportState.current.pos.y);
+  };
   const redrawCanvas = (canvas, ctx) => {
     draw(canvas, ctx, imgObj, viewportState.current, markers);
   };
@@ -240,6 +247,7 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
               redrawCanvas={redrawCanvas}
               onWheel={onWheel}
               onClick={onClick}
+              onPan={onPan}
             />
           )
           : <div>Loading image...</div>

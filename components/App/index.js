@@ -2,7 +2,7 @@ import { h } from 'preact';
 import MapPage from '../MapPage';
 import { Provider } from 'react-redux';
 import makeStore from '../../store';
-import initFirebase from '../../firebase';
+import initFirebase from '../../firebase/index.js';
 
 const db = initFirebase();
 const store = makeStore(db);

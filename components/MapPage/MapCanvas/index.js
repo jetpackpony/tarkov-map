@@ -198,19 +198,26 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
 
   const onWheel = (canvas, ctx, e) => {
     e.preventDefault();
+    const isTrackPad = e.wheelDeltaY ? e.wheelDeltaY === -3 * e.deltaY : e.deltaMode === 0;
 
-    // This is scale
     if (e.ctrlKey) {
+      // This is trackpad pinching (scale)
       let prevScale = viewportState.current.scale;
       viewportState.current.scale -= e.deltaY * scaleMulti;
       viewportState.current.scale = clampScale(canvas, imgObj, viewportState.current.scale);
       viewportState.current.pos = updatePosOnScale(imgObj, viewportState.current.pos, prevScale, viewportState.current.scale, { x: e.offsetX, y: e.offsetY });
-    } else {
-      // this is moving
+    } else if (isTrackPad) {
+      // this is trackpad moving
       viewportState.current.pos.x -= e.deltaX * posMulti;
       viewportState.current.pos.y -= e.deltaY * posMulti;
       viewportState.current.pos.x = clampPos(canvas.width, imgObj.width, viewportState.current.scale, viewportState.current.pos.x);
       viewportState.current.pos.y = clampPos(canvas.height, imgObj.height, viewportState.current.scale, viewportState.current.pos.y);
+    } else {
+      // This is a real mouse wheel scale
+      let prevScale = viewportState.current.scale;
+      viewportState.current.scale -= e.deltaY / Math.abs(e.deltaY) * 0.3;
+      viewportState.current.scale = clampScale(canvas, imgObj, viewportState.current.scale);
+      viewportState.current.pos = updatePosOnScale(imgObj, viewportState.current.pos, prevScale, viewportState.current.scale, { x: e.offsetX, y: e.offsetY });
     }
   };
   const onPan = (canvas, deltaX, deltaY) => {

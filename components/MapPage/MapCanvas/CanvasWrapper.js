@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'preact/compat';
 import { useCanvasWithResizeHandler } from './hooks';
 import './canvas.css';
 
+const minDragDist = 5;
+
 const resizeHandler = (canvasRef) => {
   const parent = canvasRef.current.parentElement;
   canvasRef.current.width = parent.clientWidth;
@@ -40,10 +42,9 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
     const distX = dragState.current.mouseDownCoords.x - e.offsetX;
     const distY = dragState.current.mouseDownCoords.y - e.offsetY;
     const dist = distX * distX + distY * distY;
-    dragState.current.maxDistFromOrigin = 
-      (dist > dragState.current.maxDistFromOrigin)
-        ? dist
-        : dragState.current.maxDistFromOrigin;
+    if (dist > dragState.current.maxDistFromOrigin) {
+      dragState.current.maxDistFromOrigin = dist;
+    }
 
     const deltaX = dragState.current.prevPos.x - e.offsetX;
     const deltaY = dragState.current.prevPos.y - e.offsetY;
@@ -63,7 +64,10 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
         x: e.offsetX,
         y: e.offsetY
       };
-      dragState.current.prevPos = dragState.current.mouseDownCoords;
+      dragState.current.prevPos = {
+        x: e.offsetX,
+        y: e.offsetY
+      };
       dragState.current.maxDistFromOrigin = 0;
       canvasRef.current.addEventListener('mousemove', onMouseMove);
       dragState.current.removeEventListener = 
@@ -71,11 +75,10 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
     }
   };
 
-  const maxDist = 5 * 5;
   const onMouseUp = (e) => {
     if (dragState.current.started) {
       dragState.current.removeEventListener();
-      if (dragState.current.maxDistFromOrigin < maxDist) {
+      if (dragState.current.maxDistFromOrigin < minDragDist) {
         onClick(canvasRef.current, ctxRef.current, e)
       }
       dragState.current.started = false;

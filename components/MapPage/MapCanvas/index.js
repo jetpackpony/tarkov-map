@@ -4,9 +4,6 @@ import { useRef, useEffect } from 'preact/compat';
 import { useImageLoader } from './hooks';
 import './mapCanvas.css';
 
-const scaleMulti = 0.01;
-const posMulti = 1;
-
 const drawActivationPoint = (ctx, scale, marker) => {
   ctx.save();
   ctx.strokeStyle = "#0E8871";
@@ -196,53 +193,35 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
     viewportState.current = getInitViewportState();
   }, [imgPath])
 
-  const onWheel = (canvas, ctx, e) => {
-    e.preventDefault();
-    const isTrackPad = e.wheelDeltaY ? e.wheelDeltaY === -3 * e.deltaY : e.deltaMode === 0;
-
-    if (e.ctrlKey) {
-      // This is trackpad pinching (scale)
-      let prevScale = viewportState.current.scale;
-      viewportState.current.scale -= e.deltaY * scaleMulti;
-      viewportState.current.scale = clampScale(canvas, imgObj, viewportState.current.scale);
-      viewportState.current.pos = updatePosOnScale(imgObj, viewportState.current.pos, prevScale, viewportState.current.scale, { x: e.offsetX, y: e.offsetY });
-    } else if (isTrackPad) {
-      // this is trackpad moving
-      viewportState.current.pos.x -= e.deltaX * posMulti;
-      viewportState.current.pos.y -= e.deltaY * posMulti;
-      viewportState.current.pos.x = clampPos(canvas.width, imgObj.width, viewportState.current.scale, viewportState.current.pos.x);
-      viewportState.current.pos.y = clampPos(canvas.height, imgObj.height, viewportState.current.scale, viewportState.current.pos.y);
-    } else {
-      // This is a real mouse wheel scale
-      let prevScale = viewportState.current.scale;
-      viewportState.current.scale -= e.deltaY / Math.abs(e.deltaY) * 0.3;
-      viewportState.current.scale = clampScale(canvas, imgObj, viewportState.current.scale);
-      viewportState.current.pos = updatePosOnScale(imgObj, viewportState.current.pos, prevScale, viewportState.current.scale, { x: e.offsetX, y: e.offsetY });
-    }
+  const onZoom = (canvas, deltaY, pos) => {
+    let prevScale = viewportState.current.scale;
+    viewportState.current.scale -= deltaY;
+    viewportState.current.scale = clampScale(canvas, imgObj, viewportState.current.scale);
+    viewportState.current.pos = updatePosOnScale(imgObj, viewportState.current.pos, prevScale, viewportState.current.scale, pos);
   };
   const onPan = (canvas, deltaX, deltaY) => {
-    // this is moving
-    viewportState.current.pos.x -= deltaX * posMulti;
-    viewportState.current.pos.y -= deltaY * posMulti;
+    viewportState.current.pos.x -= deltaX;
+    viewportState.current.pos.y -= deltaY;
     viewportState.current.pos.x = clampPos(canvas.width, imgObj.width, viewportState.current.scale, viewportState.current.pos.x);
     viewportState.current.pos.y = clampPos(canvas.height, imgObj.height, viewportState.current.scale, viewportState.current.pos.y);
   };
+  const onLeftClick = (canvasX, canvasY) => {
+    // Calculate coords on an image
+    const x = Math.round((canvasX - viewportState.current.pos.x) / viewportState.current.scale);
+    const y = Math.round((canvasY - viewportState.current.pos.y) / viewportState.current.scale);
+
+    // If the click is off the image, ignore
+    if (!(x >= 0 && y >= 0 && x <= imgObj.width && y <= imgObj.height)) return;
+
+    const closeMarkers = getCloseMarkers(viewportState.current.scale, markers, { x, y });
+    if (closeMarkers.length > 0) {
+      removeMarkers(closeMarkers);
+    } else {
+      addMarker({ x, y });
+    }
+  };
   const redrawCanvas = (canvas, ctx) => {
     draw(canvas, ctx, imgObj, viewportState.current, markers);
-  };
-  const onClick = (canvas, ctx, e) => {
-    e.preventDefault();
-    const x = Math.round((e.offsetX - viewportState.current.pos.x) / viewportState.current.scale);
-    const y = Math.round((e.offsetY - viewportState.current.pos.y) / viewportState.current.scale);
-    if (!(x >= 0 && y >= 0 && x <= imgObj.width && y <= imgObj.height)) return;
-    if (e.button === 0) {
-      const closeMarkers = getCloseMarkers(viewportState.current.scale, markers, { x, y });
-      if (closeMarkers.length > 0) {
-        removeMarkers(closeMarkers);
-      } else {
-        addMarker({ x, y });
-      }
-    }
   };
 
   return (
@@ -252,9 +231,9 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
           ? (
             <CanvasWrapper
               redrawCanvas={redrawCanvas}
-              onWheel={onWheel}
-              onClick={onClick}
+              onLeftClick={onLeftClick}
               onPan={onPan}
+              onZoom={onZoom}
             />
           )
           : <div>Loading image...</div>

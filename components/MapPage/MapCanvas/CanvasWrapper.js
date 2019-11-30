@@ -4,6 +4,9 @@ import { useCanvasWithResizeHandler } from './hooks';
 import './canvas.css';
 
 const minDragDist = 5;
+const trackPadScaleMulti = 0.01;
+const mouseWheelScaleMulti = 0.3;
+const posMulti = 1;
 
 const resizeHandler = (canvasRef) => {
   const parent = canvasRef.current.parentElement;
@@ -11,7 +14,12 @@ const resizeHandler = (canvasRef) => {
   canvasRef.current.height = parent.clientHeight;
 };
 
-const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
+const CanvasWrapper = ({
+  redrawCanvas,
+  onLeftClick,
+  onPan,
+  onZoom
+}) => {
   const canvasRef = useCanvasWithResizeHandler(resizeHandler);
   const ctxRef = useRef(null);
   useEffect(() => {
@@ -31,8 +39,21 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
   };
 
   // change the state of the viewport, then redraw
-  const handleWheel = (e) => {
-    onWheel(canvasRef.current, ctxRef.current, e);
+  const onWheel = (e) => {
+    e.preventDefault();
+    const isTrackPad = e.wheelDeltaY ? e.wheelDeltaY === -3 * e.deltaY : e.deltaMode === 0;
+
+    if (e.ctrlKey) {
+      // This is trackpad pinching (scale)
+      onZoom(canvasRef.current, e.deltaY * trackPadScaleMulti, { x: e.offsetX, y: e.offsetY });
+    } else if (isTrackPad) {
+      // this is trackpad moving
+      onPan(canvasRef.current, e.deltaX * posMulti, e.deltaY * posMulti);
+    } else {
+      // This is a real mouse wheel scale
+      const delta = e.deltaY / Math.abs(e.deltaY) * mouseWheelScaleMulti;
+      onZoom(canvasRef.current, delta, { x: e.offsetX, y: e.offsetY });
+    }
     if (!isDrawing.current) {
       redrawCanvasDebounced();
     }
@@ -50,7 +71,7 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
     const deltaY = dragState.current.prevPos.y - e.offsetY;
     dragState.current.prevPos.x = e.offsetX;
     dragState.current.prevPos.y = e.offsetY;
-    onPan(canvasRef.current, deltaX, deltaY);
+    onPan(canvasRef.current, deltaX * posMulti, deltaY * posMulti);
     if (!isDrawing.current) {
       redrawCanvasDebounced();
     }
@@ -79,7 +100,8 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
     if (dragState.current.started) {
       dragState.current.removeEventListener();
       if (dragState.current.maxDistFromOrigin < minDragDist) {
-        onClick(canvasRef.current, ctxRef.current, e)
+        e.preventDefault();
+        onLeftClick(e.offsetX, e.offsetY)
       }
       dragState.current.started = false;
     }
@@ -102,7 +124,7 @@ const CanvasWrapper = ({ redrawCanvas, onWheel, onClick, onPan }) => {
       width={100}
       height={100}
       onContextMenu={(e) => e.preventDefault()}
-      onWheel={handleWheel}
+      onWheel={onWheel}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
     >

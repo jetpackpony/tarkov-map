@@ -72,6 +72,6 @@ button,
   -webkit-appearance: button;
 }
 
-div, ul, li {
+div, ul, li, header, main, button {
   background-color: inherit;
 }

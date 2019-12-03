@@ -7,7 +7,7 @@ import { draw } from './drawing';
 
 const maxScale = 3;
 const scaleBorder = 50;
-const panBorder = 10;
+const panBorder = 30;
 
 const getInitViewportState = () => ({
   scale: 1,

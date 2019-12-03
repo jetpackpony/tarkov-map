@@ -181,8 +181,7 @@ const getCloseMarkers = (scale, markers, { x, y }) => {
       const distX = Math.abs(m.coords.x - x);
       const distY = Math.abs(m.coords.y - y - 25 / scale);
       return (distX * scale < maxX && distY * scale < maxY);
-    })
-    .map((m) => m.id)
+    });
 };
 
 const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
@@ -215,7 +214,11 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
 
     const closeMarkers = getCloseMarkers(viewportState.current.scale, markers, { x, y });
     if (closeMarkers.length > 0) {
-      removeMarkers(closeMarkers);
+      removeMarkers(
+        closeMarkers
+          .filter((m) => m.type !== "extraction")
+          .map((m) => m.id)
+      );
     } else {
       addMarker({ x, y });
     }

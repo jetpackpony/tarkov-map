@@ -64,4 +64,6 @@
 
 .extracts-list > li .special-conds {
   font-size: 14px;
+  padding-left: 1em;
+  color: #6c6c6c;
 }

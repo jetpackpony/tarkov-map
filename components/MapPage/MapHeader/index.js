@@ -1,9 +1,9 @@
 import { h } from 'preact';
 import './mapHeader.css';
 
-const MenuButton = ({ onClick }) => {
+const MenuButton = ({ onHover }) => {
   return (
-    <button class="menu-icon" onClick={onClick}>
+    <button class="menu-icon" onMouseEnter={onHover}>
       <div></div>
       <div></div>
       <div></div>
@@ -14,7 +14,7 @@ const MenuButton = ({ onClick }) => {
 const MapHeader = ({ openSidebar }) => {
   return (
     <header class="page">
-      <MenuButton onClick={openSidebar} />
+      <MenuButton onHover={openSidebar} />
     </header>
   );
 };

@@ -1,9 +1,9 @@
 header.page {
-  padding: .5em;
   z-index: 999;
 }
 
 .menu-icon {
+  padding: .5em;
   cursor: pointer;
   border: none;
   outline: none;

@@ -27,6 +27,7 @@ const CanvasWrapper = ({
   });
   const isDrawing = useRef(false);
   const dragState = useRef({});
+  const isUsingTrackPad = useRef(false);
 
   const redrawCanvasDebounced = () => {
     requestAnimationFrame(() => {
@@ -41,7 +42,10 @@ const CanvasWrapper = ({
   // change the state of the viewport, then redraw
   const onWheel = (e) => {
     e.preventDefault();
-    const isTrackPad = e.wheelDeltaY ? e.wheelDeltaY === -3 * e.deltaY : e.deltaMode === 0;
+    if (e.deltaX !== 0) {
+      isUsingTrackPad.current = true;
+    }
+    const isTrackPad = isUsingTrackPad.current;
 
     if (e.ctrlKey) {
       // This is trackpad pinching (scale)

@@ -87,13 +87,12 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
     // If the click is off the image, ignore
     if (!(x >= 0 && y >= 0 && x <= imgObj.width && y <= imgObj.height)) return;
 
-    const closeMarkers = getCloseMarkers(viewportState.current.scale, markers, { x, y });
+    const closeMarkers =
+      getCloseMarkers(viewportState.current.scale, markers, { x, y })
+        .filter((m) => m.type !== "extraction")
+        .map((m) => m.id);
     if (closeMarkers.length > 0) {
-      removeMarkers(
-        closeMarkers
-          .filter((m) => m.type !== "extraction")
-          .map((m) => m.id)
-      );
+      removeMarkers(closeMarkers);
     } else {
       addMarker({ x, y });
     }

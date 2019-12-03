@@ -5,13 +5,15 @@ import { useImageLoader } from './hooks';
 import './mapCanvas.css';
 import { draw } from './drawing';
 
+const maxScale = 3;
+const scaleBorder = 50;
+const panBorder = 10;
+
 const getInitViewportState = () => ({
   scale: 1,
   pos: { x: 0, y: 0 },
 });
 
-const maxScale = 3;
-const scaleBorder = 200;
 const clampScale = (canvas, img, scale) => {
   const minWScale = (canvas.width - scaleBorder) / img.width;
   const minHScale = (canvas.height - scaleBorder) / img.height;
@@ -34,18 +36,18 @@ const updatePosOnScale = (img, pos, prevScale, scale, cursorPos) => {
   };
 };
 
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const clampPos = (canvasLen, imgLen, scale, pos) => {
-  const max = canvasLen / 2;
-  const min = canvasLen / 2 - (imgLen * scale);
-
-  if (pos > max) {
-    return max;
+  const imgCanvasLenDiff = canvasLen - imgLen * scale;
+  if (imgCanvasLenDiff < panBorder * 2) {
+    // If the image does not fit into canvas, make its sides stick to the
+    // sides of the canvas
+    return clamp(pos, imgCanvasLenDiff - panBorder, panBorder);
+  } else {
+    // If the image does fit into canvas, let it flow freely inside the canvas
+    // but not outside of it
+    return clamp(pos, panBorder, imgCanvasLenDiff - panBorder);
   }
-  if (pos < min) {
-    return min;
-  }
-
-  return pos;
 };
 
 const maxX = 20;
@@ -72,6 +74,8 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
     viewportState.current.scale -= deltaY;
     viewportState.current.scale = clampScale(canvas, imgObj, viewportState.current.scale);
     viewportState.current.pos = updatePosOnScale(imgObj, viewportState.current.pos, prevScale, viewportState.current.scale, pos);
+    viewportState.current.pos.x = clampPos(canvas.width, imgObj.width, viewportState.current.scale, viewportState.current.pos.x);
+    viewportState.current.pos.y = clampPos(canvas.height, imgObj.height, viewportState.current.scale, viewportState.current.pos.y);
   };
   const onPan = (canvas, deltaX, deltaY) => {
     viewportState.current.pos.x -= deltaX;

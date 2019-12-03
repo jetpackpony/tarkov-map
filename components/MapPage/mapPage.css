@@ -8,8 +8,5 @@
   position: absolute;
   top: 50;
   right: 0;
-  opacity: 50%;
-}
-.map-page > header:hover {
-  opacity: 100%;
+  opacity: .5;
 }

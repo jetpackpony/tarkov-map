@@ -10,14 +10,17 @@ const getInitViewportState = () => ({
   pos: { x: 0, y: 0 },
 });
 
+const maxScale = 3;
+const scaleBorder = 200;
 const clampScale = (canvas, img, scale) => {
-  const max = 3;
-  const min = canvas.width - 50;
-  if (img.width * scale < min) {
-    return min / img.width;
+  const minWScale = (canvas.width - scaleBorder) / img.width;
+  const minHScale = (canvas.height - scaleBorder) / img.height;
+  const min = Math.min(minWScale, minHScale);
+  if (scale < min) {
+    return min;
   }
-  if (scale > max) {
-    return max;
+  if (scale > maxScale) {
+    return maxScale;
   }
   return scale;
 };

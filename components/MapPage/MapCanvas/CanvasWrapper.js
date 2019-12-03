@@ -20,11 +20,14 @@ const CanvasWrapper = ({
   onPan,
   onZoom
 }) => {
-  const canvasRef = useCanvasWithResizeHandler(resizeHandler);
-  const ctxRef = useRef(null);
-  useEffect(() => {
-    ctxRef.current = canvasRef.current.getContext("2d");
-  });
+  const {
+    canvasRef,
+    ctxRef,
+    addResizeListener
+  } = useCanvasWithResizeHandler();
+
+  addResizeListener(resizeHandler);
+
   const isDrawing = useRef(false);
   const dragState = useRef({});
   const isUsingTrackPad = useRef(false);
@@ -38,6 +41,7 @@ const CanvasWrapper = ({
     });
     isDrawing.current = true;
   };
+  addResizeListener(redrawCanvasDebounced);
 
   // change the state of the viewport, then redraw
   const onWheel = (e) => {

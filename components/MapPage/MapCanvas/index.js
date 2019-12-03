@@ -102,6 +102,7 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
     }
   };
   const redrawCanvas = (canvas, ctx) => {
+    viewportState.current.scale = clampScale(canvas, imgObj, viewportState.current.scale);
     viewportState.current.pos.x = clampPos(canvas.width, imgObj.width, viewportState.current.scale, viewportState.current.pos.x);
     viewportState.current.pos.y = clampPos(canvas.height, imgObj.height, viewportState.current.scale, viewportState.current.pos.y);
     draw(canvas, ctx, imgObj, viewportState.current, markers);

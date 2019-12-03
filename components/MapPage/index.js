@@ -15,6 +15,7 @@ import './mapPage.css';
 import Sidebar from './Sidebar';
 import { useState } from 'preact/compat';
 import ColorPicker from './ColorPicker';
+import MapSelector from './MapSelector';
 
 export const MapPage =
   ({
@@ -57,12 +58,13 @@ export const MapPage =
           isOpen={isSidebarOpen}
           close={() => setSidebarOpen(false)}
           headerElement={
-            <ColorPicker
-              color={markerColor}
-              onChange={onMarkerColorChanged}
-            />
+            <MapSelector currentMap={currentMap} onMapSelected={onMapSelected} />
           }
         >
+          <ColorPicker
+            color={markerColor}
+            onChange={onMarkerColorChanged}
+          />
           <MapInfo
             extracts={currentMapData.extracts}
             selected={selectedExtracts}

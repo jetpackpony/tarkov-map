@@ -7,15 +7,6 @@ header.page {
   z-index: 999;
 }
 
-select {
-  color: #9a8866;
-  cursor: pointer;
-  border: 1px dashed #9a8866;
-  background-color: inherit;
-  font-size: inherit;
-  outline: none;
-}
-
 .menu-icon {
   cursor: pointer;
   background-color: inherit;

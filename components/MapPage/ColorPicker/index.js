@@ -6,7 +6,7 @@ import './colorPicker.css'
 const ColorPicker = ({ color, onChange }) => {
   return (
     <div class="colorPicker">
-      Marker color:
+      Цвет маркера:
       <HuePicker
         color={color}
         onChangeComplete={({ hex }) => onChange(hex)}

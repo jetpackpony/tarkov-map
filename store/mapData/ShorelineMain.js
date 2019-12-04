@@ -103,7 +103,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 1045, y: 375 }
+      coords: { x: 1000, y: 375 }
     },
     {
       id: "ext-11",
@@ -113,7 +113,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 1295, y: 20 }
+      coords: { x: 1295, y: 10 }
     },
     {
       id: "ext-12",

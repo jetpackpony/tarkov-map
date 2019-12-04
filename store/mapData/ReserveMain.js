@@ -9,7 +9,7 @@ const mapData = {
       id: "ext-1",
       names: {
         en: "Bunker Hermetic Door",
-        ru: "Гермодверь к депо"
+        ru: "Гермозатвор Бункера"
       },
       faction: "all",
       specialConditions: "??? нажать рычаг, звучит сирена. Сирена звучит 4 минуты после нажатия",
@@ -54,7 +54,7 @@ const mapData = {
       },
       faction: "pmc",
       specialConditions: "??? нужен ледоруб и паракорд. Только без бронижилета",
-      coords: { x: 1615, y: 155 }
+      coords: { x: 1515, y: 105 }
     },
     {
       id: "ext-6",
@@ -64,7 +64,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 275, y: 1225 }
+      coords: { x: 270, y: 1460 }
     },
     {
       id: "ext-7",
@@ -85,6 +85,16 @@ const mapData = {
       faction: "scav",
       specialConditions: null,
       coords: { x: 2255, y: 2230 }
+    },
+    {
+      id: "ext-9",
+      names: {
+        en: "Depot hermetic door",
+        ru: "Гермодверь к депо"
+      },
+      faction: "scav",
+      specialConditions: null,
+      coords: { x: 2914, y: 1563 },
     },
   ]
 };

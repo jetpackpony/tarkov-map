@@ -199,7 +199,7 @@ const mapData = {
       id: "ext-17",
       names: {
         en: "Military Base CP",
-        ru: "Времянка"
+        ru: "КПП Военной Базы"
       },
       faction: "scav",
       specialConditions: null,

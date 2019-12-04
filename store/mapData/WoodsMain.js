@@ -12,7 +12,7 @@ const mapData = {
         ru: "Заводские ворота"
       },
       faction: "all",
-      specialConditions: "??? для ЧВК нужен дружественный скав",
+      specialConditions: "??? выйти можно только парой ЧВК + дикий",
       coords: { x: 380, y: 200 }
     },
     {
@@ -31,7 +31,7 @@ const mapData = {
         en: "RUAF Roadblock",
         ru: "Блокпост ВС РФ"
       },
-      faction: "all",
+      faction: "pmc",
       specialConditions: "??? когда есть зеленый дым",
       coords: { x: 710, y: 150 }
     },
@@ -164,6 +164,16 @@ const mapData = {
       faction: "scav",
       specialConditions: null,
       coords: { x: 155, y: 900 }
+    },
+    {
+      id: "ext-17",
+      names: {
+        en: "RUAF Roadblock",
+        ru: "Блокпост ВС РФ"
+      },
+      faction: "scav",
+      specialConditions: null,
+      coords: { x: 710, y: 150 }
     },
   ]
 };

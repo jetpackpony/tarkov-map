@@ -13,7 +13,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 290, y: 315 }
+      coords: { x: 300, y: 380 }
     },
     {
       id: "ext-2",
@@ -23,7 +23,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 1335, y: 1380 }
+      coords: { x: 1320, y: 1350 }
     },
     {
       id: "ext-3",

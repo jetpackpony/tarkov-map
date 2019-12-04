@@ -7,7 +7,8 @@ import {
   removeMarkers,
   toggleExtractAction,
   selectMap,
-  changeMarkerColor
+  changeMarkerColor,
+  clearMap
 } from '../../store/actions';
 import mapData from '../../store/mapData';
 import MapHeader from './MapHeader';
@@ -16,6 +17,7 @@ import Sidebar from './Sidebar';
 import { useState } from 'preact/compat';
 import ColorPicker from './ColorPicker';
 import MapSelector from './MapSelector';
+import Button from './Button/Button';
 
 export const MapPage =
   ({
@@ -27,7 +29,8 @@ export const MapPage =
     addMarker,
     removeMarkers,
     onMapSelected,
-    onMarkerColorChanged
+    onMarkerColorChanged,
+    clearMap
   }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const currentMapData = mapData.maps[currentMap];
@@ -70,6 +73,7 @@ export const MapPage =
             selected={selectedExtracts}
             toggleExtract={toggleExtract}
           />
+          <Button onClick={() => clearMap(currentMap)}>Очистить карту</Button>
         </Sidebar>
       </main>
     );
@@ -91,7 +95,8 @@ const dispatchToProps = (dispatch) => ({
   addMarker: (coords) => dispatch(addMarker(coords)),
   removeMarkers: (ids) => dispatch(removeMarkers(ids)),
   onMapSelected: (mapId) => dispatch(selectMap(mapId)),
-  onMarkerColorChanged: (color) => dispatch(changeMarkerColor(color))
+  onMarkerColorChanged: (color) => dispatch(changeMarkerColor(color)),
+  clearMap: (mapId) => dispatch(clearMap(mapId))
 });
 
 export default connect(stateToProps, dispatchToProps)(MapPage);

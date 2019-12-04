@@ -1,0 +1,15 @@
+button {
+  outline: none;
+  color: #9a8866;
+  padding: .5rem;
+  border: 1px solid #9a8866;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #303030;
+}
+
+button:active {
+  background-color: #404040;
+}

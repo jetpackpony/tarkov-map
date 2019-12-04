@@ -9,7 +9,8 @@ export const ACTION_TYPES = {
   SELECT_EXTRACT: 'SELECT_EXTRACT',
   UNSELECT_EXTRACT: 'UNSELECT_EXTRACT',
   SELECT_MAP: 'SELECT_MAP',
-  CHANGE_MARKER_COLOR: 'CHANGE_MARKER_COLOR'
+  CHANGE_MARKER_COLOR: 'CHANGE_MARKER_COLOR',
+  CLEAR_MAP: 'CLEAR_MAP'
 };
 
 export const addMarker = (coords) => ({
@@ -62,4 +63,9 @@ export const selectMap = (mapId) => ({
 export const changeMarkerColor = (color) => ({
   type: ACTION_TYPES.CHANGE_MARKER_COLOR,
   color
+});
+
+export const clearMap = (mapId) => ({
+  type: ACTION_TYPES.CLEAR_MAP,
+  mapId
 });

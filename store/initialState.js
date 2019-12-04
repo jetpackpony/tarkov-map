@@ -1,12 +1,14 @@
 import mapData from './mapData';
 
+export const getMapInitState = () => ({
+  markers: [],
+  selectedExtracts: []
+});
+
 const initState = {
   mapState: (
     Object.keys(mapData.maps).reduce((acc, k) => {
-      acc[k] = {
-        markers: [],
-        selectedExtracts: []
-      };
+      acc[k] = getMapInitState();
       return acc;
     }, {})
   ),

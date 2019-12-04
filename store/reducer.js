@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 import { ACTION_TYPES } from './actions';
 import initState from './initialState';
+import { getMapInitState } from './initialState';
 
 export const isExtractSelected = (state, extId) => {
   const selLens = R.lensPath(['mapState', getCurrentMap(state), 'selectedExtracts']);
@@ -79,6 +80,11 @@ const changeMarkerColor = (state, color) => {
   };
 };
 
+const clearMap = (state, mapId) => {
+  const mapStateLens = R.lensPath(['mapState', mapId]);
+  return R.set(mapStateLens, getMapInitState(), state);
+};
+
 const reducer = (state = initState, action) => {
   switch(action.type) {
     case ACTION_TYPES.TOGGLE_EXTRACT:
@@ -103,6 +109,9 @@ const reducer = (state = initState, action) => {
 
     case ACTION_TYPES.CHANGE_MARKER_COLOR:
       return changeMarkerColor(state, action.color);
+
+    case ACTION_TYPES.CLEAR_MAP:
+      return clearMap(state, action.mapId);
 
     default:
       return state;

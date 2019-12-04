@@ -41,11 +41,11 @@
 }
 
 .extracts-list > li:hover {
-  background-color: #074a71 !important;
+  background-color: #042f47;
 }
 
 .extracts-list > li.selected {
-  background-color: #053652;
+  background-color: #074a71;
 }
 
 .extracts-list > li > div:first-child {

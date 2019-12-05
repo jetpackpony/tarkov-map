@@ -1,4 +1,4 @@
-import initFirebase from '../firebase';
+import initFirebase from '../firebase/index.js';
 
 const db = initFirebase();
 db.addDataListener((data) => {
@@ -23,4 +23,7 @@ document.getElementById("selectExt").addEventListener("click", (e) => {
 });
 document.getElementById("unSelectExt").addEventListener("click", (e) => {
   db.removeExtraction(extId, mapName);
+});
+document.getElementById("clearMap").addEventListener("click", (e) => {
+  db.clearMap("shoreline-resort");
 });

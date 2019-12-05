@@ -54,7 +54,13 @@ const initFirebase = () => {
   const removeExtraction = (id, mapName) => {
     const docName = `${mapName}-${id}`;
     return mapObjectsRef.doc(docName).delete();
-  }
+  };
+
+  const clearMap = (mapName) => {
+    mapObjectsRef.where("map", '==', mapName).get().then((res) => {
+      res.forEach((doc) => doc.ref.delete());
+    });
+  };
 
   return {
     addMarker,
@@ -62,7 +68,8 @@ const initFirebase = () => {
     addExtraction,
     removeExtraction,
     addDataListener,
-    listen
+    listen,
+    clearMap
   };
 }
 

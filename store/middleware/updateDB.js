@@ -27,6 +27,9 @@ const updateDB = (db) =>
           db.addExtraction(action.extId, getCurrentMap(state));
         }
         break;
+      case ACTION_TYPES.CLEAR_MAP:
+        db.clearMap(action.mapId);
+        break;
     }
     return next(action);
   };

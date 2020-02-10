@@ -5,7 +5,8 @@ import makeStore from '../../store';
 import initFirebase from '../../firebase/index.js';
 import useFullScreen from './useFullScreen';
 
-const db = initFirebase();
+const offline = true;
+const db = offline ? null : initFirebase();
 const store = makeStore(db);
 
 const App = () => {

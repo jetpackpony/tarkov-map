@@ -13,8 +13,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? нажать рычаг, звучит сирена. Сирена звучит 4 минуты после нажатия",
-      coords: { x: 2770, y: 2165 },
-      activationCoords: { x: 1525, y: 942 }
+      coords: { x: 653, y: 183 },
+      activationCoords: { x: 1253, y: 782 }
     },
     {
       id: "ext-2",
@@ -24,7 +24,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? нужна пара ЧВК + Дикий чтобы выйти",
-      coords: { x: 1480, y: 2135 }
+      coords: { x: 1269, y: 207 }
     },
     {
       id: "ext-3",
@@ -34,7 +34,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? только без рюкзака",
-      coords: { x: 2110, y: 875 }
+      coords: { x: 971, y: 806 }
     },
     {
       id: "ext-4",
@@ -44,7 +44,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? приезжает за ~30 минут до конца, стоит на платформе 8 минут",
-      coords: { x: 3110, y: 1840 }
+      coords: { x: 489, y: 350 }
     },
     {
       id: "ext-5",
@@ -54,7 +54,7 @@ const mapData = {
       },
       faction: "pmc",
       specialConditions: "??? нужен ледоруб и паракорд. Только без бронижилета",
-      coords: { x: 1515, y: 105 }
+      coords: { x: 1247, y: 1171 }
     },
     {
       id: "ext-6",
@@ -64,7 +64,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 270, y: 1460 }
+      coords: { x: 1861, y: 559 }
     },
     {
       id: "ext-7",
@@ -74,7 +74,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 2380, y: 550 }
+      coords: { x: 838, y: 952 }
     },
     {
       id: "ext-8",
@@ -84,7 +84,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 2255, y: 2230 }
+      coords: { x: 893, y: 159 }
     },
     {
       id: "ext-9",
@@ -94,7 +94,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 2914, y: 1563 },
+      coords: { x: 546, y: 505 }
     },
   ]
 };

@@ -13,7 +13,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? выйти можно только парой ЧВК + дикий",
-      coords: { x: 380, y: 200 }
+      coords: { x: 322, y: 213 }
     },
     {
       id: "ext-2",
@@ -23,7 +23,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 1610, y: 230 }
+      coords: { x: 1342, y: 196 }
     },
     {
       id: "ext-3",
@@ -33,7 +33,7 @@ const mapData = {
       },
       faction: "pmc",
       specialConditions: "??? когда есть зеленый дым",
-      coords: { x: 710, y: 150 }
+      coords: { x: 644, y: 76 }
     },
     {
       id: "ext-4",
@@ -43,7 +43,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? 3000 руб, одноразовый",
-      coords: { x: 930, y: 1205 }
+      coords: { x: 778, y: 1006 }
     },
     {
       id: "ext-5",
@@ -53,7 +53,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 90, y: 335 }
+      coords: { x: 73, y: 270 }
     },
     {
       id: "ext-6",
@@ -63,7 +63,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: "??? когда есть зеленый дым, нужен ключ ЗБ-014",
-      coords: { x: 1775, y: 700 }
+      coords: { x: 1478, y: 583 }
     },
     {
       id: "ext-7",
@@ -73,7 +73,7 @@ const mapData = {
       },
       faction: "pmc",
       specialConditions: "??? нужен ледоруб и паракорд",
-      coords: { x: 650, y: 1190 }
+      coords: { x: 542, y: 988 }
     },
     {
       id: "ext-8",
@@ -83,7 +83,7 @@ const mapData = {
       },
       faction: "pmc",
       specialConditions: "??? когда есть зеленый дым",
-      coords: { x: 320, y: 785 }
+      coords: { x: 266, y: 657 }
     },
     {
       id: "ext-9",
@@ -93,7 +93,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 1345, y: 375 }
+      coords: { x: 1125, y: 317 }
     },
     {
       id: "ext-10",
@@ -103,7 +103,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 1705, y: 890 }
+      coords: { x: 1422, y: 747 }
     },
     {
       id: "ext-11",
@@ -113,7 +113,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 650, y: 1190 }
+      coords: { x: 547, y: 992 }
     },
     {
       id: "ext-12",
@@ -123,7 +123,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 115, y: 560 }
+      coords: { x: 96, y: 468 }
     },
     {
       id: "ext-13",
@@ -133,7 +133,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 1385, y: 275 }
+      coords: { x: 1153, y: 228 }
     },
     {
       id: "ext-14",
@@ -143,7 +143,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 1735, y: 415 }
+      coords: { x: 1448, y: 349 }
     },
     {
       id: "ext-15",
@@ -153,7 +153,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 1325, y: 450 }
+      coords: { x: 1103, y: 375 }
     },
     {
       id: "ext-16",
@@ -163,7 +163,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 155, y: 900 }
+      coords: { x: 132, y: 754 }
     },
     {
       id: "ext-17",
@@ -173,7 +173,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: { x: 710, y: 150 }
+      coords: { x: 642, y: 85 }
     },
   ]
 };

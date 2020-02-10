@@ -1,4 +1,4 @@
-import customsKeysImg from '../../mapImages/CustomsKeys.jpg';
+import customsKeysImg from '../../mapImages/CustomsKeys.webp';
 
 const mapData = {
   groupName: "Таможня / Customs",

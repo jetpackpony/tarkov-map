@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import map from '../../../mapImages/Customs.png';
+import map from '../../../mapImages/Customs.webp';
 import MapHeader from './index';
 import { action } from '@storybook/addon-actions';
 

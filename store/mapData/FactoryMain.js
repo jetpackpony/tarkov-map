@@ -1,4 +1,4 @@
-import img from '../../mapImages/FactoryMain.png';
+import img from '../../mapImages/FactoryMain.webp';
 
 const mapData = {
   groupName: "Завод / Factory",

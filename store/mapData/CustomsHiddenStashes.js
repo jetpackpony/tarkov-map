@@ -1,4 +1,4 @@
-import img from '../../mapImages/CustomsHiddenStashes.jpg';
+import img from '../../mapImages/CustomsHiddenStashes.webp';
 
 const mapData = {
   groupName: "Таможня / Customs",

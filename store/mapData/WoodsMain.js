@@ -1,4 +1,4 @@
-import img from '../../mapImages/WoodsMain.jpg';
+import img from '../../mapImages/WoodsMain.webp';
 
 const mapData = {
   groupName: "Лес / Woods",

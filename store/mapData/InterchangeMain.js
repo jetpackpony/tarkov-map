@@ -1,4 +1,4 @@
-import img from '../../mapImages/InterchangeMain.jpg';
+import img from '../../mapImages/InterchangeMain.webp';
 
 const mapData = {
   groupName: "Развязка / Interchange",

@@ -1,4 +1,4 @@
-import img from '../../mapImages/ReserveMain.png';
+import img from '../../mapImages/ReserveMain.webp';
 
 const mapData = {
   groupName: "Резерв / Reserve",

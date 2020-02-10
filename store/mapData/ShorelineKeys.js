@@ -1,4 +1,4 @@
-import img from '../../mapImages/ShorelineKeys.jpg';
+import img from '../../mapImages/ShorelineKeys.webp';
 
 const mapData = {
   groupName: "Берег / Shoreline",

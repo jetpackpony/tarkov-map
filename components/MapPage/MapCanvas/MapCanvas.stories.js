@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import map from '../../../mapImages/Customs.png';
+import map from '../../../mapImages/Customs.webp';
 import MapCanvas from './index';
 
 export default {

@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import MapCanvas from './MapCanvas';
 import MapInfo from './MapInfo';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ import { useState } from 'preact/compat';
 import ColorPicker from './ColorPicker';
 import MapSelector from './MapSelector';
 import Button from './Button/Button';
+import LangPicker from './LangPicker';
 
 export const MapPage =
   ({
@@ -61,7 +62,10 @@ export const MapPage =
           isOpen={isSidebarOpen}
           close={() => setSidebarOpen(false)}
           headerElement={
-            <MapSelector currentMap={currentMap} onMapSelected={onMapSelected} />
+            <>
+              <MapSelector currentMap={currentMap} onMapSelected={onMapSelected} />
+              <LangPicker />
+            </>
           }
         >
           <ColorPicker

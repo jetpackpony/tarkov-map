@@ -4,7 +4,10 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html",
+    "build-main": "rm -rf .cache/ dist/ && DB_COLLECTION_NAME=mapObjects parcel build index.html --no-source-maps",
+    "build-demo": "rm -rf .cache/ dist/ && DB_COLLECTION_NAME=mapObjectsDemo parcel build index.html --no-source-maps",
+    "deploy-main": "firebase deploy --only hosting:main",
+    "deploy-demo": "firebase deploy --only hosting:demo",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "local": "firebase serve --only hosting",

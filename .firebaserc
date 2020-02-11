@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "tarkov-7860e"
+  },
+  "targets": {
+    "tarkov-7860e": {
+      "hosting": {
+        "demo": [
+          "tarkov-demo-2f50d"
+        ],
+        "main": [
+          "tarkov-7860e"
+        ]
+      }
+    }
   }
 }

@@ -19,7 +19,10 @@ const mapData = {
         ru: "Заводские ворота"
       },
       faction: "all",
-      specialConditions: "??? выйти можно только парой ЧВК + дикий",
+      specialConditions: {
+        en: "??? you need to be a scav + pmc team to extract",
+        ru: "??? нужна пара ЧВК + Дикий чтобы выйти"
+      },
       coords: { x: 322, y: 213 }
     },
     {
@@ -39,7 +42,10 @@ const mapData = {
         ru: "Блокпост ВС РФ"
       },
       faction: "pmc",
-      specialConditions: "??? когда есть зеленый дым",
+      specialConditions: {
+        en: "??? if there is green smoke",
+        ru: "??? когда горит зеленая дымовая шашка"
+      },
       coords: { x: 644, y: 76 }
     },
     {
@@ -49,7 +55,10 @@ const mapData = {
         ru: "Южный А-Выход"
       },
       faction: "all",
-      specialConditions: "??? 3000 руб, одноразовый",
+      specialConditions: {
+        en: "??? 3000 Rub, need to wait for 1 min., 1 time use",
+        ru: "??? 3000 Руб, ждать 1 минуту, одноразовый"
+      },
       coords: { x: 778, y: 1006 }
     },
     {
@@ -69,7 +78,10 @@ const mapData = {
         ru: "ЗБ-014"
       },
       faction: "all",
-      specialConditions: "??? когда есть зеленый дым, нужен ключ ЗБ-014",
+      specialConditions: {
+        en: "??? if there is green smoke. Need a ZB-014 key",
+        ru: "??? когда горит зеленая дымовая шашка, нужен ключ ЗБ-014"
+      },
       coords: { x: 1478, y: 583 }
     },
     {
@@ -79,7 +91,10 @@ const mapData = {
         ru: "Спуск с горы"
       },
       faction: "pmc",
-      specialConditions: "??? нужен ледоруб и паракорд",
+      specialConditions: {
+        en: "??? you need RR icepick and paracord",
+        ru: "??? нужен ледоруб и паракорд"
+      },
       coords: { x: 542, y: 988 }
     },
     {
@@ -89,7 +104,10 @@ const mapData = {
         ru: "ЗБ-016"
       },
       faction: "pmc",
-      specialConditions: "??? когда есть зеленый дым",
+      specialConditions: {
+        en: "??? if there is green smoke",
+        ru: "??? когда горит зеленая дымовая шашка"
+      },
       coords: { x: 266, y: 657 }
     },
     {

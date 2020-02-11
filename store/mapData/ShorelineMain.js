@@ -29,7 +29,10 @@ const mapData = {
         ru: "Временный КПП"
       },
       faction: "pmc",
-      specialConditions: "??? когда горят фонари",
+      specialConditions: {
+        en: "??? when the light is on",
+        ru: "??? когда горит фонарь"
+      },
       coords: { x: 1685, y: 1095 }
     },
     {
@@ -39,7 +42,10 @@ const mapData = {
         ru: "Лодка на Причале"
       },
       faction: "pmc",
-      specialConditions: "??? когда есть катер в конце пирса",
+      specialConditions: {
+        en: "??? if there is a boat at the end of the pier",
+        ru: "??? когда есть катер в конце пирса"
+      },
       coords: { x: 1050, y: 1210 }
     },
     {
@@ -49,7 +55,10 @@ const mapData = {
         ru: "Проход через Скалы"
       },
       faction: "pmc",
-      specialConditions: "??? когда есть зеленая дымовая шашка",
+      specialConditions: {
+        en: "??? if there is green smoke",
+        ru: "??? когда горит зеленая дымовая шашка"
+      },
       coords: { x: 860, y: 45 }
     },
     {

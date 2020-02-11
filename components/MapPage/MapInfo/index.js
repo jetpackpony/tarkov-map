@@ -42,7 +42,7 @@ const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
       </div>
       {
         (extract.specialConditions)
-          ? <div class="special-conds">{extract.specialConditions}</div>
+          ? <div class="special-conds">{extract.specialConditions[i18n.language]}</div>
           : null
       }
     </li>

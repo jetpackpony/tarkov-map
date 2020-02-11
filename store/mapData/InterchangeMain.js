@@ -39,7 +39,10 @@ const mapData = {
         ru: "ТЭЦ"
       },
       faction: "pmc",
-      specialConditions: "??? 3000 руб, одноразовый",
+      specialConditions: {
+        en: "??? 3000 Rub, 1 time use",
+        ru: "??? 3000 руб, одноразовый"
+      },
       coords: { x: 683, y: 262 }
     }
   ]

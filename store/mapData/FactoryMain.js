@@ -19,7 +19,10 @@ const mapData = {
         ru: "Ворота 0"
       },
       faction: "all",
-      specialConditions: "??? нужен Ключ от выхода с завода",
+      specialConditions: {
+        en: "??? Factory exit key is needed",
+        ru: "??? нужен Ключ от выхода с завода"
+      },
       coords: { x: 246, y: 881 }
     },
     {
@@ -39,7 +42,10 @@ const mapData = {
         ru: "Подвал"
       },
       faction: "pmc",
-      specialConditions: "??? нужен Ключ от выхода с завода",
+      specialConditions: {
+        en: "??? Factory exit key is needed",
+        ru: "??? нужен Ключ от выхода с завода"
+      },
       coords: { x: 816, y: 62 }
     },
     {

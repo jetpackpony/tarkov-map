@@ -19,7 +19,10 @@ const mapData = {
         ru: "Гермозатвор Бункера"
       },
       faction: "all",
-      specialConditions: "??? нажать рычаг, звучит сирена. Сирена звучит 4 минуты после нажатия",
+      specialConditions: {
+        en: "??? press the lever, it start the alarm which will go on for 4 mins",
+        ru: "??? нажать рычаг, звучит сирена. Сирена звучит 4 минуты после нажатия"
+      },
       coords: { x: 653, y: 183 },
       activationCoords: { x: 1253, y: 782 }
     },
@@ -30,7 +33,10 @@ const mapData = {
         ru: "Дикие места"
       },
       faction: "all",
-      specialConditions: "??? нужна пара ЧВК + Дикий чтобы выйти",
+      specialConditions: {
+        en: "??? you need to be a scav + pmc team to extract",
+        ru: "??? нужна пара ЧВК + Дикий чтобы выйти"
+      },
       coords: { x: 1269, y: 207 }
     },
     {
@@ -40,7 +46,10 @@ const mapData = {
         ru: "Канализационный люк"
       },
       faction: "all",
-      specialConditions: "??? только без рюкзака",
+      specialConditions: {
+        en: "??? no backpack only",
+        ru: "??? только без рюкзака"
+      },
       coords: { x: 971, y: 806 }
     },
     {
@@ -50,7 +59,10 @@ const mapData = {
         ru: "Бронепоезд"
       },
       faction: "all",
-      specialConditions: "??? приезжает за ~30 минут до конца, стоит на платформе 8 минут",
+      specialConditions: {
+        en: "??? train arrives ~30 til the end of match. It stays for 8 mins",
+        ru: "??? приезжает за ~30 минут до конца, стоит на платформе 8 минут"
+      },
       coords: { x: 489, y: 350 }
     },
     {
@@ -60,7 +72,10 @@ const mapData = {
         ru: "Спуск со скалы"
       },
       faction: "pmc",
-      specialConditions: "??? нужен ледоруб и паракорд. Только без бронижилета",
+      specialConditions: {
+        en: "??? you need RR icepick and paracord. Can't be wearing armor",
+        ru: "??? нужен ледоруб и паракорд. Только без бронижилета"
+      },
       coords: { x: 1247, y: 1171 }
     },
     {

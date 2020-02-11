@@ -41,7 +41,10 @@ const mapData = {
         ru: "03 Вентиляционная шахта"
       },
       faction: "all",
-      specialConditions: "??? максимальный размер рюкзака MBSS (4х4)",
+      specialConditions: {
+        en: "??? maximum backpack size is MBSS (4х4)",
+        ru: "??? максимальный размер рюкзака MBSS (4х4)"
+      },
       coords: { x: 932, y: 5446 }
     },
     {

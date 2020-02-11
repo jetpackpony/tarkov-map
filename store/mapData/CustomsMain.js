@@ -29,7 +29,10 @@ const mapData = {
         ru: "ЗБ-1012"
       },
       faction: "pmc",
-      specialConditions: "??? когда горит фонарь",
+      specialConditions: {
+        en: "??? when the light is on",
+        ru: "??? когда горит фонарь"
+      },
       coords: { x: 1540, y: 820 }
     },
     {
@@ -39,7 +42,10 @@ const mapData = {
         ru: "Старая Заправка"
       },
       faction: "pmc",
-      specialConditions: "??? когда горит зеленая дымовая шашка",
+      specialConditions: {
+        en: "??? if there is green smoke",
+        ru: "??? когда горит зеленая дымовая шашка"
+      },
       coords: { x: 1255, y: 955 }
     },
     {
@@ -59,7 +65,10 @@ const mapData = {
         ru: "Лодка Контрабандиста"
       },
       faction: "pmc",
-      specialConditions: "??? когда горит костер",
+      specialConditions: {
+        en: "??? if there is fire by the water",
+        ru: "??? когда горит костер"
+      },
       coords: { x: 660, y: 430 }
     },
     {
@@ -69,7 +78,10 @@ const mapData = {
         ru: "А-Выход у Общаги"
       },
       faction: "pmc",
-      specialConditions: "??? 3000 Руб, ждать 1 минуту, одноразовый",
+      specialConditions: {
+        en: "??? 7000 Rub, need to wait for 1 min., 1 time use",
+        ru: "??? 7000 Руб, ждать 1 минуту, одноразовый"
+      },
       coords: { x: 1080, y: 290 }
     },
     {
@@ -89,7 +101,10 @@ const mapData = {
         ru: "Блокпост ВС РФ"
       },
       faction: "all",
-      specialConditions: "??? когда горит фонарь",
+      specialConditions: {
+        en: "??? when the light is on",
+        ru: "??? когда горит фонарь"
+      },
       coords: { x: 715, y: 915 }
     },
     {

@@ -4,8 +4,8 @@ import './mapInfo.css'
 import { useState } from 'preact/compat';
 import { useTranslation } from 'react-i18next';
 
-const sortByRuName = R.sortBy(R.compose(R.toLower, R.path(['names', 'ru'])));
-const groupExtracts = (extracts) => {
+const sortByName = (lang) => R.sortBy(R.compose(R.toLower, R.path(['names', lang])));
+const groupExtracts = (extracts, lang) => {
   const res = extracts.reduce(
     (acc, ext) => {
       if (ext.faction === 'all' || ext.faction === 'pmc') {
@@ -19,8 +19,8 @@ const groupExtracts = (extracts) => {
     { pmc: [], scav: [] }
   );
 
-  res.pmc = sortByRuName(res.pmc);
-  res.scav = sortByRuName(res.scav);
+  res.pmc = sortByName(lang)(res.pmc);
+  res.scav = sortByName(lang)(res.scav);
 
   return res;
 };
@@ -71,7 +71,7 @@ const MapInfo = ({
   selected = [],
   toggleExtract,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   if (extracts.length === 0) {
     return (
       <div class="map-info">
@@ -79,7 +79,7 @@ const MapInfo = ({
       </div>
     );
   }
-  const groups = groupExtracts(extracts);
+  const groups = groupExtracts(extracts, i18n.language);
   return (
     <div class="map-info">
       <FactionList title={t('PMC')}>

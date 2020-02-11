@@ -5,8 +5,8 @@ import makeStore from '../../store';
 import initFirebase from '../../firebase/index.js';
 import useFullScreen from './useFullScreen';
 
-const offline = true;
-const db = offline ? null : initFirebase();
+const offline = (process.env.OFFLINE === "true") && (process.env.NODE_ENV !== "production");
+const db = (offline) ? null : initFirebase();
 const store = makeStore(db);
 
 const App = () => {

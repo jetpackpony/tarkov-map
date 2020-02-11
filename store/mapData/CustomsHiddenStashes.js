@@ -1,8 +1,15 @@
 import img from '../../mapImages/CustomsHiddenStashes.webp';
 
 const mapData = {
-  groupName: "Таможня / Customs",
-  title: "Тайники",
+  groupId: "customs",
+  groupName: {
+    en: "Customs",
+    ru: "Таможня"
+  },
+  title: {
+    en: "Hidden Stashes",
+    ru: "Тайники"
+  },
   imgPath: img,
   extracts: []
 };

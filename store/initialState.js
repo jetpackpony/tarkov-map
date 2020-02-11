@@ -26,7 +26,8 @@ const initState = {
     //currentMap: 'factory-main'
     //currentMap: 'labs-main'
     ,
-    markerColor: "#ff0000"
+    markerColor: "#ff0000",
+    lang: "en"
   }
 };
 

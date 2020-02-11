@@ -1,18 +1,22 @@
 import { h } from 'preact';
 import mapData from '../../../store/mapData';
 import './mapSelector.css';
+import { useTranslation } from 'react-i18next';
 
 const mapObject = (f, obj) => (
   Object.keys(obj).map((key) => f(key, obj[key], obj))
 );
 
-const getMapGroups = () => {
+const getMapGroups = (lang) => {
   return Object.keys(mapData.maps).reduce((acc, key) => {
     const map = mapData.maps[key];
-    if (!acc[map.groupName]) {
-      acc[map.groupName] = {};
+    if (!acc[map.groupId]) {
+      acc[map.groupId] = {
+        groupName: map.groupName[lang],
+        maps: {}
+      };
     }
-    acc[map.groupName][key] = map.title;
+    acc[map.groupId].maps[key] = map.title[lang];
     return acc;
   }, {});
 };
@@ -37,7 +41,8 @@ const MapOption = ({ mapId, name, isSelected }) => (
 const getFirstKey = (obj) => Object.keys(obj)[0];
 const objectLength = (obj) => Object.keys(obj).length;
 const MapSelector = ({ currentMap, onMapSelected }) => {
-  const mapGroups = getMapGroups();
+  const { i18n } = useTranslation();
+  const mapGroups = getMapGroups(i18n.language);
   return (
     <select
       id="map-select"
@@ -45,27 +50,27 @@ const MapSelector = ({ currentMap, onMapSelected }) => {
     >
       {
         mapObject(
-          (groupName, maps) => (
-            (objectLength(maps) === 1)
+          (_, group) => (
+            (objectLength(group.maps) === 1)
               ? (
                 <MapOption
-                  mapId={getFirstKey(maps)}
-                  name={groupName}
-                  isSelected={getFirstKey(maps) === currentMap}
+                  mapId={getFirstKey(group.maps)}
+                  name={group.groupName}
+                  isSelected={getFirstKey(group.maps) === currentMap}
                 />
               )
               : (
-                <MapOptGroup label={groupName}>
+                <MapOptGroup label={group.groupName}>
                   {
                     mapObject(
                       (mapId, name) => (
                         <MapOption
                           mapId={mapId}
-                          name={`${groupName} - ${name}`}
+                          name={`${group.groupName} - ${name}`}
                           isSelected={mapId === currentMap}
                         />
                       ),
-                      maps
+                      group.maps
                     )
                   }
                 </MapOptGroup>

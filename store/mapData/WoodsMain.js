@@ -1,8 +1,15 @@
 import img from '../../mapImages/WoodsMain.webp';
 
 const mapData = {
-  groupName: "Лес / Woods",
-  title: "Главная",
+  groupId: "woods",
+  groupName: {
+    en: "Woods",
+    ru: "Лес "
+  },
+  title: {
+    en: "Main",
+    ru: "Главная"
+  },
   imgPath: img,
   extracts: [
     {

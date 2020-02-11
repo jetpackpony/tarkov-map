@@ -1,8 +1,15 @@
 import img from '../../mapImages/ShorelineMain.webp';
 
 const mapData = {
-  groupName: "Берег / Shoreline",
-  title: "Главная",
+  groupId: "shoreline",
+  groupName: {
+    en: "Shoreline",
+    ru: "Берег"
+  },
+  title: {
+    en: "Main",
+    ru: "Главная"
+  },
   imgPath: img,
   extracts: [
     {

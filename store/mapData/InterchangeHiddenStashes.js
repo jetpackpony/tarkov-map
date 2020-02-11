@@ -1,8 +1,15 @@
 import img from '../../mapImages/InterchangeHiddenStashes.webp';
 
 const mapData = {
-  groupName: "Развязка / Interchange",
-  title: "Тайники",
+  groupId: "interchange",
+  groupName: {
+    en: "Interchange",
+    ru: "Развязка "
+  },
+  title: {
+    en: "Hidden Stashes",
+    ru: "Тайники"
+  },
   imgPath: img,
   extracts: []
 };

@@ -1,8 +1,15 @@
 import customsMainImg from '../../mapImages/Customs.webp';
 
 const mapData = {
-  groupName: "Таможня / Customs",
-  title: "Главная",
+  groupId: "customs",
+  groupName: {
+    en: "Customs",
+    ru: "Таможня"
+  },
+  title: {
+    en: "Main",
+    ru: "Главная"
+  },
   imgPath: customsMainImg,
   extracts: [
     {

@@ -1,8 +1,15 @@
 import img from '../../mapImages/ReserveMain.webp';
 
 const mapData = {
-  groupName: "Резерв / Reserve",
-  title: "Главная",
+  groupId: "reserve",
+  groupName: {
+    en: "Reserve",
+    ru: "Резерв "
+  },
+  title: {
+    en: "Main",
+    ru: "Главная"
+  },
   imgPath: img,
   extracts: [
     {

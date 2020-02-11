@@ -2,6 +2,7 @@ import { h } from 'preact';
 import * as R from 'ramda';
 import './mapInfo.css'
 import { useState } from 'preact/compat';
+import { useTranslation } from 'react-i18next';
 
 const sortByRuName = R.sortBy(R.compose(R.toLower, R.path(['names', 'ru'])));
 const groupExtracts = (extracts) => {
@@ -25,13 +26,14 @@ const groupExtracts = (extracts) => {
 };
 
 const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
+  const { i18n } = useTranslation();
   return (
     <li
       class={(isSelected) ? "selected" : null}
       onClick={() => toggleExtract(extract.id)}
     >
       <div>
-        <div>{extract.names.ru}</div>
+        <div>{extract.names[i18n.language]}</div>
         {
           (extract.activationCoords)
             ? <div title="Нужна активация" class="activation-required"></div>

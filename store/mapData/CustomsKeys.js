@@ -1,8 +1,15 @@
 import customsKeysImg from '../../mapImages/CustomsKeys.webp';
 
 const mapData = {
-  groupName: "Таможня / Customs",
-  title: "Ключи",
+  groupId: "customs",
+  groupName: {
+    en: "Customs",
+    ru: "Таможня"
+  },
+  title: {
+    en: "Keys",
+    ru: "Ключи"
+  },
   imgPath: customsKeysImg,
   extracts: []
 };

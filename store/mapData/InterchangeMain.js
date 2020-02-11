@@ -1,8 +1,15 @@
 import img from '../../mapImages/InterchangeMain.webp';
 
 const mapData = {
-  groupName: "Развязка / Interchange",
-  title: "Главная",
+  groupId: "interchange",
+  groupName: {
+    en: "Interchange",
+    ru: "Развязка"
+  },
+  title: {
+    en: "Main",
+    ru: "Главная"
+  },
   imgPath: img,
   extracts: [
     {

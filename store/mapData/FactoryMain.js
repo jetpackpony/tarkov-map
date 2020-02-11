@@ -1,8 +1,15 @@
 import img from '../../mapImages/FactoryMain.webp';
 
 const mapData = {
-  groupName: "Завод / Factory",
-  title: "Главная",
+  groupId: "factory",
+  groupName: {
+    en: "Factory",
+    ru: "Завод"
+  },
+  title: {
+    en: "Main",
+    ru: "Главная"
+  },
   imgPath: img,
   extracts: [
     {

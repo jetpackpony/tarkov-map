@@ -26,7 +26,7 @@ const groupExtracts = (extracts) => {
 };
 
 const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <li
       class={(isSelected) ? "selected" : null}
@@ -36,7 +36,7 @@ const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
         <div>{extract.names[i18n.language]}</div>
         {
           (extract.activationCoords)
-            ? <div title="Нужна активация" class="activation-required"></div>
+            ? <div title={t('Activation needed')} class="activation-required"></div>
             : null
         }
       </div>
@@ -71,6 +71,7 @@ const MapInfo = ({
   selected = [],
   toggleExtract,
 }) => {
+  const { t } = useTranslation();
   if (extracts.length === 0) {
     return (
       <div class="map-info">
@@ -81,7 +82,7 @@ const MapInfo = ({
   const groups = groupExtracts(extracts);
   return (
     <div class="map-info">
-      <FactionList title="ЧВК">
+      <FactionList title={t('PMC')}>
         {
           groups.pmc.map((e) => (
             <ExtractItem
@@ -92,7 +93,7 @@ const MapInfo = ({
           ))
         }
       </FactionList>
-      <FactionList title="Дикий">
+      <FactionList title={t('Scav')}>
         {
           groups.scav.map((e) => (
             <ExtractItem

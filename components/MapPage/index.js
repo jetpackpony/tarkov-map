@@ -19,6 +19,7 @@ import ColorPicker from './ColorPicker';
 import MapSelector from './MapSelector';
 import Button from './Button/Button';
 import LangPicker from './LangPicker';
+import { useTranslation } from 'react-i18next';
 
 export const MapPage =
   ({
@@ -33,6 +34,7 @@ export const MapPage =
     onMarkerColorChanged,
     clearMap
   }) => {
+    const { t } = useTranslation();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const currentMapData = mapData.maps[currentMap];
     const extractionMarkers =
@@ -77,7 +79,7 @@ export const MapPage =
             selected={selectedExtracts}
             toggleExtract={toggleExtract}
           />
-          <Button onClick={() => clearMap(currentMap)}>Очистить карту</Button>
+          <Button onClick={() => clearMap(currentMap)}>{t('Clear map')}</Button>
         </Sidebar>
       </main>
     );

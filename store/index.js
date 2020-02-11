@@ -37,9 +37,10 @@ const subscribeToDBUpdates = (db, dispatch) => {
 };
 
 const makeStore = (db) => {
-  const middlewares = [
-    createLogger()
-  ];
+  const middlewares = [];
+  if (process.env.NODE_ENV !== "production") {
+    middlewares.push(createLogger());
+  }
   if (db) {
     middlewares.push(updateDB(db));
   }

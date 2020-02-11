@@ -1,13 +1,32 @@
 import { h } from 'preact';
 import { useTranslation } from 'react-i18next';
+import './langPicker.css';
+
+const LangButton = ({lang, selected, changeLang}) => (
+  <button
+    class={`picker-button ${(selected) ? "selected" : ""}`}
+    onClick={() => changeLang(lang)}
+  >
+    {lang}
+  </button>
+);
 
 const LangPicker = () => {
   const { i18n } = useTranslation();
   console.log("Lang: ", i18n.language);
   return (
     <div class="langPicker">
-      <button onClick={() => i18n.changeLanguage('ru')}>RU</button>
-      <button onClick={() => i18n.changeLanguage('en')}>EN</button>
+      {
+        i18n.languages.sort().map((lang) => (
+          (lang === "dev")
+            ? null
+            : <LangButton
+              lang={lang}
+              selected={lang === i18n.language}
+              changeLang={(lang) => i18n.changeLanguage(lang)}
+            />
+        ))
+      }
     </div>
   );
 };

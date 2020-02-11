@@ -1,0 +1,16 @@
+.picker-button {
+  padding: .3rem;
+  border: none;
+  background-color: transparent;
+  opacity: .6;
+  text-transform: uppercase;
+}
+
+.picker-button:hover {
+  background-color: transparent;
+}
+
+.picker-button.selected {
+  opacity: 1;
+  border-bottom: 1px solid #9a8866;
+}

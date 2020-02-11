@@ -27,6 +27,7 @@
   "dependencies": {
     "firebase": "^7.5.0",
     "i18next": "^19.1.0",
+    "i18next-browser-languagedetector": "^4.0.1",
     "nanoid": "^2.1.7",
     "preact": "^10.0.5",
     "ramda": "^0.26.1",

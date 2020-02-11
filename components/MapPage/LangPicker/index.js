@@ -13,7 +13,6 @@ const LangButton = ({lang, selected, changeLang}) => (
 
 const LangPicker = () => {
   const { i18n } = useTranslation();
-  console.log("Lang: ", i18n.language);
   return (
     <div class="langPicker">
       {

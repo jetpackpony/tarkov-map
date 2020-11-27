@@ -20,8 +20,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 780, y: 1754 },
-      activationCoords: { x: 1527, y: 5681 }
+      coords: {x: 665, y: 969},
+      activationCoords: {x: 832, y: 2442}
     },
     {
       id: "ext-2",
@@ -31,8 +31,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 1831, y: 4077 },
-      activationCoords: { x: 1317, y: 4205 }
+      coords:  {x: 1211, y: 2226},
+      activationCoords: {x: 1102, y: 2209}
     },
     {
       id: "ext-3",
@@ -45,7 +45,7 @@ const mapData = {
         en: "??? maximum backpack size is MBSS (4х4)",
         ru: "??? максимальный размер рюкзака MBSS (4х4)"
       },
-      coords: { x: 932, y: 5446 }
+      coords: {x: 772, y: 2352}
     },
     {
       id: "ext-4",
@@ -55,8 +55,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 1634, y: 5894 },
-      activationCoords: { x: 2083, y: 5736 }
+      coords:  {x: 809, y: 2488},
+      activationCoords: {x: 904, y: 2516}
     },
     {
       id: "ext-5",
@@ -66,8 +66,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 2711, y: 5402 },
-      activationCoords: { x: 2649, y: 5543 }
+      coords: {x: 1058, y: 2571},
+      activationCoords: {x: 1086, y: 2553}
     },
     {
       id: "ext-6",
@@ -77,8 +77,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 151, y: 2819 },
-      activationCoords: { x: 1023, y: 622 }
+      coords: {x: 872, y: 1452},
+      activationCoords:  {x: 1020, y: 802}
     },
     {
       id: "ext-7",
@@ -88,8 +88,8 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: { x: 2703, y: 3381 },
-      activationCoords: { x: 2215, y: 1284 }
+      coords: {x: 1164, y: 1845},
+      activationCoords: {x: 1090, y: 1064}
     },
   ]
 };

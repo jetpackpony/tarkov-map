@@ -9,6 +9,7 @@ import InterchangeHiddenStashes from './InterchangeHiddenStashes';
 import WoodsMain from './WoodsMain';
 import WoodsCaches from './WoodsCaches';
 import ReserveMain from './ReserveMain';
+import ReserveKeysAndDoors from './ReserveKeysAndDoors';
 import FactoryMain from './FactoryMain';
 import Factory3D from './Factory3D';
 import LabsMain from './LabsMain';
@@ -26,6 +27,7 @@ const mapData = {
     "woods-main": WoodsMain,
     "woods-caches": WoodsCaches,
     "reserve-main": ReserveMain,
+    "reserve-keys-and-doors": ReserveKeysAndDoors,
     "factory-main": FactoryMain,
     "factory-3d": Factory3D,
     "labs-main": LabsMain,

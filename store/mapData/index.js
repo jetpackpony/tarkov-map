@@ -7,6 +7,7 @@ import ShorelineResort from './ShorelineResort';
 import InterchangeMain from './InterchangeMain';
 import InterchangeHiddenStashes from './InterchangeHiddenStashes';
 import WoodsMain from './WoodsMain';
+import WoodsCaches from './WoodsCaches';
 import ReserveMain from './ReserveMain';
 import FactoryMain from './FactoryMain';
 import Factory3D from './Factory3D';
@@ -23,6 +24,7 @@ const mapData = {
     "interchange-main": InterchangeMain,
     "interchange-hidden-stashes": InterchangeHiddenStashes,
     "woods-main": WoodsMain,
+    "woods-caches": WoodsCaches,
     "reserve-main": ReserveMain,
     "factory-main": FactoryMain,
     "factory-3d": Factory3D,

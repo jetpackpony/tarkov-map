@@ -1,6 +1,7 @@
 import CustomsMain from './CustomsMain';
 import CustomsHiddenStashes from './CustomsHiddenStashes';
 import ShorelineMain from './ShorelineMain';
+import Shoreline2in1 from './Shoreline2in1';
 import ShorelineKeys from './ShorelineKeys';
 import ShorelineResort from './ShorelineResort';
 import InterchangeMain from './InterchangeMain';
@@ -15,6 +16,7 @@ const mapData = {
     "customs-main": CustomsMain,
     "customs-hidden-stashes": CustomsHiddenStashes,
     "shoreline-main": ShorelineMain,
+    "shoreline-2in1": Shoreline2in1,
     "shoreline-keys": ShorelineKeys,
     "shoreline-resort": ShorelineResort,
     "interchange-main": InterchangeMain,

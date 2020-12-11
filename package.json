@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "rm -rf .parcel-cache/ .cache/ && parcel index.html",
-    "build-main": "rm -rf .cache/ dist/ .parcel-cache/ && DB_COLLECTION_NAME=mapObjects parcel build index.html --no-source-maps",
-    "build-demo": "rm -rf .cache/ dist/ .parcel-cache/ && DB_COLLECTION_NAME=mapObjectsDemo parcel build index.html --no-source-maps",
+    "build-main": "rm -rf .cache/ dist/ .parcel-cache/ && DB_COLLECTION_NAME=mapObjects parcel build index.html --no-source-maps && mkdir -p reports && mv dist/report.html reports/",
+    "build-demo": "rm -rf .cache/ dist/ .parcel-cache/ && DB_COLLECTION_NAME=mapObjectsDemo parcel build index.html --no-source-maps && mkdir -p reports && mv dist/report.html reports/",
     "deploy-main": "firebase deploy --only hosting:main",
     "deploy-demo": "firebase deploy --only hosting:demo",
     "storybook": "start-storybook -p 6006",
@@ -26,7 +26,8 @@
     "@storybook/preact": "^5.3.21",
     "babel-loader": "^8.2.2",
     "cssnano": "^4.1.10",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-bundle-visualiser": "^1.2.0"
   },
   "dependencies": {
     "firebase": "^7.24.0",

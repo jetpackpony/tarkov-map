@@ -5,6 +5,7 @@ node_modules/
 dist/
 .cache/
 .parcel-cache/
+reports/
 
 # Firebase config
 firebase/config.js

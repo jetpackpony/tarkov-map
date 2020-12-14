@@ -1,11 +1,11 @@
-import * as R from 'ramda';
+import { lensPath, view, set, append, remove, reject, includes } from 'rambda';
 import { ACTION_TYPES } from './actions';
 import initState from './initialState';
 import { getMapInitState } from './initialState';
 
 export const isExtractSelected = (state, extId) => {
-  const selLens = R.lensPath(['mapState', getCurrentMap(state), 'selectedExtracts']);
-  const selectedExtracts = R.view(selLens, state);
+  const selLens = lensPath(['mapState', getCurrentMap(state), 'selectedExtracts']);
+  const selectedExtracts = view(selLens, state);
   const index = selectedExtracts.findIndex((id) => id === extId);
   return (index >= 0)
 };
@@ -19,22 +19,22 @@ const toggleExtract = (state, extId) => {
     : selectExtract(state, getCurrentMap(state), extId);
 };
 const selectExtract = (state, mapName, extId) => {
-  const lens = R.lensPath(['mapState', mapName, 'selectedExtracts']);
-  const selectedExtracts = R.view(lens, state);
+  const lens = lensPath(['mapState', mapName, 'selectedExtracts']);
+  const selectedExtracts = view(lens, state);
   const index = selectedExtracts.findIndex((id) => id === extId);
   if (index >= 0) {
     return state;
   }
-  return R.set(lens, R.append(extId, selectedExtracts), state);
+  return set(lens, append(extId, selectedExtracts), state);
 };
 const unselectExtract = (state, mapName, extId) => {
-  const lens = R.lensPath(['mapState', mapName, 'selectedExtracts']);
-  const selectedExtracts = R.view(lens, state);
+  const lens = lensPath(['mapState', mapName, 'selectedExtracts']);
+  const selectedExtracts = view(lens, state);
   const index = selectedExtracts.findIndex((id) => id === extId);
   if (index < 0) {
     return state;
   }
-  return R.set(lens, R.remove(index, 1, selectedExtracts), state);
+  return set(lens, remove(index, 1, selectedExtracts), state);
 };
 
 const addMarker = (state, id, coords) => {
@@ -42,22 +42,22 @@ const addMarker = (state, id, coords) => {
 };
 const drawMarker = (state, mapName, id, coords, color) => {
   const newMarker = { id, coords, color };
-  const lens = R.lensPath(['mapState', mapName, 'markers']);
-  const markers = R.view(lens, state);
-  return R.set(lens, R.append(newMarker, markers), state);
+  const lens = lensPath(['mapState', mapName, 'markers']);
+  const markers = view(lens, state);
+  return set(lens, append(newMarker, markers), state);
 };
 
 const removeMarker = (state, ids) => {
   return eraseMarker(state, getCurrentMap(state), ids);
 };
 const eraseMarker = (state, mapName, ids) => {
-  const lens = R.lensPath(['mapState', mapName, 'markers']);
-  const markers = R.view(lens, state);
-  const newMarkers = R.reject(
-    (m) => R.includes(m.id, ids),
+  const lens = lensPath(['mapState', mapName, 'markers']);
+  const markers = view(lens, state);
+  const newMarkers = reject(
+    (m) => includes(m.id, ids),
     markers
   );
-  return R.set(lens, newMarkers, state);
+  return set(lens, newMarkers, state);
 };
 
 const selectMap = (state, mapId) => {
@@ -81,8 +81,8 @@ const changeMarkerColor = (state, color) => {
 };
 
 const clearMap = (state, mapId) => {
-  const mapStateLens = R.lensPath(['mapState', mapId]);
-  return R.set(mapStateLens, getMapInitState(), state);
+  const mapStateLens = lensPath(['mapState', mapId]);
+  return set(mapStateLens, getMapInitState(), state);
 };
 
 const reducer = (state = initState, action) => {

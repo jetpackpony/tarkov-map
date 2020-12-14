@@ -1,10 +1,10 @@
 import { h } from 'preact';
-import * as R from 'ramda';
+import { sortBy, compose, toLower, path } from 'rambda';
 import './mapInfo.css'
 import { useState } from 'preact/compat';
 import { useTranslation } from 'react-i18next';
 
-const sortByName = (lang) => R.sortBy(R.compose(R.toLower, R.path(['names', lang])));
+const sortByName = (lang) => sortBy(compose(toLower, path(['names', lang])));
 const groupExtracts = (extracts, lang) => {
   const res = extracts.reduce(
     (acc, ext) => {

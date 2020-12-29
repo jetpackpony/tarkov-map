@@ -1,8 +1,11 @@
-import { lensPath, view, set, append, remove, reject, includes } from 'rambda';
+import { lensPath, view, set, append, slice, concat, reject, includes } from 'rambda';
 import { ACTION_TYPES } from './actions';
 import initState from './initialState';
 import { getMapInitState } from './initialState';
 
+const remove = (id, list) => {
+  return concat(slice(0, id, list), slice(id + 1, Infinity, list));
+};
 export const isExtractSelected = (state, extId) => {
   const selLens = lensPath(['mapState', getCurrentMap(state), 'selectedExtracts']);
   const selectedExtracts = view(selLens, state);
@@ -34,7 +37,7 @@ const unselectExtract = (state, mapName, extId) => {
   if (index < 0) {
     return state;
   }
-  return set(lens, remove(index, 1, selectedExtracts), state);
+  return set(lens, remove(index, selectedExtracts), state);
 };
 
 const addMarker = (state, id, coords) => {

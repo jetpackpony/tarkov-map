@@ -23,7 +23,7 @@ const mapData = {
         en: "??? you need to be a scav + pmc team to extract",
         ru: "??? нужна пара ЧВК + Дикий чтобы выйти"
       },
-      coords: {x: 587, y: 247}
+      coords: {x: 2280, y: 3255}
     },
     {
       id: "ext-2",
@@ -33,7 +33,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords:  {x: 2731, y: 247}
+      coords:  {x: 410, y: 3256}
     },
     {
       id: "ext-3",
@@ -46,20 +46,20 @@ const mapData = {
         en: "??? if there is green smoke",
         ru: "??? когда горит зеленая дымовая шашка"
       },
-      coords: {x: 1274, y: 66}
+      coords: {x: 1678, y: 3410}
     },
     {
       id: "ext-4",
       names: {
-        en: "South V-Ex",
-        ru: "Южный А-Выход"
+        en: "Bridge extraction",
+        ru: "Мост"
       },
-      faction: "all",
+      faction: "pmc",
       specialConditions: {
         en: "??? 3000 Rub, need to wait for 1 min., 1 time use",
         ru: "??? 3000 Руб, ждать 1 минуту, одноразовый"
       },
-      coords: {x: 1551, y: 2018}
+      coords: {x: 2609, y: 1120}
     },
     {
       id: "ext-5",
@@ -69,7 +69,7 @@ const mapData = {
       },
       faction: "all",
       specialConditions: null,
-      coords: {x: 77, y: 464}
+      coords: {x: 2715, y: 3075}
     },
     {
       id: "ext-6",
@@ -82,7 +82,7 @@ const mapData = {
         en: "??? if there is green smoke. Need a ZB-014 key",
         ru: "??? когда горит зеленая дымовая шашка, нужен ключ ЗБ-014"
       },
-      coords: {x: 3010, y: 1126}
+      coords: {x: 326, y: 2437}
     },
     {
       id: "ext-7",
@@ -95,7 +95,7 @@ const mapData = {
         en: "??? you need RR icepick and paracord",
         ru: "??? нужен ледоруб и паракорд"
       },
-      coords: {x: 1089, y: 1983}
+      coords: {x: 1796, y: 1764}
     },
     {
       id: "ext-8",
@@ -108,7 +108,7 @@ const mapData = {
         en: "??? if there is green smoke",
         ru: "??? когда горит зеленая дымовая шашка"
       },
-      coords: {x: 478, y: 1264}
+      coords: {x: 2365, y: 2378}
     },
     {
       id: "ext-9",
@@ -118,17 +118,17 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords:  {x: 2253, y: 582}
+      coords:  {x: 825, y: 2980}
     },
     {
       id: "ext-10",
       names: {
-        en: "East Gate",
-        ru: "Восточные ворота"
+        en: "Scav Bunker",
+        ru: "Бункер диких"
       },
       faction: "scav",
       specialConditions: null,
-      coords: {x: 2894, y: 1467}
+      coords: {x: 743, y: 603}
     },
     {
       id: "ext-11",
@@ -138,7 +138,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords:  {x: 1043, y: 1985}
+      coords:  {x: 1795, y: 1775}
     },
     {
       id: "ext-12",
@@ -148,17 +148,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: {x: 128, y: 893}
-    },
-    {
-      id: "ext-13",
-      names: {
-        en: "Outskirts Water",
-        ru: "Окраина Озера"
-      },
-      faction: "scav",
-      specialConditions: null,
-      coords: {x: 2338, y: 368}
+      coords: {x: 2699, y: 2705}
     },
     {
       id: "ext-14",
@@ -168,7 +158,7 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords:  {x: 2925, y: 611}
+      coords: {x: 237, y: 2940}
     },
     {
       id: "ext-15",
@@ -178,17 +168,17 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: {x: 2210, y: 688}
+      coords: {x: 860, y: 2877}
     },
     {
       id: "ext-16",
       names: {
-        en: "West Border",
-        ru: "Западная граница"
+        en: "Scav Bridge",
+        ru: "Мост диких"
       },
       faction: "scav",
       specialConditions: null,
-      coords: {x: 197, y: 1492}
+      coords: {x: 1092, y: 196}
     },
     {
       id: "ext-17",
@@ -198,7 +188,27 @@ const mapData = {
       },
       faction: "scav",
       specialConditions: null,
-      coords: {x: 1270, y: 82}
+      coords: {x: 1678, y: 3410}
+    },
+    {
+      id: "ext-18",
+      names: {
+        en: "Eastern Rocks",
+        ru: "Восточные скалы"
+      },
+      faction: "scav",
+      specialConditions: null,
+      coords: {x: 2704, y: 2269}
+    },
+    {
+      id: "ext-19",
+      names: {
+        en: "Northern UN Roadblock",
+        ru: "Северный блокпост ООН"
+      },
+      faction: "pmc",
+      specialConditions: null,
+      coords: {x: 2841, y: 2169}
     },
   ]
 };

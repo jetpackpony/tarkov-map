@@ -62,8 +62,11 @@ const getCloseMarkers = (scale, markers, { x, y }) => {
 };
 
 const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
-  const imgObj = useImageLoader(imgPath);
   const viewportState = useRef(getInitViewportState());
+  const onImageLoaded = (img) => {
+    viewportState.current.scale = 0.01;
+  };
+  const imgObj = useImageLoader(imgPath, onImageLoaded);
   // Reset vieport state every time the map is changed
   useEffect(() => {
     viewportState.current = getInitViewportState();

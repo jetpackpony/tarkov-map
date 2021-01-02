@@ -1,9 +1,10 @@
 import { useEffect, useLayoutEffect, useState, useRef } from 'preact/compat';
 
-export const useImageLoader = (imgPath) => {
+export const useImageLoader = (imgPath, onLoad) => {
   const [imgObj, setImgObj] = useState(null);
   const onImageLoaded = (e) => {
     setImgObj(e.target);
+    onLoad(e.target);
   };
   useEffect(() => {
     if (imgObj) setImgObj(null);

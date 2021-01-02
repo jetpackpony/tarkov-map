@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "rm -rf .parcel-cache/ .cache/ && parcel index.html",
-    "build-main": "rm -rf .cache/ dist/ .parcel-cache/ && DB_COLLECTION_NAME=mapObjects parcel build index.html --no-source-maps && mkdir -p reports && mv dist/report.html reports/",
+    "build-main": "rm -rf .cache/ dist/ .parcel-cache/ && OFFLINE=false DB_COLLECTION_NAME=mapObjects parcel build index.html && mkdir -p reports && mv dist/report.html reports/",
     "build-demo": "rm -rf .cache/ dist/ .parcel-cache/ && DB_COLLECTION_NAME=mapObjectsDemo parcel build index.html --no-source-maps && mkdir -p reports && mv dist/report.html reports/",
     "deploy-main": "firebase deploy --only hosting:main",
     "deploy-demo": "firebase deploy --only hosting:demo",

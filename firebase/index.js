@@ -5,7 +5,7 @@ import firebaseConfig from './config';
 const initFirebase = () => {
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-  const mapObjectsRef = db.collection(process.env.DB_COLLECTION_NAME || "mapObjectsDev");
+  const mapObjectsRef = db.collection(process.env.DB_COLLECTION_NAME);
   const listeners = [];
 
   // Sub to updates

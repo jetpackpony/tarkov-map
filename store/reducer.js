@@ -25,7 +25,6 @@ const selectExtract = (state, mapName, extId) => {
   const lens = lensPath(['mapState', mapName, 'selectedExtracts']);
   const selectedExtracts = view(lens, state);
   if (!selectedExtracts) {
-    console.log("Extract is not valid: ", mapName, extId, state);
     return state;
   }
   const index = selectedExtracts.findIndex((id) => id === extId);
@@ -38,7 +37,6 @@ const unselectExtract = (state, mapName, extId) => {
   const lens = lensPath(['mapState', mapName, 'selectedExtracts']);
   const selectedExtracts = view(lens, state);
   if (!selectedExtracts) {
-    console.log("Extract is not valid: ", mapName, extId, state);
     return state;
   }
   const index = selectedExtracts.findIndex((id) => id === extId);
@@ -56,7 +54,6 @@ const drawMarker = (state, mapName, id, coords, color) => {
   const lens = lensPath(['mapState', mapName, 'markers']);
   const markers = view(lens, state);
   if (!markers) {
-    console.log("Marker is not valid: ", mapName, id, state);
     return state;
   }
   return set(lens, append(newMarker, markers), state);
@@ -69,7 +66,6 @@ const eraseMarker = (state, mapName, ids) => {
   const lens = lensPath(['mapState', mapName, 'markers']);
   const markers = view(lens, state);
   if (!markers) {
-    console.log("Marker is not valid: ", mapName, state);
     return state;
   }
   const newMarkers = reject(

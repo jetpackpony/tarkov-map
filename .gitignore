@@ -10,3 +10,6 @@ reports/
 # Firebase config
 firebase/config.js
 .firebase
+
+# env
+.env

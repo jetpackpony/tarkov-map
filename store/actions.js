@@ -10,7 +10,8 @@ export const ACTION_TYPES = {
   UNSELECT_EXTRACT: 'UNSELECT_EXTRACT',
   SELECT_MAP: 'SELECT_MAP',
   CHANGE_MARKER_COLOR: 'CHANGE_MARKER_COLOR',
-  CLEAR_MAP: 'CLEAR_MAP'
+  CLEAR_MAP: 'CLEAR_MAP',
+  SWITCH_TO_TRACKPAD: 'SWITCH_TO_TRACKPAD'
 };
 
 export const addMarker = (coords) => ({
@@ -68,4 +69,9 @@ export const changeMarkerColor = (color) => ({
 export const clearMap = (mapId) => ({
   type: ACTION_TYPES.CLEAR_MAP,
   mapId
+});
+
+export const switchToTrackPad = (isTrackPad) => ({
+  type: ACTION_TYPES.SWITCH_TO_TRACKPAD,
+  isTrackPad
 });

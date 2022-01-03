@@ -100,6 +100,16 @@ const clearMap = (state, mapId) => {
   return set(mapStateLens, getMapInitState(), state);
 };
 
+const switchToTrackPad = (state, isTrackPad) => {
+  return {
+    ...state,
+    ui: {
+      ...state.ui,
+      isTrackPad
+    }
+  };
+};
+
 const reducer = (state = initState, action) => {
   switch(action.type) {
     case ACTION_TYPES.TOGGLE_EXTRACT:
@@ -127,6 +137,9 @@ const reducer = (state = initState, action) => {
 
     case ACTION_TYPES.CLEAR_MAP:
       return clearMap(state, action.mapId);
+
+    case ACTION_TYPES.SWITCH_TO_TRACKPAD:
+      return switchToTrackPad(state, action.isTrackPad);
 
     default:
       return state;

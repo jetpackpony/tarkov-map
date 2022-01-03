@@ -18,7 +18,9 @@ const CanvasWrapper = ({
   redrawCanvas,
   onLeftClick,
   onPan,
-  onZoom
+  onZoom,
+  isTrackPad,
+  onSwitchToTrackPad
 }) => {
   const {
     canvasRef,
@@ -30,7 +32,6 @@ const CanvasWrapper = ({
 
   const isDrawing = useRef(false);
   const dragState = useRef({});
-  const isUsingTrackPad = useRef(false);
 
   const redrawCanvasDebounced = () => {
     requestAnimationFrame(() => {
@@ -47,9 +48,8 @@ const CanvasWrapper = ({
   const onWheel = (e) => {
     e.preventDefault();
     if (e.deltaX !== 0) {
-      isUsingTrackPad.current = true;
+      !isTrackPad && onSwitchToTrackPad(true);
     }
-    const isTrackPad = isUsingTrackPad.current;
 
     if (e.ctrlKey) {
       // This is trackpad pinching (scale)
@@ -99,7 +99,7 @@ const CanvasWrapper = ({
       };
       dragState.current.maxDistFromOrigin = 0;
       canvasRef.current.addEventListener('mousemove', onMouseMove);
-      dragState.current.removeEventListener = 
+      dragState.current.removeEventListener =
         () => canvasRef.current.removeEventListener('mousemove', onMouseMove);
     }
   };

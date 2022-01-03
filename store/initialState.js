@@ -27,7 +27,8 @@ const initState = {
     //currentMap: 'labs-main'
     ,
     markerColor: "#ff0000",
-    lang: "en"
+    lang: "en",
+    isTrackPad: false
   }
 };
 

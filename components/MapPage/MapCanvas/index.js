@@ -61,7 +61,14 @@ const getCloseMarkers = (scale, markers, { x, y }) => {
     });
 };
 
-const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
+const MapCanvas = ({
+  imgPath,
+  markers,
+  addMarker,
+  removeMarkers,
+  isTrackPad,
+  onSwitchToTrackPad
+}) => {
   const viewportState = useRef(getInitViewportState());
   const onImageLoaded = (img) => {
     viewportState.current.scale = 0.01;
@@ -121,6 +128,8 @@ const MapCanvas = ({ imgPath, markers, addMarker, removeMarkers }) => {
               onLeftClick={onLeftClick}
               onPan={onPan}
               onZoom={onZoom}
+              isTrackPad={isTrackPad}
+              onSwitchToTrackPad={onSwitchToTrackPad}
             />
           )
           : <div>Loading image...</div>

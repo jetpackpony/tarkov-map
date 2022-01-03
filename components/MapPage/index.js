@@ -8,7 +8,8 @@ import {
   toggleExtractAction,
   selectMap,
   changeMarkerColor,
-  clearMap
+  clearMap,
+  switchToTrackPad
 } from '../../store/actions';
 import mapData from '../../store/mapData';
 import MapHeader from './MapHeader';
@@ -32,7 +33,9 @@ export const MapPage =
     removeMarkers,
     onMapSelected,
     onMarkerColorChanged,
-    clearMap
+    clearMap,
+    isTrackPad,
+    onSwitchToTrackPad
   }) => {
     const { t } = useTranslation();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -59,6 +62,8 @@ export const MapPage =
           markers={markers.concat(extractionMarkers)}
           addMarker={addMarker}
           removeMarkers={removeMarkers}
+          isTrackPad={isTrackPad}
+          onSwitchToTrackPad={onSwitchToTrackPad}
         />
         <Sidebar
           isOpen={isSidebarOpen}
@@ -93,7 +98,8 @@ const stateToProps = (state) => {
     currentMap,
     markers,
     selectedExtracts,
-    markerColor: state.ui.markerColor
+    markerColor: state.ui.markerColor,
+    isTrackPad: state.ui.isTrackPad,
   };
 };
 const dispatchToProps = (dispatch) => ({
@@ -102,7 +108,8 @@ const dispatchToProps = (dispatch) => ({
   removeMarkers: (ids) => dispatch(removeMarkers(ids)),
   onMapSelected: (mapId) => dispatch(selectMap(mapId)),
   onMarkerColorChanged: (color) => dispatch(changeMarkerColor(color)),
-  clearMap: (mapId) => dispatch(clearMap(mapId))
+  clearMap: (mapId) => dispatch(clearMap(mapId)),
+  onSwitchToTrackPad: (isTrackPad) => dispatch(switchToTrackPad(isTrackPad))
 });
 
 export default connect(stateToProps, dispatchToProps)(MapPage);

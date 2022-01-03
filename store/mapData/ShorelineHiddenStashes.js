@@ -1,4 +1,4 @@
-import img from '../../mapImages/ShorelineMain.webp';
+import img from '../../mapImages/ShorelineHiddenStashes.webp';
 
 const mapData = {
   groupId: "shoreline",
@@ -7,8 +7,8 @@ const mapData = {
     ru: "Берег"
   },
   title: {
-    en: "Main",
-    ru: "Главная"
+    en: "Hidden Stashes",
+    ru: "Тайники"
   },
   imgPath: img,
   extracts: []

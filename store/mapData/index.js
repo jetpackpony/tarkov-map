@@ -11,7 +11,6 @@ import WoodsCaches from './WoodsCaches';
 import ReserveMain from './ReserveMain';
 import ReserveKeysAndDoors from './ReserveKeysAndDoors';
 import FactoryMain from './FactoryMain';
-import Factory3D from './Factory3D';
 import LabsMain from './LabsMain';
 import LighthouseMain from './LighthouseMain';
 import LighthouseHiddenStashes from './LighthouseHiddenStashes';
@@ -21,7 +20,6 @@ const mapData = {
     "customs-main": CustomsMain,
     "customs-hidden-stashes": CustomsHiddenStashes,
     "factory-main": FactoryMain,
-    "factory-3d": Factory3D,
     "interchange-main": InterchangeMain,
     "interchange-hidden-stashes": InterchangeHiddenStashes,
     "labs-main": LabsMain,

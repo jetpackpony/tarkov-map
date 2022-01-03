@@ -32,14 +32,12 @@ const MapOptGroup = ({ label, children }) => {
 const MapOption = ({ mapId, name, isSelected }) => (
   <option
     value={mapId}
-    selected={isSelected }
+    selected={isSelected}
   >
     {name}
   </option>
 );
 
-const getFirstKey = (obj) => Object.keys(obj)[0];
-const objectLength = (obj) => Object.keys(obj).length;
 const MapSelector = ({ currentMap, onMapSelected }) => {
   const { i18n } = useTranslation();
   const mapGroups = getMapGroups(i18n.language);
@@ -51,30 +49,20 @@ const MapSelector = ({ currentMap, onMapSelected }) => {
       {
         mapObject(
           (_, group) => (
-            (objectLength(group.maps) === 1)
-              ? (
-                <MapOption
-                  mapId={getFirstKey(group.maps)}
-                  name={group.groupName}
-                  isSelected={getFirstKey(group.maps) === currentMap}
-                />
-              )
-              : (
-                <MapOptGroup label={group.groupName}>
-                  {
-                    mapObject(
-                      (mapId, name) => (
-                        <MapOption
-                          mapId={mapId}
-                          name={`${group.groupName} - ${name}`}
-                          isSelected={mapId === currentMap}
-                        />
-                      ),
-                      group.maps
-                    )
-                  }
-                </MapOptGroup>
-              )
+            <MapOptGroup label={group.groupName}>
+              {
+                mapObject(
+                  (mapId, name) => (
+                    <MapOption
+                      mapId={mapId}
+                      name={`${group.groupName} - ${name}`}
+                      isSelected={mapId === currentMap}
+                    />
+                  ),
+                  group.maps
+                )
+              }
+            </MapOptGroup>
           ),
           mapGroups
         )

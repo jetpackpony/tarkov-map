@@ -13,24 +13,28 @@ import ReserveKeysAndDoors from './ReserveKeysAndDoors';
 import FactoryMain from './FactoryMain';
 import Factory3D from './Factory3D';
 import LabsMain from './LabsMain';
+import LighthouseMain from './LighthouseMain';
+import LighthouseHiddenStashes from './LighthouseHiddenStashes';
 
 const mapData = {
   maps: {
     "customs-main": CustomsMain,
     "customs-hidden-stashes": CustomsHiddenStashes,
+    "factory-main": FactoryMain,
+    "factory-3d": Factory3D,
+    "interchange-main": InterchangeMain,
+    "interchange-hidden-stashes": InterchangeHiddenStashes,
+    "labs-main": LabsMain,
+    "lighthouse-main": LighthouseMain,
+    "lighthouse-hidden-stashes": LighthouseHiddenStashes,
+    "reserve-main": ReserveMain,
+    "reserve-keys-and-doors": ReserveKeysAndDoors,
     "shoreline-main": ShorelineMain,
     "shoreline-2in1": Shoreline2in1,
     "shoreline-keys": ShorelineKeys,
     "shoreline-resort": ShorelineResort,
-    "interchange-main": InterchangeMain,
-    "interchange-hidden-stashes": InterchangeHiddenStashes,
     "woods-main": WoodsMain,
     "woods-caches": WoodsCaches,
-    "reserve-main": ReserveMain,
-    "reserve-keys-and-doors": ReserveKeysAndDoors,
-    "factory-main": FactoryMain,
-    "factory-3d": Factory3D,
-    "labs-main": LabsMain,
   }
 };
 

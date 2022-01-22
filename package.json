@@ -43,7 +43,7 @@
     "firebase": "^7.24.0",
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^4.3.1",
-    "nanoid": "^2.1.11",
+    "nanoid": "^3.1.31",
     "preact": "^10.5.7",
     "rambda": "^6.4.0",
     "react-color": "^2.19.3",

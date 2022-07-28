@@ -1,4 +1,4 @@
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 
 export const ACTION_TYPES = {
   ADD_MARKER: 'ADD_MARKER',

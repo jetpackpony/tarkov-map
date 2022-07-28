@@ -13,7 +13,7 @@ module.exports = (env) => merge(common(env), {
     path: path.resolve(__dirname, 'dist')
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
+    static: path.resolve(__dirname, 'dist'),
     hot: true
   },
   module: {
@@ -41,7 +41,6 @@ module.exports = (env) => merge(common(env), {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new PreactRefreshPlugin(),
     new webpack.DefinePlugin({
       'process.env.OFFLINE': JSON.stringify(process.env.OFFLINE),

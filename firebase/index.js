@@ -1,16 +1,19 @@
-import * as firebase from "firebase/app";
-import "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import {
+  collection, deleteDoc, doc, getDocs,
+  getFirestore, onSnapshot, query, setDoc, where
+} from "firebase/firestore";
 import firebaseConfig from './config';
 
 const initFirebase = () => {
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  const mapObjectsRef = db.collection(process.env.DB_COLLECTION_NAME);
+  const firebaseApp = initializeApp(firebaseConfig);
+  const db = getFirestore(firebaseApp);
+  const mapObjectsRef = collection(db, process.env.DB_COLLECTION_NAME);
   const listeners = [];
 
   // Sub to updates
   const listen = () => {
-    return mapObjectsRef.onSnapshot((querySnapshot) => {
+    return onSnapshot(mapObjectsRef, (querySnapshot) => {
       querySnapshot.docChanges().forEach((docChange) => {
         const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';
         if (source !== 'local') {
@@ -19,7 +22,7 @@ const initFirebase = () => {
       })
     });
   };
-  
+
   const addDataListener = (f) => {
     listeners.push(f);
   };
@@ -32,12 +35,12 @@ const initFirebase = () => {
       type: "marker",
       data
     };
-    return mapObjectsRef.doc(docName).set(mapObject);
+    return setDoc(doc(mapObjectsRef, docName), mapObject);
   };
 
   const removeMarker = (id, mapName) => {
     const docName = `${mapName}-${id}`;
-    return mapObjectsRef.doc(docName).delete();
+    return deleteDoc(doc(mapObjectsRef, docName));
   }
 
   const addExtraction = (id, mapName) => {
@@ -48,18 +51,19 @@ const initFirebase = () => {
       type: "ext",
       data: null
     };
-    return mapObjectsRef.doc(docName).set(mapObject);
+    return setDoc(doc(mapObjectsRef, docName), mapObject);
   };
 
   const removeExtraction = (id, mapName) => {
     const docName = `${mapName}-${id}`;
-    return mapObjectsRef.doc(docName).delete();
+    return deleteDoc(doc(mapObjectsRef, docName));
   };
 
   const clearMap = (mapName) => {
-    mapObjectsRef.where("map", '==', mapName).get().then((res) => {
-      res.forEach((doc) => doc.ref.delete());
-    });
+    getDocs(query(mapObjectsRef, where("map", '==', mapName)))
+      .then((res) => {
+        res.forEach((doc) => deleteDoc(doc.ref));
+      });
   };
 
   return {

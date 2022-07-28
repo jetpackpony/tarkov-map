@@ -34,14 +34,14 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "firebase": "^7.24.0",
-    "i18next": "^19.8.4",
-    "i18next-browser-languagedetector": "^4.3.1",
+    "firebase": "^9.9.1",
+    "i18next": "^21.8.14",
+    "i18next-browser-languagedetector": "^6.1.4",
     "nanoid": "^4.0.0",
     "preact": "^10.5.7",
     "rambda": "^7.1.4",
     "react-color": "^2.19.3",
-    "react-i18next": "^11.7.3",
+    "react-i18next": "^11.18.3",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6"

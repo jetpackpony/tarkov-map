@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = (env) => ({
   entry: {
-    main: path.resolve(__dirname, './index.js')
+    main: path.resolve(__dirname, './src/index.js')
   },
   resolve: {
     alias: {

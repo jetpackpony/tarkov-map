@@ -23,6 +23,16 @@ module.exports = (env) => merge(common(env), {
         use: ["style-loader", "css-loader"]
       },
       {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true
+          }
+        },
+        exclude: /node_modules/,
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -37,7 +47,7 @@ module.exports = (env) => merge(common(env), {
             ]
           }
         }
-      }
+      },
     ]
   },
   plugins: [

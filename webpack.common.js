@@ -4,14 +4,15 @@ const path = require('path');
 
 module.exports = (env) => ({
   entry: {
-    main: path.resolve(__dirname, './src/index.js')
+    main: path.resolve(__dirname, './src/index.tsx')
   },
   resolve: {
     alias: {
       "react": "preact/compat",
       "react-dom/test-utils": "preact/test-utils",
       "react-dom": "preact/compat"
-    }
+    },
+    extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
     rules: [

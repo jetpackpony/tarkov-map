@@ -16,6 +16,13 @@ module.exports = (env) => merge(common(env), {
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader',
+        },
+        exclude: /node_modules/,
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {

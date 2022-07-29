@@ -2,10 +2,15 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+export enum Language {
+  EN = "en",
+  RU = "ru"
+};
+
 // the translations
 // (tip move them in a JSON file and import them)
 const resources = {
-  en: {
+  [Language.EN]: {
     translation: {
       "Marker color": "Marker color:",
       "Activation needed": "Needs to be activated",
@@ -14,7 +19,7 @@ const resources = {
       "Clear map": "Clear map"
     }
   },
-  ru: {
+  [Language.RU]: {
     translation: {
       "Marker color": "Цвет маркера:",
       "Activation needed": "Нужна активация",
@@ -25,17 +30,19 @@ const resources = {
   }
 };
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: "en",
-    fallbackLng: ["en", "ru", "dev"],
-    keySeparator: false,
-    interpolation: {
-      escapeValue: false
-    }
-  });
+export const initI18n = () => {
+  i18n
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+      resources,
+      lng: Language.EN,
+      fallbackLng: [Language.EN, Language.RU, "dev"],
+      keySeparator: false,
+      interpolation: {
+        escapeValue: false
+      }
+    });
+};
 
 export default i18n;

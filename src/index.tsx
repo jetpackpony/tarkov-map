@@ -1,6 +1,7 @@
 import { h, render } from 'preact';
 import App from './components/App';
 import './index.css';
-import './i18n';
+import { initI18n } from './i18n';
 
+initI18n();
 render(<App />, document.body);

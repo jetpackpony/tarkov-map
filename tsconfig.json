@@ -10,6 +10,15 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "react": [
+        "./node_modules/preact/compat/"
+      ],
+      "react-dom": [
+        "./node_modules/preact/compat/"
+      ]
+    },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -20,6 +29,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "sourceMap": true,
   },
   "include": [

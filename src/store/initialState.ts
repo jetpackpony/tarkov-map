@@ -1,33 +1,27 @@
-import mapData from './mapData';
+import { Language } from '../i18n';
+import { AllMapsState, AppState, MapState } from '../types';
+import { MapName } from './mapData';
 
-export const getMapInitState = () => ({
+export const getMapInitState = (): MapState => ({
   markers: [],
   selectedExtracts: []
 });
 
-const initState = {
-  mapState: (
-    Object.keys(mapData.maps).reduce((acc, k) => {
-      acc[k] = getMapInitState();
-      return acc;
-    }, {})
-  ),
+const getAllMapsInitState = (): AllMapsState => {
+  return Object.values(MapName).reduce((res, mapName) => {
+    res[mapName] = getMapInitState();
+    return res;
+  }, {} as AllMapsState);
+};
+
+const initState: AppState = {
+  mapState: getAllMapsInitState(),
   ui: {
-    currentMap: 'customs-main'
-    // currentMap: 'customs-keys'
-    //currentMap: 'customs-hidden-stashes'
-    //currentMap: 'shoreline-main'
-    //currentMap: 'shoreline-keys'
-    //currentMap: 'shoreline-resort'
-    //currentMap: 'interchange-main'
-    //currentMap: 'interchange-hidden-stashes'
-    //currentMap: 'woods-main'
-    //currentMap: 'reserve-main'
-    //currentMap: 'factory-main'
-    //currentMap: 'labs-main'
+    currentMap: MapName.CustomsMain
+    // currentMap: MapName.CustomsHiddenStashes
     ,
     markerColor: "#ff0000",
-    lang: "en",
+    lang: Language.EN,
     isTrackPad: false
   }
 };

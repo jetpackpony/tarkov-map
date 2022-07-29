@@ -15,24 +15,43 @@ import LabsMain from './LabsMain';
 import LighthouseMain from './LighthouseMain';
 import LighthouseHiddenStashes from './LighthouseHiddenStashes';
 
+export enum MapName {
+  CustomsMain = "customs-main",
+  CustomsHiddenStashes = "customs-hidden-stashes",
+  FactoryMain = "factory-main",
+  InterchangeMain = "interchange-main",
+  InterchangeHiddenStashes = "interchange-hidden-stashes",
+  LabsMain = "labs-main",
+  LighthouseMain = "lighthouse-main",
+  LighthouseHiddenStashes = "lighthouse-hidden-stashes",
+  ReserveMain = "reserve-main",
+  ReserveKeysAndDoors = "reserve-keys-and-doors",
+  ShorelineMain = "shoreline-main",
+  ShorelineHiddenStashes = "shoreline-hidden-stashes",
+  ShorelineKeys = "shoreline-keys",
+  ShorelineResort = "shoreline-resort",
+  WoodsMain = "woods-main",
+  WoodsCaches = "woods-caches",
+};
+
 const mapData = {
   maps: {
-    "customs-main": CustomsMain,
-    "customs-hidden-stashes": CustomsHiddenStashes,
-    "factory-main": FactoryMain,
-    "interchange-main": InterchangeMain,
-    "interchange-hidden-stashes": InterchangeHiddenStashes,
-    "labs-main": LabsMain,
-    "lighthouse-main": LighthouseMain,
-    "lighthouse-hidden-stashes": LighthouseHiddenStashes,
-    "reserve-main": ReserveMain,
-    "reserve-keys-and-doors": ReserveKeysAndDoors,
-    "shoreline-main": ShorelineMain,
-    "shoreline-hidden-stashes": ShorelineHiddenStashes,
-    "shoreline-keys": ShorelineKeys,
-    "shoreline-resort": ShorelineResort,
-    "woods-main": WoodsMain,
-    "woods-caches": WoodsCaches,
+    [MapName.CustomsMain]: CustomsMain,
+    [MapName.CustomsHiddenStashes]: CustomsHiddenStashes,
+    [MapName.FactoryMain]: FactoryMain,
+    [MapName.InterchangeMain]: InterchangeMain,
+    [MapName.InterchangeHiddenStashes]: InterchangeHiddenStashes,
+    [MapName.LabsMain]: LabsMain,
+    [MapName.LighthouseMain]: LighthouseMain,
+    [MapName.LighthouseHiddenStashes]: LighthouseHiddenStashes,
+    [MapName.ReserveMain]: ReserveMain,
+    [MapName.ReserveKeysAndDoors]: ReserveKeysAndDoors,
+    [MapName.ShorelineMain]: ShorelineMain,
+    [MapName.ShorelineHiddenStashes]: ShorelineHiddenStashes,
+    [MapName.ShorelineKeys]: ShorelineKeys,
+    [MapName.ShorelineResort]: ShorelineResort,
+    [MapName.WoodsMain]: WoodsMain,
+    [MapName.WoodsCaches]: WoodsCaches,
   }
 };
 

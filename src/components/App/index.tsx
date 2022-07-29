@@ -2,7 +2,7 @@ import { h } from 'preact';
 import MapPage from '../MapPage';
 import { Provider } from 'react-redux';
 import makeStore from '../../store';
-import initFirebase from '../../firebase/index.js';
+import initFirebase from '../../firebase/index';
 import useFullScreen from './useFullScreen';
 
 const offline = (process.env.OFFLINE === "true") && (process.env.NODE_ENV !== "production");

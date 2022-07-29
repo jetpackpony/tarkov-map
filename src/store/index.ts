@@ -1,15 +1,17 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, Dispatch } from 'redux';
 import reducer from './reducer';
 import { createLogger } from 'redux-logger'
 import {
+  Action,
   drawMarker,
   eraseMarkers,
   selectExtract,
   unselectExtract
 } from './actions';
 import updateDB from './middleware/updateDB';
+import { DB } from '../firebase';
 
-const subscribeToDBUpdates = (db, dispatch) => {
+const subscribeToDBUpdates = (db: DB, dispatch: Dispatch<Action>) => {
   db.addDataListener((type, item) => {
     if (type === "added") {
       if (item.type === "marker") {
@@ -36,7 +38,7 @@ const subscribeToDBUpdates = (db, dispatch) => {
   db.listen();
 };
 
-const makeStore = (db) => {
+const makeStore = (db: DB | null) => {
   const middlewares = [];
   if (process.env.NODE_ENV !== "production") {
     middlewares.push(createLogger());

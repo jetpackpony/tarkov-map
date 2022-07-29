@@ -3,10 +3,13 @@ import {
   getCurrentMap,
   getCurrentMarkerColor
 } from '../reducer';
-import { ACTION_TYPES } from '../actions';
+import { Action, ACTION_TYPES } from '../actions';
+import { Dispatch, Middleware } from 'redux';
+import { AppState } from '../../types';
+import { DB } from '../../firebase';
 
-const updateDB = (db) =>
-  (store) => (next) => (action) => {
+const updateDB = (db: DB): Middleware<{}, AppState, Dispatch<Action>> =>
+  (store) => (next) => (action: Action) => {
     const state = store.getState();
     switch (action.type) {
       case ACTION_TYPES.ADD_MARKER:

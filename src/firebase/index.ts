@@ -4,32 +4,41 @@ import {
   getFirestore, onSnapshot, query, setDoc, where
 } from "firebase/firestore";
 import firebaseConfig from './config';
+import { DB, DBListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, MarkerMapObject } from "./types";
+export * from "./types";
 
-const initFirebase = () => {
+const initFirebase = (): DB => {
   const firebaseApp = initializeApp(firebaseConfig);
   const db = getFirestore(firebaseApp);
+  if (!process.env.DB_COLLECTION_NAME) {
+    throw new Error("Can't find the DB collection name");
+  }
   const mapObjectsRef = collection(db, process.env.DB_COLLECTION_NAME);
-  const listeners = [];
+  const listeners: DBListener[] = [];
 
   // Sub to updates
-  const listen = () => {
+  const listen: DB["listen"] = () => {
     return onSnapshot(mapObjectsRef, (querySnapshot) => {
       querySnapshot.docChanges().forEach((docChange) => {
         const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';
         if (source !== 'local') {
-          listeners.forEach((f) => f(docChange.type, docChange.doc.data()));
+          const type = docChange.type;
+          const data = docChange.doc.data();
+          if (isMarkerMapObject(data) || isExtractMapObject(data)) {
+            listeners.forEach((f) => f(type, data));
+          }
         }
       })
     });
   };
 
-  const addDataListener = (f) => {
+  const addDataListener: DB["addDataListener"] = (f) => {
     listeners.push(f);
   };
 
-  const addMarker = (id, mapName, data) => {
+  const addMarker: DB["addMarker"] = (id, mapName, data) => {
     const docName = `${mapName}-${id}`;
-    const mapObject = {
+    const mapObject: MarkerMapObject = {
       id,
       map: mapName,
       type: "marker",
@@ -38,29 +47,29 @@ const initFirebase = () => {
     return setDoc(doc(mapObjectsRef, docName), mapObject);
   };
 
-  const removeMarker = (id, mapName) => {
+  const removeMarker: DB["removeMarker"] = (id, mapName) => {
     const docName = `${mapName}-${id}`;
     return deleteDoc(doc(mapObjectsRef, docName));
   }
 
-  const addExtraction = (id, mapName) => {
+  const addExtraction: DB["addExtraction"] = (id, mapName) => {
     const docName = `${mapName}-${id}`;
-    const mapObject = {
+    const mapObject: ExtractMapObject = {
       id,
       map: mapName,
       type: "ext",
-      data: null
+      data: {}
     };
     return setDoc(doc(mapObjectsRef, docName), mapObject);
   };
 
-  const removeExtraction = (id, mapName) => {
+  const removeExtraction: DB["removeExtraction"] = (id, mapName) => {
     const docName = `${mapName}-${id}`;
     return deleteDoc(doc(mapObjectsRef, docName));
   };
 
-  const clearMap = (mapName) => {
-    getDocs(query(mapObjectsRef, where("map", '==', mapName)))
+  const clearMap: DB["clearMap"] = (mapName) => {
+    return getDocs(query(mapObjectsRef, where("map", '==', mapName)))
       .then((res) => {
         res.forEach((doc) => deleteDoc(doc.ref));
       });

@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useEffect } from 'preact/compat';
 
-const fullScreenListener = (e) => {
+const fullScreenListener = (e: KeyboardEvent) => {
   if (e.ctrlKey && e.keyCode == 13) {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();

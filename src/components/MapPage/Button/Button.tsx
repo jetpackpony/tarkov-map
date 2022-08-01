@@ -1,7 +1,12 @@
-import { h } from 'preact';
+import { ComponentChildren, h } from 'preact';
 import './Button.css';
 
-const Button = ({ children, onClick }) => {
+interface ButtonProps {
+  children: ComponentChildren,
+  onClick: (e: MouseEvent) => void
+}
+
+const Button = ({ children, onClick }: ButtonProps) => {
   return (
     <button onClick={onClick}>
       {children}

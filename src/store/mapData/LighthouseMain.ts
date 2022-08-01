@@ -1,4 +1,4 @@
-import { MapGroupId } from '.';
+import { MapGroupId } from '../../types';
 import lighthouseMainImg from '../../mapImages/LighthouseMain.webp';
 
 const mapData = {

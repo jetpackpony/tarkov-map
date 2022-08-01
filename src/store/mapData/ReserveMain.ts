@@ -1,5 +1,4 @@
-import { Faction } from 'src/types';
-import { MapGroupId } from '.';
+import { Faction, MapGroupId } from '../../types';
 import img from '../../mapImages/ReserveMain.webp';
 
 const mapData = {

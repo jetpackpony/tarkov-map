@@ -1,4 +1,4 @@
-import { MapGroupId } from '.';
+import { MapGroupId } from '../../types';
 import img from '../../mapImages/FactoryMain.webp';
 
 const mapData = {

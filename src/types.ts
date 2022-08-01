@@ -1,5 +1,5 @@
 import { Language, LocalizedString } from './i18n';
-import { MapGroupId, MapName } from './store/mapData';
+import { MapName } from './store/mapData';
 
 export type Color = string;
 
@@ -78,4 +78,15 @@ export interface AllMapData {
   maps: {
     [key in MapName]: MapData
   }
+};
+
+export enum MapGroupId {
+  Customs = "customs",
+  Factory = "factory",
+  Interchange = "interchange",
+  Labs = "labs",
+  Lighthouse = "lighthouse",
+  Reserve = "reserve",
+  Shoreline = "shoreline",
+  Woods = "woods",
 };

@@ -1,5 +1,5 @@
-import { MapGroupId } from '.';
 import img from '../../mapImages/CustomsHiddenStashes.webp';
+import { MapGroupId } from '../../types';
 
 const mapData = {
   groupId: MapGroupId.Customs,

@@ -1,7 +1,8 @@
+import { MapGroupId } from '.';
 import img from '../../mapImages/WoodsMain.webp';
 
 const mapData = {
-  groupId: "woods",
+  groupId: MapGroupId.Woods,
   groupName: {
     en: "Woods",
     ru: "Лес "

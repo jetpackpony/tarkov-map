@@ -14,6 +14,18 @@ import FactoryMain from './FactoryMain';
 import LabsMain from './LabsMain';
 import LighthouseMain from './LighthouseMain';
 import LighthouseHiddenStashes from './LighthouseHiddenStashes';
+import { AllMapData } from 'src/types';
+
+export enum MapGroupId {
+  Customs = "customs",
+  Factory = "factory",
+  Interchange = "interchange",
+  Labs = "labs",
+  Lighthouse = "lighthouse",
+  Reserve = "reserve",
+  Shoreline = "shoreline",
+  Woods = "woods",
+};
 
 export enum MapName {
   CustomsMain = "customs-main",
@@ -34,7 +46,7 @@ export enum MapName {
   WoodsCaches = "woods-caches",
 };
 
-const mapData = {
+const mapData: AllMapData = {
   maps: {
     [MapName.CustomsMain]: CustomsMain,
     [MapName.CustomsHiddenStashes]: CustomsHiddenStashes,

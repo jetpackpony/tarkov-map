@@ -1,7 +1,8 @@
+import { MapGroupId } from '.';
 import img from '../../mapImages/ReserveKeysAndDoors.webp';
 
 const mapData = {
-  groupId: "reserve",
+  groupId: MapGroupId.Reserve,
   groupName: {
     en: "Reserve",
     ru: "Резерв "

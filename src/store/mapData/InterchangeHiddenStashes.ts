@@ -1,7 +1,8 @@
+import { MapGroupId } from '.';
 import img from '../../mapImages/InterchangeHiddenStashes.webp';
 
 const mapData = {
-  groupId: "interchange",
+  groupId: MapGroupId.Interchange,
   groupName: {
     en: "Interchange",
     ru: "Развязка "

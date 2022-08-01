@@ -1,7 +1,8 @@
+import { MapGroupId } from '.';
 import img from '../../mapImages/ShorelineHiddenStashes.webp';
 
 const mapData = {
-  groupId: "shoreline",
+  groupId: MapGroupId.Shoreline,
   groupName: {
     en: "Shoreline",
     ru: "Берег"

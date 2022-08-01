@@ -1,7 +1,8 @@
+import { MapGroupId } from '.';
 import img from '../../mapImages/FactoryMain.webp';
 
 const mapData = {
-  groupId: "factory",
+  groupId: MapGroupId.Factory,
   groupName: {
     en: "Factory",
     ru: "Завод"

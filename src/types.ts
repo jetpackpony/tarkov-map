@@ -1,5 +1,5 @@
-import { Language } from './i18n';
-import { MapName } from './store/mapData';
+import { Language, LocalizedString } from './i18n';
+import { MapGroupId, MapName } from './store/mapData';
 
 export type Color = string;
 
@@ -49,4 +49,33 @@ export interface UIState {
 export interface AppState {
   mapState: AllMapsState,
   ui: UIState
+};
+
+export enum Faction {
+  ALL = "all",
+  PMC = "pmc",
+  SCAV = "scav"
+};
+
+export interface ExtractData {
+  id: string,
+  names: LocalizedString,
+  faction: Faction,
+  specialConditions: LocalizedString | null,
+  coords: Coords,
+  activationCoords?: Coords
+};
+
+export interface MapData {
+  groupId: MapGroupId,
+  groupName: LocalizedString,
+  title: LocalizedString,
+  imgPath: string,
+  extracts: ExtractData[]
+};
+
+export interface AllMapData {
+  maps: {
+    [key in MapName]: MapData
+  }
 };

@@ -7,6 +7,10 @@ export enum Language {
   RU = "ru"
 };
 
+export type LocalizedString = {
+  [key in Language]: string
+};
+
 // the translations
 // (tip move them in a JSON file and import them)
 const resources = {

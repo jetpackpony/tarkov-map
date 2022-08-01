@@ -1,7 +1,8 @@
+import { MapGroupId } from '.';
 import img from '../../mapImages/CustomsHiddenStashes.webp';
 
 const mapData = {
-  groupId: "customs",
+  groupId: MapGroupId.Customs,
   groupName: {
     en: "Customs",
     ru: "Таможня"

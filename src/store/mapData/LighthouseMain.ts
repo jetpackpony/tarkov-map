@@ -1,7 +1,8 @@
+import { MapGroupId } from '.';
 import lighthouseMainImg from '../../mapImages/LighthouseMain.webp';
 
 const mapData = {
-  groupId: "lighthouse",
+  groupId: MapGroupId.Lighthouse,
   groupName: {
     en: "Lighthouse",
     ru: "Маяк"

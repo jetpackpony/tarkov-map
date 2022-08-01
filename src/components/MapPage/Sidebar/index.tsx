@@ -1,7 +1,14 @@
-import { h} from 'preact';
+import { ComponentChildren, h } from 'preact';
 import './sidebar.css'
 
-const Sidebar = ({ children, headerElement, isOpen, close }) => {
+interface SidebarProps {
+  children: ComponentChildren,
+  headerElement: ComponentChildren,
+  isOpen: boolean,
+  close: () => void
+};
+
+const Sidebar = ({ children, headerElement, isOpen, close }: SidebarProps) => {
   return (
     <div onMouseLeave={close} class={`sidebar ${(isOpen) ? "" : "hidden"}`}>
       <header>

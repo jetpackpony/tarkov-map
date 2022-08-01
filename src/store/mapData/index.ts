@@ -14,7 +14,7 @@ import FactoryMain from './FactoryMain';
 import LabsMain from './LabsMain';
 import LighthouseMain from './LighthouseMain';
 import LighthouseHiddenStashes from './LighthouseHiddenStashes';
-import { AllMapData } from 'src/types';
+import { AllMapData } from '../../types';
 
 export enum MapName {
   CustomsMain = "customs-main",

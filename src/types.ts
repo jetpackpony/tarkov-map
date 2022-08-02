@@ -90,3 +90,9 @@ export enum MapGroupId {
   Shoreline = "shoreline",
   Woods = "woods",
 };
+
+export const isEnum =
+  <Enum>(e: Enum) =>
+    (token: any): token is Enum[keyof Enum] => {
+      return Object.values(e).includes(token);
+    };

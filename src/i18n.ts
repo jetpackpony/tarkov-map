@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { isEnum } from "./types";
 
 export enum Language {
   EN = "en",
@@ -9,6 +10,15 @@ export enum Language {
 
 export type LocalizedString = {
   [key in Language]: string
+};
+
+export const isLanguage = isEnum(Language);
+
+export const getCurrentLang = (): Language => {
+  if (!isLanguage(i18n.language)) {
+    throw new Error(`Unknown language: ${i18n.language}`);
+  }
+  return i18n.language;
 };
 
 // the translations

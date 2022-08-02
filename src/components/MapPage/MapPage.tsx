@@ -13,7 +13,7 @@ import LangPicker from './LangPicker';
 import { useTranslation } from 'react-i18next';
 import { PropsFromRedux } from '.';
 
-interface MapPageProps extends PropsFromRedux {
+export interface MapPageProps extends PropsFromRedux {
 };
 
 export const MapPage =
@@ -47,8 +47,6 @@ export const MapPage =
     return (
       <main class="map-page">
         <MapHeader
-          currentMap={currentMap}
-          onMapSelected={onMapSelected}
           openSidebar={() => setSidebarOpen(true)}
         />
         <MapCanvas

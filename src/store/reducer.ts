@@ -52,7 +52,7 @@ const addMarker = (state: AppState, id: string, coords: Coords) => {
   return drawMarker(state, getCurrentMap(state), id, coords, getCurrentMarkerColor(state));
 };
 const drawMarker = (state: AppState, mapName: MapName, id: string, coords: Coords, color: Color) => {
-  const newMarker = { id, coords, color };
+  const newMarker: Marker = { id, coords, color, type: "user" };
   const lens = lensPath(['mapState', mapName, 'markers']);
   const markers = view<AppState, Marker[]>(lens, state);
   if (!markers) {

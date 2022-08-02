@@ -1,5 +1,7 @@
+import { Coords, ExtractMarker, isCoords, Marker } from "../../../types";
 
-const drawActivationPoint = (ctx, scale, marker) => {
+const drawActivationPoint = (ctx: CanvasRenderingContext2D, scale: number, marker: ExtractMarker) => {
+  if (!isCoords(marker.activationCoords)) return;
   ctx.save();
   ctx.strokeStyle = "#0E8871";
   ctx.lineWidth = 2;
@@ -25,7 +27,7 @@ const drawActivationPoint = (ctx, scale, marker) => {
   ctx.restore();
 };
 
-const drawSpecialConditions = (ctx, scale, marker) => {
+const drawSpecialConditions = (ctx: CanvasRenderingContext2D, scale: number, marker: ExtractMarker) => {
   const innerScale = 0.04;
   ctx.save();
   ctx.fillStyle = "white";
@@ -42,7 +44,7 @@ const drawSpecialConditions = (ctx, scale, marker) => {
   ctx.restore();
 };
 
-const drawExtractionWithActivation = (ctx, scale, marker) => {
+const drawExtractionWithActivation = (ctx: CanvasRenderingContext2D, scale: number, marker: ExtractMarker) => {
   ctx.save();
   ctx.strokeStyle = "black";
   ctx.fillStyle = "#045C96";
@@ -61,7 +63,7 @@ const drawExtractionWithActivation = (ctx, scale, marker) => {
   ctx.restore();
 };
 
-const drawNormalExtraction = (ctx, scale, marker) => {
+const drawNormalExtraction = (ctx: CanvasRenderingContext2D, scale: number, marker: ExtractMarker) => {
   ctx.save();
   ctx.strokeStyle = "black";
   ctx.fillStyle = "#045C96";
@@ -74,7 +76,7 @@ const drawNormalExtraction = (ctx, scale, marker) => {
   ctx.restore();
 };
 
-const drawExtraction = (ctx, scale, marker) => {
+const drawExtraction = (ctx: CanvasRenderingContext2D, scale: number, marker: ExtractMarker) => {
   if (marker.activationCoords) {
     drawActivationPoint(ctx, scale, marker);
     drawExtractionWithActivation(ctx, scale, marker);
@@ -86,7 +88,7 @@ const drawExtraction = (ctx, scale, marker) => {
   }
 };
 
-const drawUserMarker = (ctx, scale, marker) => {
+const drawUserMarker = (ctx: CanvasRenderingContext2D, scale: number, marker: Marker) => {
   const initScale = 0.08;
   ctx.save();
   ctx.strokeStyle = "black";
@@ -100,8 +102,8 @@ const drawUserMarker = (ctx, scale, marker) => {
   ctx.restore();
 };
 
-const drawMarker = (ctx, scale, marker) => {
-  switch(marker.type) {
+const drawMarker = (ctx: CanvasRenderingContext2D, scale: number, marker: Marker | ExtractMarker) => {
+  switch (marker.type) {
     case "extraction":
       return drawExtraction(ctx, scale, marker);
     case "user":
@@ -110,20 +112,27 @@ const drawMarker = (ctx, scale, marker) => {
   }
 };
 
-export const draw = (canvas, ctx, img, { scale, pos }, markers) => {
+export const draw = (
+  canvas: HTMLCanvasElement,
+  img: HTMLImageElement,
+  { scale, pos }: { scale: number, pos: Coords },
+  markers: (Marker | ExtractMarker)[]
+) => {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
-    ctx.translate(pos.x, pos.y);
-    ctx.save();
-      ctx.scale(scale, scale);
-      ctx.drawImage(img, 0, 0);
-    ctx.restore();
-    ctx.shadowColor = 'black';
-    ctx.shadowBlur = 10;
-    ctx.shadowOffsetX = 5;
-    ctx.shadowOffsetY = 5;
-    markers.forEach((m) => (
-      drawMarker(ctx, scale, m)
-    ));
+  ctx.translate(pos.x, pos.y);
+  ctx.save();
+  ctx.scale(scale, scale);
+  ctx.drawImage(img, 0, 0);
+  ctx.restore();
+  ctx.shadowColor = 'black';
+  ctx.shadowBlur = 10;
+  ctx.shadowOffsetX = 5;
+  ctx.shadowOffsetY = 5;
+  markers.forEach((m) => (
+    drawMarker(ctx, scale, m)
+  ));
   ctx.restore();
 };

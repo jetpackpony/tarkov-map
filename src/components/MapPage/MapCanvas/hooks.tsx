@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useState, useRef } from 'preact/compat';
+import { Ref } from 'preact';
+import { useEffect, useLayoutEffect, useState, useRef, TargetedEvent } from 'preact/compat';
 
-export const useImageLoader = (imgPath, onLoad) => {
-  const [imgObj, setImgObj] = useState(null);
-  const onImageLoaded = (e) => {
-    setImgObj(e.target);
-    onLoad(e.target);
+export const useImageLoader = (imgPath: string, onLoad: (img: HTMLImageElement) => void) => {
+  const [imgObj, setImgObj] = useState<HTMLImageElement | null>(null);
+  const onImageLoaded = (e: Event) => {
+    setImgObj((e as TargetedEvent<HTMLImageElement, Event>).currentTarget);
+    onLoad((e as TargetedEvent<HTMLImageElement, Event>).currentTarget);
   };
   useEffect(() => {
     if (imgObj) setImgObj(null);
@@ -17,28 +18,27 @@ export const useImageLoader = (imgPath, onLoad) => {
   return imgObj;
 };
 
+type CanvasResizeListener = (canvas: HTMLCanvasElement) => any;
+
 export const useCanvasWithResizeHandler = () => {
-  const canvasRef = useRef(null);
-  const ctxRef = useRef(null);
-  const [canvasSize, setCanvasSize] = useState({ w: 0, h: 0 });
-  const listeners = useRef([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [_, setCanvasSize] = useState({ w: 0, h: 0 });
+  const listeners = useRef<CanvasResizeListener[]>([]);
 
   const resizeCanvas = () => {
-    listeners.current.forEach((f) => f(canvasRef, ctxRef));
-    setCanvasSize({
-      w: canvasRef.current.width,
-      h: canvasRef.current.height
-    });
+    listeners.current.forEach((f) => canvasRef.current && f(canvasRef.current));
+    if (canvasRef.current) {
+      setCanvasSize({
+        w: canvasRef.current.width,
+        h: canvasRef.current.height
+      });
+    }
   };
-  const addResizeListener = (f) => {
+  const addResizeListener = (f: CanvasResizeListener) => {
     if (!listeners.current.includes(f)) {
       listeners.current.push(f);
     }
   };
-
-  useEffect(() => {
-    ctxRef.current = canvasRef.current.getContext("2d");
-  });
 
   useLayoutEffect(() => {
     window.addEventListener("resize", resizeCanvas);
@@ -49,7 +49,6 @@ export const useCanvasWithResizeHandler = () => {
 
   return {
     canvasRef,
-    ctxRef,
     addResizeListener
   };
 };

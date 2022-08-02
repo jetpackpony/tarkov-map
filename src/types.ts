@@ -23,7 +23,12 @@ export const isColor = (color: any): color is Color => {
 export interface Marker {
   id: string,
   coords: Coords,
-  color: Color
+  color: Color,
+  type: "user"
+};
+
+export interface ExtractMarker extends ExtractData{
+  type: "extraction"
 };
 
 export interface Extract {

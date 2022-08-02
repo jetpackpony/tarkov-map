@@ -12,6 +12,7 @@ import Button from './Button/Button';
 import LangPicker from './LangPicker';
 import { useTranslation } from 'react-i18next';
 import { PropsFromRedux } from '.';
+import { ExtractMarker } from '../../types';
 
 export interface MapPageProps extends PropsFromRedux {
 };
@@ -34,7 +35,7 @@ export const MapPage =
     const { t } = useTranslation();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const currentMapData = mapData.maps[currentMap];
-    const extractionMarkers =
+    const extractionMarkers: ExtractMarker[] =
       currentMapData.extracts
         .filter((e) => selectedExtracts.includes(e.id))
         .map((e) => {
@@ -51,7 +52,7 @@ export const MapPage =
         />
         <MapCanvas
           imgPath={currentMapData.imgPath}
-          markers={markers.concat(extractionMarkers)}
+          markers={[...markers, ...extractionMarkers]}
           addMarker={addMarker}
           removeMarkers={removeMarkers}
           isTrackPad={isTrackPad}

@@ -1,11 +1,22 @@
-import { h } from 'preact';
-import { sortBy, compose, toLower, path } from 'rambda';
+import { ComponentChildren, h } from 'preact';
+import { sortBy, compose, toLower, path, defaultTo } from 'rambda';
 import './mapInfo.css'
 import { useState } from 'preact/compat';
 import { useTranslation } from 'react-i18next';
+import { getCurrentLang, Language } from '../../../i18n';
+import { ExtractData } from '../../../types';
+import { MapPageProps } from '../MapPage';
 
-const sortByName = (lang) => sortBy(compose(toLower, path(['names', lang])));
-const groupExtracts = (extracts, lang) => {
+const sortByName = (lang: Language) => (
+  sortBy(
+    compose(
+      toLower,
+      defaultTo(""),
+      path<ExtractData, string>(['names', lang])
+    )
+  )
+);
+const groupExtracts = (extracts: ExtractData[], lang: Language) => {
   const res = extracts.reduce(
     (acc, ext) => {
       if (ext.faction === 'all' || ext.faction === 'pmc') {
@@ -16,7 +27,7 @@ const groupExtracts = (extracts, lang) => {
       }
       return acc;
     },
-    { pmc: [], scav: [] }
+    { pmc: [], scav: [] } as { pmc: ExtractData[], scav: ExtractData[] }
   );
 
   res.pmc = sortByName(lang)(res.pmc);
@@ -25,7 +36,13 @@ const groupExtracts = (extracts, lang) => {
   return res;
 };
 
-const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
+interface ExtractItemProps {
+  extract: ExtractData,
+  isSelected: boolean,
+  toggleExtract: MapPageProps["toggleExtract"]
+};
+
+const ExtractItem = ({ extract, isSelected, toggleExtract }: ExtractItemProps) => {
   const { t, i18n } = useTranslation();
   return (
     <li
@@ -33,7 +50,7 @@ const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
       onClick={() => toggleExtract(extract.id)}
     >
       <div>
-        <div>{extract.names[i18n.language]}</div>
+        <div>{extract.names[getCurrentLang()]}</div>
         {
           (extract.activationCoords)
             ? <div title={t('Activation needed')} class="activation-required"></div>
@@ -42,14 +59,19 @@ const ExtractItem = ({ extract, isSelected, toggleExtract }) => {
       </div>
       {
         (extract.specialConditions)
-          ? <div class="special-conds">{extract.specialConditions[i18n.language]}</div>
+          ? <div class="special-conds">{extract.specialConditions[getCurrentLang()]}</div>
           : null
       }
     </li>
   );
 };
 
-const FactionList = ({ title, children }) => {
+interface FactionListProps {
+  title: string,
+  children: ComponentChildren
+};
+
+const FactionList = ({ title, children }: FactionListProps) => {
   const [unfolded, setUnfolded] = useState(false);
   return (
     <div>
@@ -66,11 +88,17 @@ const FactionList = ({ title, children }) => {
   );
 }
 
+interface MapInfoProps {
+  extracts: ExtractData[],
+  selected: string[],
+  toggleExtract: MapPageProps["toggleExtract"],
+};
+
 const MapInfo = ({
   extracts = [],
   selected = [],
   toggleExtract,
-}) => {
+}: MapInfoProps) => {
   const { t, i18n } = useTranslation();
   if (extracts.length === 0) {
     return (
@@ -79,7 +107,7 @@ const MapInfo = ({
       </div>
     );
   }
-  const groups = groupExtracts(extracts, i18n.language);
+  const groups = groupExtracts(extracts, getCurrentLang());
   return (
     <div class="map-info">
       <FactionList title={t('PMC')}>

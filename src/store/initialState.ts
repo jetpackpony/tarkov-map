@@ -1,4 +1,4 @@
-import { Language } from '../i18n';
+import { Language } from '../I18nContext';
 import { AllMapsState, AppState, MapState } from '../types';
 import { MapName } from './mapData';
 

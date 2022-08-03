@@ -2,9 +2,9 @@ import { ComponentChildren, h } from 'preact';
 import mapData, { MapName } from '../../../store/mapData';
 import './mapSelector.css';
 import { MapPageProps } from '../MapPage';
-import { getCurrentLang, Language } from '../../../i18n';
 import { isEnum, MapGroupId } from '../../../types';
 import { TargetedEvent } from 'preact/compat';
+import { useLanguageContext, Language } from '../../../I18nContext';
 
 type MapGroup = {
   groupName: string,
@@ -68,6 +68,7 @@ interface MapSelectorProps {
 };
 
 const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {
+  const { getCurrentLang } = useLanguageContext();
   const mapGroups = getMapGroups(getCurrentLang());
   const onChange = (e: TargetedEvent<HTMLSelectElement, Event>) => {
     if (e && isEnum(MapName)(e.currentTarget.value)) {

@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import { HuePicker } from 'react-color';
 import './colorPicker.css'
-import { useTranslation } from 'react-i18next';
 import { Color } from '../../../types';
+import { useLanguageContext } from '../../../I18nContext';
 
 interface ColorPickerProps {
   color: Color,
@@ -10,7 +10,7 @@ interface ColorPickerProps {
 };
 
 const ColorPicker = ({ color, onChange }: ColorPickerProps) => {
-  const { t } = useTranslation();
+  const { t } = useLanguageContext();
   return (
     <div class="colorPicker">
       {t('Marker color')}

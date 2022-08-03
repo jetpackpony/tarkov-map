@@ -1,6 +1,5 @@
 import { h } from 'preact';
-import { useTranslation } from 'react-i18next';
-import { Language } from '../../../i18n';
+import { Language, useLanguageContext } from '../../../I18nContext';
 import './langPicker.css';
 
 interface LangButtonProps {
@@ -19,15 +18,15 @@ const LangButton = ({ lang, selected, changeLang }: LangButtonProps) => (
 );
 
 const LangPicker = () => {
-  const { i18n } = useTranslation();
+  const { getCurrentLang, setLang } = useLanguageContext();
   return (
     <div class="langPicker">
       {
         Object.values(Language).map((lang) => (
           <LangButton
             lang={lang}
-            selected={lang === i18n.language}
-            changeLang={(lang) => i18n.changeLanguage(lang)}
+            selected={lang === getCurrentLang()}
+            changeLang={(lang) => setLang(lang)}
           />
         ))
       }

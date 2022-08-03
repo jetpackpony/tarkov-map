@@ -10,9 +10,9 @@ import ColorPicker from './ColorPicker';
 import MapSelector from './MapSelector';
 import Button from './Button/Button';
 import LangPicker from './LangPicker';
-import { useTranslation } from 'react-i18next';
 import { PropsFromRedux } from '.';
 import { ExtractMarker } from '../../types';
+import { useLanguageContext } from '../../I18nContext';
 
 export interface MapPageProps extends PropsFromRedux {
 };
@@ -32,7 +32,7 @@ export const MapPage =
     isTrackPad,
     onSwitchToTrackPad
   }: MapPageProps) => {
-    const { t } = useTranslation();
+    const { t } = useLanguageContext();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const currentMapData = mapData.maps[currentMap];
     const extractionMarkers: ExtractMarker[] =

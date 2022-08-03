@@ -2,10 +2,9 @@ import { ComponentChildren, h } from 'preact';
 import { sortBy, compose, toLower, path, defaultTo } from 'rambda';
 import './mapInfo.css'
 import { useState } from 'preact/compat';
-import { useTranslation } from 'react-i18next';
-import { getCurrentLang, Language } from '../../../i18n';
 import { ExtractData } from '../../../types';
 import { MapPageProps } from '../MapPage';
+import { useLanguageContext, Language } from '../../../I18nContext';
 
 const sortByName = (lang: Language) => (
   sortBy(
@@ -43,10 +42,10 @@ interface ExtractItemProps {
 };
 
 const ExtractItem = ({ extract, isSelected, toggleExtract }: ExtractItemProps) => {
-  const { t, i18n } = useTranslation();
+  const { getCurrentLang, t } = useLanguageContext();
   return (
     <li
-      class={(isSelected) ? "selected" : null}
+      class={(isSelected) ? "selected" : undefined}
       onClick={() => toggleExtract(extract.id)}
     >
       <div>
@@ -99,7 +98,7 @@ const MapInfo = ({
   selected = [],
   toggleExtract,
 }: MapInfoProps) => {
-  const { t, i18n } = useTranslation();
+  const { getCurrentLang, t } = useLanguageContext();
   if (extracts.length === 0) {
     return (
       <div class="map-info">

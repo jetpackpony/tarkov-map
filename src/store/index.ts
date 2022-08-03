@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import reducer from './reducer';
 import { createLogger } from 'redux-logger'
 import {
@@ -10,6 +10,7 @@ import {
 } from './actions';
 import updateDB from './middleware/updateDB';
 import { DB } from '../firebase';
+import { configureStore } from '@reduxjs/toolkit';
 
 const subscribeToDBUpdates = (db: DB, dispatch: Dispatch<Action>) => {
   db.addDataListener((type, item) => {
@@ -47,10 +48,10 @@ const makeStore = (db: DB | null) => {
     middlewares.push(updateDB(db));
   }
 
-  const store = createStore(
+  const store = configureStore({
     reducer,
-    applyMiddleware(...middlewares)
-  );
+    middleware: middlewares
+  });
 
   if (db) {
     subscribeToDBUpdates(db, store.dispatch);

@@ -71,7 +71,7 @@ const CanvasWrapper = ({
   const onWheel = (e: WheelEvent) => {
     e.preventDefault();
     if (e.deltaX !== 0) {
-      !isTrackPad && onSwitchToTrackPad(true);
+      !isTrackPad && onSwitchToTrackPad({ isTrackPad: true });
     }
 
     if (canvasRef.current) {

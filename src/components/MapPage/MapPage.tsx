@@ -70,14 +70,14 @@ export const MapPage =
         >
           <ColorPicker
             color={markerColor}
-            onChange={onMarkerColorChanged}
+            onChange={(color) => onMarkerColorChanged({ color })}
           />
           <MapInfo
             extracts={currentMapData.extracts}
             selected={selectedExtracts}
             toggleExtract={toggleExtract}
           />
-          <Button onClick={() => clearMap(currentMap)}>{t('Clear map')}</Button>
+          <Button onClick={clearMap}>{t('Clear map')}</Button>
         </Sidebar>
       </main>
     );

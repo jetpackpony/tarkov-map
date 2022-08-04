@@ -3,22 +3,23 @@ import { connect } from 'react-redux';
 import {
   addMarker,
   removeMarkers,
-  toggleExtractAction,
+  toggleExtract,
+  clearMap
+} from '../../store/markersSlice';
+import {
   selectMap,
   changeMarkerColor,
-  clearMap,
-  switchToTrackPad,
-  Action
-} from '../../store/actions';
+  switchToTrackPad
+} from '../../store/uiSlice';
 import { Dispatch } from 'redux';
 import { compose } from 'rambda';
 import { MapPage } from './MapPage';
-import { AppState } from '../../types';
+import { AppDispatch, AppState } from '../../store';
 
 const stateToProps = (state: AppState) => {
   const currentMap = state.ui.currentMap;
-  const markers = state.mapState[currentMap].markers;
-  const selectedExtracts = state.mapState[currentMap].selectedExtracts;
+  const markers = state.markers[currentMap].markers;
+  const selectedExtracts = state.markers[currentMap].selectedExtracts;
   return {
     currentMap,
     markers,
@@ -27,8 +28,8 @@ const stateToProps = (state: AppState) => {
     isTrackPad: state.ui.isTrackPad,
   };
 };
-const dispatchToProps = (dispatch: Dispatch<Action>) => ({
-  toggleExtract: compose(dispatch, toggleExtractAction),
+const dispatchToProps = (dispatch: AppDispatch) => ({
+  toggleExtract: compose(dispatch, toggleExtract),
   addMarker: compose(dispatch, addMarker),
   removeMarkers: compose(dispatch, removeMarkers),
   onMapSelected: compose(dispatch, selectMap),

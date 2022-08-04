@@ -72,7 +72,7 @@ const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {
   const mapGroups = getMapGroups(getCurrentLang());
   const onChange = (e: TargetedEvent<HTMLSelectElement, Event>) => {
     if (e && isEnum(MapName)(e.currentTarget.value)) {
-      onMapSelected(e.currentTarget.value)
+      onMapSelected({ mapId: e.currentTarget.value })
     }
   };
   return (

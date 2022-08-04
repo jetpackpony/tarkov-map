@@ -7,7 +7,17 @@ import firebaseConfig from './config';
 import { DB, DBListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, MarkerMapObject } from "./types";
 export * from "./types";
 
-const initFirebase = (): DB => {
+let dbInstance: DB | null = null;
+
+export const getDB = (): DB => {
+  if (!dbInstance) {
+    console.log("Initializing Firebase");
+    dbInstance = initFirebase();
+  }
+  return dbInstance;
+};
+
+export const initFirebase = (): DB => {
   const firebaseApp = initializeApp(firebaseConfig);
   const db = getFirestore(firebaseApp);
   if (!process.env.DB_COLLECTION_NAME) {
@@ -84,6 +94,4 @@ const initFirebase = (): DB => {
     listen,
     clearMap
   };
-}
-
-export default initFirebase;
+};

@@ -3,6 +3,11 @@ declare module '*.webp' {
   export default content;
 }
 
+declare module '*.module.css' {
+  const classes: { [key: string]: string };
+  export default classes;
+}
+
 interface ObjectConstructor {
   keys<T>(o: T):
     T extends object ? (keyof T)[] :

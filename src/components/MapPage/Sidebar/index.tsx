@@ -13,11 +13,13 @@ const Sidebar = ({ children, headerElement, isOpen, close }: SidebarProps) => {
   if (!isOpen) classes.push(styles.hidden);
   return (
     <div onMouseLeave={close} class={classes.join(" ")}>
-      <header class={styles.header}>
-        {headerElement}
-      </header>
-      <div class={styles.sidebarContent}>
-        {children}
+      <div class={styles.container}>
+        <header class={styles.header}>
+          {headerElement}
+        </header>
+        <div class={styles.sidebarContent}>
+          {children}
+        </div>
       </div>
     </div>
   );

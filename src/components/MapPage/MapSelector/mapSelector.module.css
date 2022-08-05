@@ -6,3 +6,28 @@
   font-size: inherit;
   outline: none;
 }
+
+.container {
+  margin-bottom: 1em;
+}
+
+.groupContainer {
+}
+
+.groupHeader {
+  color: #9a8866;
+}
+
+.map {
+  padding: 0.3em 1em;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.map:hover {
+  background-color: #042f47;
+}
+
+.map.selected {
+  background-color: #074a71;
+}

@@ -6,11 +6,17 @@
   bottom: 0;
   z-index: 9999;
   transition: right 0.1s;
-  padding: 1rem;
-  box-shadow: 0 0 100px rgba(65,61,52,1), 0 0 6px rgba(232,190,107,0.8);
-  background-color: inherit;
+  box-shadow: 0 0 100px rgba(65, 61, 52, 1), 0 0 6px rgba(232, 190, 107, 0.8);
+}
+
+.container {
   display: grid;
   grid-template-rows: auto 1fr;
+  padding: 1rem;
+  background-color: inherit;
+  max-height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .sidebar.hidden {
@@ -18,7 +24,6 @@
 }
 
 .sidebarContent {
-  overflow: auto;
 }
 
 .header {

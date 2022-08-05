@@ -38,7 +38,6 @@ export const MapPage =
           close={() => setSidebarOpen(false)}
           headerElement={
             <>
-              <MapSelector />
               <LangPicker />
             </>
           }
@@ -47,6 +46,7 @@ export const MapPage =
             color={markerColor}
             onChange={(color) => onMarkerColorChanged({ color })}
           />
+          <MapSelector />
           <MapInfo />
           <Button
             onClick={clearMap}

@@ -73,7 +73,7 @@ const FactionList = ({ title, children }: FactionListProps) => {
   const [unfolded, setUnfolded] = useState(false);
   return (
     <div>
-      <h3>
+      <h4>
         <button
           class={styles.factionHeader}
           onClick={() => setUnfolded(!unfolded)}
@@ -81,7 +81,7 @@ const FactionList = ({ title, children }: FactionListProps) => {
           {title}
           <i class={`${styles.arrow} ${(unfolded) ? styles.up : styles.down}`}></i>
         </button>
-      </h3>
+      </h4>
       <ul class={`${styles.extractsList} ${(!unfolded) ? styles.hidden : ""}`}>
         {children}
       </ul>
@@ -111,6 +111,7 @@ const MapInfo = ({
   const groups = groupExtracts(extracts, getCurrentLang());
   return (
     <div class={styles.mapInfo}>
+      <h3 class={styles.header}>Extractions</h3>
       <FactionList title={t('PMC')}>
         {
           groups.pmc.map((e) => (

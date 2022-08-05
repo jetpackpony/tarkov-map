@@ -1,8 +1,7 @@
-import { h, Ref } from 'preact';
-import { TargetedEvent, useEffect, useRef } from 'preact/compat';
+import { h } from 'preact';
+import { useEffect, useRef } from 'preact/compat';
 import { useCanvasWithResizeHandler } from './hooks';
 import './canvas.css';
-import { MapPageProps } from '../MapPage';
 import { Coords } from '../../../types';
 
 const minDragDist = 5;
@@ -31,8 +30,8 @@ interface CanvasWrapperProps {
   onLeftClick: (offsetX: number, offsetY: number) => void,
   onPan: (canvas: HTMLCanvasElement, deltaX: number, deltaY: number) => void,
   onZoom: (canvas: HTMLCanvasElement, deltaY: number, pos: Coords) => void,
-  isTrackPad: MapPageProps["isTrackPad"],
-  onSwitchToTrackPad: MapPageProps["onSwitchToTrackPad"]
+  isTrackPad: boolean,
+  onSwitchToTrackPad: (payload: { isTrackPad: boolean }) => any
 };
 
 const CanvasWrapper = ({
@@ -71,7 +70,7 @@ const CanvasWrapper = ({
   const onWheel = (e: WheelEvent) => {
     e.preventDefault();
     if (e.deltaX !== 0) {
-      !isTrackPad && onSwitchToTrackPad(true);
+      !isTrackPad && onSwitchToTrackPad({ isTrackPad: true });
     }
 
     if (canvasRef.current) {

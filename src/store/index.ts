@@ -1,37 +1,37 @@
-import { createStore, applyMiddleware, Dispatch } from 'redux';
-import reducer from './reducer';
-import { createLogger } from 'redux-logger'
 import {
-  Action,
   drawMarker,
   eraseMarkers,
   selectExtract,
   unselectExtract
-} from './actions';
-import updateDB from './middleware/updateDB';
+} from './markersSlice';
 import { DB } from '../firebase';
+import { configureStore } from '@reduxjs/toolkit';
+import markersReducer from './markersSlice';
+import uiReducer from './uiSlice';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-const subscribeToDBUpdates = (db: DB, dispatch: Dispatch<Action>) => {
+const subscribeToDBUpdates = (db: DB, dispatch: AppDispatch) => {
   db.addDataListener((type, item) => {
     if (type === "added") {
       if (item.type === "marker") {
-        dispatch(drawMarker(
-          item.map,
-          item.id,
-          item.data.coords,
-          item.data.color
+        dispatch(drawMarker({
+          mapName: item.map,
+          id: item.id,
+          coords: item.data.coords,
+          color: item.data.color
+        }
         ));
       }
       if (item.type === "ext") {
-        dispatch(selectExtract(item.map, item.id));
+        dispatch(selectExtract({ mapName: item.map, extId: item.id }));
       }
     }
     if (type === "removed") {
       if (item.type === "marker") {
-        dispatch(eraseMarkers(item.map, [item.id]));
+        dispatch(eraseMarkers({ mapName: item.map, ids: [item.id] }));
       }
       if (item.type === "ext") {
-        dispatch(unselectExtract(item.map, item.id));
+        dispatch(unselectExtract({ mapName: item.map, extId: item.id}));
       }
     }
   });
@@ -39,18 +39,12 @@ const subscribeToDBUpdates = (db: DB, dispatch: Dispatch<Action>) => {
 };
 
 const makeStore = (db: DB | null) => {
-  const middlewares = [];
-  if (process.env.NODE_ENV !== "production") {
-    middlewares.push(createLogger());
-  }
-  if (db) {
-    middlewares.push(updateDB(db));
-  }
-
-  const store = createStore(
-    reducer,
-    applyMiddleware(...middlewares)
-  );
+  const store = configureStore({
+    reducer: {
+      markers: markersReducer,
+      ui: uiReducer
+    }
+  });
 
   if (db) {
     subscribeToDBUpdates(db, store.dispatch);
@@ -58,5 +52,11 @@ const makeStore = (db: DB | null) => {
 
   return store;
 };
+
+export type AppState = ReturnType<ReturnType<typeof makeStore>['getState']>;
+export type AppDispatch = ReturnType<typeof makeStore>['dispatch'];
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
 export default makeStore;

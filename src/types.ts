@@ -1,4 +1,4 @@
-import { Language, LocalizedString } from './I18nContext';
+import { LocalizedString } from './I18nContext';
 import { MapName } from './store/mapData';
 
 export type Color = string;
@@ -29,31 +29,6 @@ export interface Marker {
 
 export interface ExtractMarker extends ExtractData{
   type: "extraction"
-};
-
-export interface Extract {
-
-};
-
-export interface MapState {
-  markers: Marker[],
-  selectedExtracts: string[]
-};
-
-export type AllMapsState = {
-  [key in MapName]: MapState
-};
-
-export interface UIState {
-  currentMap: MapName,
-  markerColor: Color,
-  lang: Language,
-  isTrackPad: boolean
-};
-
-export interface AppState {
-  mapState: AllMapsState,
-  ui: UIState
 };
 
 export enum Faction {

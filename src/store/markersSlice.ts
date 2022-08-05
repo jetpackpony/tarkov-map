@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 import { AppDispatch, AppState } from ".";
 import { getDB } from "../firebase";
-import { Color, Coords, Marker } from "../types";
-import { MapName } from "./mapData";
+import { Color, Coords, ExtractMarker, Marker } from "../types";
+import mapData, { MapName } from "./mapData";
 import { selectCurrentMap, selectMarkerColor } from "./uiSlice";
 
 export type MarkersState = {
@@ -69,9 +69,34 @@ export const markersSlice = createSlice({
 export const { drawMarker, eraseMarkers, clearMapById, selectExtract, unselectExtract } = markersSlice.actions;
 
 export const selectIsExtractSelected = (extId: string) => (state: AppState) => {
-  const selectedExtracts = state.markers[selectCurrentMap(state)].selectedExtracts;
-  const index = selectedExtracts.findIndex((id) => id === extId);
+  const index = selectSelectedExtracts(state).findIndex((id) => id === extId);
   return (index >= 0);
+};
+
+export const selectSelectedExtracts = (state: AppState) => {
+  return state.markers[selectCurrentMap(state)].selectedExtracts;
+};
+
+export const selectUserMarkers = (state: AppState) => {
+  const mapName = selectCurrentMap(state);
+  return state.markers[mapName].markers;
+};
+
+export const selectExtractionMarkers = (state: AppState): ExtractMarker[] => {
+  const mapName = selectCurrentMap(state);
+  const currentMapData = mapData.maps[mapName];
+  return currentMapData.extracts
+    .filter((e) => state.markers[mapName].selectedExtracts.includes(e.id))
+    .map((e) => {
+      return {
+        ...e,
+        type: "extraction"
+      };
+    });
+};
+
+export const selectMarkers = (state: AppState) => {
+  return [...selectUserMarkers(state), ...selectExtractionMarkers(state)];
 };
 
 export const addMarker = (coords: Coords) =>

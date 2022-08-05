@@ -31,5 +31,6 @@ export const { selectMap, changeMarkerColor, switchToTrackPad } = uiSlice.action
 
 export const selectCurrentMap = (state: AppState) => state.ui.currentMap;
 export const selectMarkerColor = (state: AppState) => state.ui.markerColor;
+export const selectIsTrackPad = (state: AppState) => state.ui.isTrackPad;
 
 export default uiSlice.reducer;

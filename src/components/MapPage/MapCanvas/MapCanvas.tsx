@@ -2,7 +2,7 @@ import { h } from 'preact';
 import CanvasWrapper from './CanvasWrapper';
 import { useRef, useEffect } from 'preact/compat';
 import { useImageLoader } from './hooks';
-import './mapCanvas.css';
+import styles from './mapCanvas.module.css';
 import { draw } from './drawing';
 import { Coords, ExtractMarker, Marker } from '../../../types';
 
@@ -132,7 +132,7 @@ const MapCanvas = ({
   };
 
   return (
-    <div class="map-canvas">
+    <div class={styles.mapCanvas}>
       {
         (imgObj)
           ? (

@@ -1,4 +1,4 @@
-.picker-button {
+.pickerButton {
   padding: .3rem;
   border: none;
   background-color: transparent;
@@ -6,11 +6,11 @@
   text-transform: uppercase;
 }
 
-.picker-button:hover {
+.pickerButton:hover {
   background-color: transparent;
 }
 
-.picker-button.selected {
+.pickerButton.selected {
   opacity: 1;
   border-bottom: 1px solid #9a8866;
 }

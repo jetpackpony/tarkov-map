@@ -1,6 +1,6 @@
 import { ComponentChildren, h } from 'preact';
 import mapData, { MapName } from '../../../store/mapData';
-import './mapSelector.css';
+import styles from './mapSelector.module.css';
 import { isEnum, MapGroupId } from '../../../types';
 import { TargetedEvent } from 'preact/compat';
 import { useLanguageContext, Language } from '../../../I18nContext';
@@ -76,6 +76,7 @@ const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {
   };
   return (
     <select
+      class={styles.select}
       id="map-select"
       onChange={onChange}
     >

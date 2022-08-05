@@ -2,7 +2,7 @@ import { h } from 'preact';
 import MapCanvas from './MapCanvas';
 import MapInfo from './MapInfo';
 import MapHeader from './MapHeader';
-import './mapPage.css';
+import styles from './mapPage.module.css';
 import Sidebar from './Sidebar';
 import { useState } from 'preact/compat';
 import ColorPicker from './ColorPicker';
@@ -28,7 +28,7 @@ export const MapPage =
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-      <main class="map-page">
+      <main class={styles.mapPage}>
         <MapHeader
           openSidebar={() => setSidebarOpen(true)}
         />

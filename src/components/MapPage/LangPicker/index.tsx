@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { Language, useLanguageContext } from '../../../I18nContext';
-import './langPicker.css';
+import Button from '../Button/Button';
+import styles from './langPicker.module.css';
 
 interface LangButtonProps {
   lang: Language,
@@ -9,18 +10,18 @@ interface LangButtonProps {
 };
 
 const LangButton = ({ lang, selected, changeLang }: LangButtonProps) => (
-  <button
-    class={`picker-button ${(selected) ? "selected" : ""}`}
+  <Button
+    className={`${styles.pickerButton} ${(selected) ? styles.selected : ""}`}
     onClick={() => changeLang(lang)}
   >
     {lang}
-  </button>
+  </Button>
 );
 
 const LangPicker = () => {
   const { getCurrentLang, setLang } = useLanguageContext();
   return (
-    <div class="langPicker">
+    <div>
       {
         Object.values(Language).map((lang) => (
           <LangButton

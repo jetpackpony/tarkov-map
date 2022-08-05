@@ -1,5 +1,5 @@
 import { ComponentChildren, h } from 'preact';
-import './Button.css';
+import styles from './Button.module.css';
 
 interface ButtonProps {
   children: ComponentChildren,
@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const Button = ({ children, onClick }: ButtonProps) => {
   return (
-    <button onClick={onClick}>
+    <button class={styles.button} onClick={onClick}>
       {children}
     </button>
   );

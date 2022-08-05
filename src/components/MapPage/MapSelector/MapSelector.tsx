@@ -1,7 +1,6 @@
 import { ComponentChildren, h } from 'preact';
 import mapData, { MapName } from '../../../store/mapData';
 import './mapSelector.css';
-import { MapPageProps } from '../MapPage';
 import { isEnum, MapGroupId } from '../../../types';
 import { TargetedEvent } from 'preact/compat';
 import { useLanguageContext, Language } from '../../../I18nContext';
@@ -64,7 +63,7 @@ const MapOption = ({ mapId, name, isSelected }: MapOptionProps) => (
 
 interface MapSelectorProps {
   currentMap: MapName,
-  onMapSelected: MapPageProps['onMapSelected']
+  onMapSelected: (payload: { mapId: MapName }) => any
 };
 
 const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {

@@ -3,7 +3,6 @@ import { sortBy, compose, toLower, path, defaultTo } from 'rambda';
 import './mapInfo.css'
 import { useState } from 'preact/compat';
 import { ExtractData } from '../../../types';
-import { MapPageProps } from '../MapPage';
 import { useLanguageContext, Language } from '../../../I18nContext';
 
 const sortByName = (lang: Language) => (
@@ -38,7 +37,7 @@ const groupExtracts = (extracts: ExtractData[], lang: Language) => {
 interface ExtractItemProps {
   extract: ExtractData,
   isSelected: boolean,
-  toggleExtract: MapPageProps["toggleExtract"]
+  toggleExtract: (extId: string) => any
 };
 
 const ExtractItem = ({ extract, isSelected, toggleExtract }: ExtractItemProps) => {
@@ -90,7 +89,7 @@ const FactionList = ({ title, children }: FactionListProps) => {
 interface MapInfoProps {
   extracts: ExtractData[],
   selected: string[],
-  toggleExtract: MapPageProps["toggleExtract"],
+  toggleExtract: (extId: string) => any
 };
 
 const MapInfo = ({

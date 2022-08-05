@@ -1,8 +1,8 @@
-.map-info {
+.mapInfo {
   color: #aeaeb0;
 }
 
-.map-info h3 button {
+.factionHeader {
   color: #9a8866;
   cursor: pointer;
   background-color: inherit;
@@ -25,36 +25,36 @@
   transform: translate(.5rem, -.2rem) rotate(45deg);
 }
 
-.extracts-list {
+.extractsList {
   margin-bottom: 1em;
   overflow: hidden;
 }
 
-.extracts-list.hidden {
+.extractsList.hidden {
   height: 0;
 }
 
-.extracts-list > li {
+.extractsList > li {
   padding: .3em 1em;
   cursor: pointer;
   border-radius: 6px;
 }
 
-.extracts-list > li:hover {
+.extractsList > li:hover {
   background-color: #042f47;
 }
 
-.extracts-list > li.selected {
+.extractsList > li.selected {
   background-color: #074a71;
 }
 
-.extracts-list > li > div:first-child {
+.extractsList > li > div:first-child {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.extracts-list > li .activation-required {
+.extractsList > li .activationRequired {
   margin: 0 .5em;
   width: 1em;
   height: 1em;
@@ -62,7 +62,7 @@
   background-color: lightseagreen;
 }
 
-.extracts-list > li .special-conds {
+.extractsList > li .specialConds {
   font-size: 14px;
   padding-left: 1em;
   color: #6c6c6c;

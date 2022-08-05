@@ -1,6 +1,6 @@
 import { ComponentChildren, h } from 'preact';
 import { sortBy, compose, toLower, path, defaultTo } from 'rambda';
-import './mapInfo.css'
+import styles from './mapInfo.module.css'
 import { useState } from 'preact/compat';
 import { ExtractData } from '../../../types';
 import { useLanguageContext, Language } from '../../../I18nContext';
@@ -44,20 +44,20 @@ const ExtractItem = ({ extract, isSelected, toggleExtract }: ExtractItemProps) =
   const { getCurrentLang, t } = useLanguageContext();
   return (
     <li
-      class={(isSelected) ? "selected" : undefined}
+      class={(isSelected) ? styles.selected : undefined}
       onClick={() => toggleExtract(extract.id)}
     >
       <div>
         <div>{extract.names[getCurrentLang()]}</div>
         {
           (extract.activationCoords)
-            ? <div title={t('Activation needed')} class="activation-required"></div>
+            ? <div title={t('Activation needed')} class={styles.activationRequired}></div>
             : null
         }
       </div>
       {
         (extract.specialConditions)
-          ? <div class="special-conds">{extract.specialConditions[getCurrentLang()]}</div>
+          ? <div class={styles.specialConds}>{extract.specialConditions[getCurrentLang()]}</div>
           : null
       }
     </li>
@@ -74,12 +74,15 @@ const FactionList = ({ title, children }: FactionListProps) => {
   return (
     <div>
       <h3>
-        <button onClick={() => setUnfolded(!unfolded)}>
+        <button
+          class={styles.factionHeader}
+          onClick={() => setUnfolded(!unfolded)}
+        >
           {title}
-          <i class={`arrow ${unfolded ? "up" : "down"}`}></i>
+          <i class={`${styles.arrow} ${(unfolded) ? styles.up : styles.down}`}></i>
         </button>
       </h3>
-      <ul class={`extracts-list ${(unfolded) ? "" : "hidden"}`}>
+      <ul class={`${styles.extractsList} ${(!unfolded) ? styles.hidden : ""}`}>
         {children}
       </ul>
     </div>
@@ -100,14 +103,14 @@ const MapInfo = ({
   const { getCurrentLang, t } = useLanguageContext();
   if (extracts.length === 0) {
     return (
-      <div class="map-info">
+      <div class={styles.mapInfo}>
         <div>No extracts for this map</div>
       </div>
     );
   }
   const groups = groupExtracts(extracts, getCurrentLang());
   return (
-    <div class="map-info">
+    <div class={styles.mapInfo}>
       <FactionList title={t('PMC')}>
         {
           groups.pmc.map((e) => (

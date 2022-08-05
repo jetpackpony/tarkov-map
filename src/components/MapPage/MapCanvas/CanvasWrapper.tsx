@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useEffect, useRef } from 'preact/compat';
 import { useCanvasWithResizeHandler } from './hooks';
-import './canvas.css';
+import styles from './canvas.module.css';
 import { Coords } from '../../../types';
 
 const minDragDist = 5;
@@ -153,6 +153,7 @@ const CanvasWrapper = ({
 
   return (
     <canvas
+      class={styles.canvas}
       ref={canvasRef}
       id="canvas"
       width={100}

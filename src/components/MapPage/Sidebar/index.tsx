@@ -1,5 +1,5 @@
 import { ComponentChildren, h } from 'preact';
-import './sidebar.css'
+import styles from './sidebar.module.css'
 
 interface SidebarProps {
   children: ComponentChildren,
@@ -9,12 +9,14 @@ interface SidebarProps {
 };
 
 const Sidebar = ({ children, headerElement, isOpen, close }: SidebarProps) => {
+  const classes = [styles.sidebar];
+  if (!isOpen) classes.push(styles.hidden);
   return (
-    <div onMouseLeave={close} class={`sidebar ${(isOpen) ? "" : "hidden"}`}>
-      <header>
+    <div onMouseLeave={close} class={classes.join(" ")}>
+      <header class={styles.header}>
         {headerElement}
       </header>
-      <div class="sidebar-content">
+      <div class={styles.sidebarContent}>
         {children}
       </div>
     </div>

@@ -145,7 +145,7 @@ const MapCanvas = ({
               onSwitchToTrackPad={onSwitchToTrackPad}
             />
           )
-          : <div>Loading image...</div>
+          : <div class={styles['lds-dual-ring']}></div>
       }
     </div>
   );

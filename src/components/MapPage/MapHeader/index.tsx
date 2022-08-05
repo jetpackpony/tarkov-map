@@ -1,9 +1,9 @@
 import { h } from 'preact';
-import './mapHeader.css';
+import styles from './mapHeader.module.css'
 
 const MenuButton = ({ onHover }: { onHover: (e: MouseEvent) => void }) => {
   return (
-    <button class="menu-icon" onMouseEnter={onHover}>
+    <button class={styles.menuIcon} onMouseEnter={onHover}>
       <div></div>
       <div></div>
       <div></div>
@@ -13,7 +13,7 @@ const MenuButton = ({ onHover }: { onHover: (e: MouseEvent) => void }) => {
 
 const MapHeader = ({ openSidebar }: { openSidebar: (e: MouseEvent) => void }) => {
   return (
-    <header class="page">
+    <header class={styles.mapPageHeader}>
       <MenuButton onHover={openSidebar} />
     </header>
   );

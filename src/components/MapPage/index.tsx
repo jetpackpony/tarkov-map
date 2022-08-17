@@ -5,7 +5,11 @@ import { compose } from 'rambda';
 import { MapPage } from './MapPage';
 import { useAppDispatch, useAppSelector } from '../../store';
 
-export default () => {
+interface MapPageContainerProps {
+  path: string
+};
+
+export default ({ path }: MapPageContainerProps) => {
   const markerColor = useAppSelector(selectMarkerColor);
   const dispatch = useAppDispatch();
   const clearMapDispatch = compose(dispatch, clearMap);

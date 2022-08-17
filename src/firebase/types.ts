@@ -12,6 +12,8 @@ export interface DB {
   addExtraction: (id: string, mapName: MapName) => Promise<void>,
   removeExtraction: (id: string, mapName: MapName) => Promise<void>,
   clearMap: (mapName: MapName) => Promise<void>,
+  loadSession: (sessionId: string) => Promise<Session>;
+  createSession: () => Promise<Session>;
 };
 
 export interface MarkerMapObject {
@@ -63,5 +65,20 @@ export const isExtractMapObject = (obj: any): obj is ExtractMapObject => {
     && (obj.id && typeof obj.id === "string")
     && (obj.map && Object.values(MapName).includes(obj.map))
     && (obj.type && obj.type === "ext")
+  );
+};
+
+export interface Session {
+  id: string,
+  createdAt: string,
+  lastAccess: string
+};
+
+export const isSession = (obj: any): obj is Session => {
+  return (
+    obj
+    && (obj.id && typeof obj.id === "string")
+    && (obj.createdAt && typeof obj.createdAt === "string")
+    && (obj.lastAccess && typeof obj.lastAccess === "string")
   );
 };

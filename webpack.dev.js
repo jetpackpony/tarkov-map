@@ -14,7 +14,8 @@ module.exports = (env) => merge(common(env), {
   },
   devServer: {
     static: path.resolve(__dirname, 'dist'),
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   module: {
     rules: [

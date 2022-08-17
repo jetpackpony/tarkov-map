@@ -1,10 +1,11 @@
 import { initializeApp } from "firebase/app";
 import {
-  collection, deleteDoc, doc, getDocs,
+  collection, deleteDoc, doc, getDoc, getDocs,
   getFirestore, onSnapshot, query, setDoc, where
 } from "firebase/firestore";
+import { nanoid } from "nanoid";
 import firebaseConfig from './config';
-import { DB, DBListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, MarkerMapObject } from "./types";
+import { DB, DBListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, isSession, MarkerMapObject, Session } from "./types";
 export * from "./types";
 
 let dbInstance: DB | null = null;
@@ -85,6 +86,37 @@ export const initFirebase = (): DB => {
       });
   };
 
+  const sessionCollectionRef = collection(db, 'sessions');
+  const loadSession: DB["loadSession"] = async (sessionId: string) => {
+    const session = await getDoc(doc(sessionCollectionRef, sessionId));
+    const data = session.data();
+    if (!session.exists() || !isSession(data)) {
+      return createSession();
+    }
+    return data;
+  };
+
+  const createSession: DB["createSession"] = async () => {
+    const id = nanoid(10);
+    const sessionObject: Session = {
+      id,
+      createdAt: (new Date()).toISOString(),
+      lastAccess: (new Date()).toISOString()
+    };
+    try {
+      await setDoc(doc(sessionCollectionRef, id), sessionObject);
+    } catch (e) {
+      let msg = "Couldn't create a new session. ";
+      if (typeof e === "string") {
+        msg += e;
+      } else if (e instanceof Error) {
+        msg += e.message;
+      }
+      throw new Error(msg);
+    };
+    return sessionObject;
+  };
+
   return {
     addMarker,
     removeMarker,
@@ -92,6 +124,8 @@ export const initFirebase = (): DB => {
     removeExtraction,
     addDataListener,
     listen,
-    clearMap
+    clearMap,
+    loadSession,
+    createSession
   };
 };

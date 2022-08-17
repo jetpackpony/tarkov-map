@@ -60,6 +60,7 @@ export const selectCurrentMap = (state: AppState) => state.ui.currentMap;
 export const selectMarkerColor = (state: AppState) => state.ui.markerColor;
 export const selectIsTrackPad = (state: AppState) => state.ui.isTrackPad;
 export const selectCurrentSessionId = (state: AppState) => state.ui.session?.id;
+export const selectIsLoading = (state: AppState) => state.ui.loading;
 
 export const loadSession = createAsyncThunk<{ session: Session }, string | undefined, { state: AppState }>(
   "ui/loadSession",

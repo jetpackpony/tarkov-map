@@ -26,6 +26,7 @@ export const initFirebase = (): DB => {
   }
   const mapObjectsRef = collection(db, process.env.DB_COLLECTION_NAME);
   const listeners: DBListener[] = [];
+  const sessionCollectionRef = collection(db, 'sessions');
 
   // Sub to updates
   const listen: DB["listen"] = () => {
@@ -47,46 +48,51 @@ export const initFirebase = (): DB => {
     listeners.push(f);
   };
 
-  const addMarker: DB["addMarker"] = (id, mapName, data) => {
-    const docName = `${mapName}-${id}`;
+  const getMarkerDoc = (sessionId: string, markerId: string) => {
+    return doc(sessionCollectionRef, sessionId, "mapObjects", markerId);
+  };
+
+  const addMarker: DB["addMarker"] = async (sessionId, markerId, mapName, data) => {
     const mapObject: MarkerMapObject = {
-      id,
+      id: markerId,
       map: mapName,
       type: "marker",
       data
     };
-    return setDoc(doc(mapObjectsRef, docName), mapObject);
+    return setDoc(getMarkerDoc(sessionId, markerId), mapObject);
   };
 
-  const removeMarker: DB["removeMarker"] = (id, mapName) => {
-    const docName = `${mapName}-${id}`;
-    return deleteDoc(doc(mapObjectsRef, docName));
-  }
+  const removeMarker: DB["removeMarker"] = (sessionId, markerId) => {
+    return deleteDoc(getMarkerDoc(sessionId, markerId));
+  };
 
-  const addExtraction: DB["addExtraction"] = (id, mapName) => {
-    const docName = `${mapName}-${id}`;
+  const addExtraction: DB["addExtraction"] = (sessionId, extId, mapName) => {
+    const id = `${mapName}-${extId}`;
     const mapObject: ExtractMapObject = {
       id,
       map: mapName,
       type: "ext",
       data: {}
     };
-    return setDoc(doc(mapObjectsRef, docName), mapObject);
+    return setDoc(getMarkerDoc(sessionId, id), mapObject);
   };
 
-  const removeExtraction: DB["removeExtraction"] = (id, mapName) => {
-    const docName = `${mapName}-${id}`;
-    return deleteDoc(doc(mapObjectsRef, docName));
+  const removeExtraction: DB["removeExtraction"] = (sessionId, extId, mapName) => {
+    const id = `${mapName}-${extId}`;
+    return deleteDoc(getMarkerDoc(sessionId, id));
   };
 
-  const clearMap: DB["clearMap"] = (mapName) => {
-    return getDocs(query(mapObjectsRef, where("map", '==', mapName)))
-      .then((res) => {
-        res.forEach((doc) => deleteDoc(doc.ref));
-      });
+  const clearMap: DB["clearMap"] = (sessionId, mapName) => {
+    return getDocs(
+      query(
+        collection(sessionCollectionRef, sessionId, "mapObjects"),
+        where("map", '==', mapName)
+      )
+    ).then((res) => {
+      res.forEach((doc) => deleteDoc(doc.ref));
+    });
   };
 
-  const sessionCollectionRef = collection(db, 'sessions');
   const loadSession: DB["loadSession"] = async (sessionId: string) => {
     const session = await getDoc(doc(sessionCollectionRef, sessionId));
     const data = session.data();

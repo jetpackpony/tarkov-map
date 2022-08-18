@@ -7,11 +7,11 @@ export type DBListener = (type: DocumentChangeType, data: MapObject) => void;
 export interface DB {
   listen: () => Unsubscribe,
   addDataListener: (f: DBListener) => void,
-  addMarker: (id: string, mapName: MapName, data: MarkerData) => Promise<void>,
-  removeMarker: (id: string, mapName: MapName) => Promise<void>,
-  addExtraction: (id: string, mapName: MapName) => Promise<void>,
-  removeExtraction: (id: string, mapName: MapName) => Promise<void>,
-  clearMap: (mapName: MapName) => Promise<void>,
+  addMarker: (sessionId: string, markerId: string, mapName: MapName, data: MarkerData) => Promise<void>,
+  removeMarker: (sessionId: string, markerId: string) => Promise<void>,
+  addExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
+  removeExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
+  clearMap: (sessionId: string, mapName: MapName) => Promise<void>,
   loadSession: (sessionId: string) => Promise<Session>;
   createSession: () => Promise<Session>;
 };

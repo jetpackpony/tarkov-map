@@ -4,7 +4,7 @@ import { AppDispatch, AppState } from ".";
 import { getDB } from "../firebase";
 import { Color, Coords, ExtractMarker, Marker } from "../types";
 import mapData, { MapName } from "./mapData";
-import { selectCurrentMap, selectMarkerColor } from "./uiSlice";
+import { selectCurrentMap, selectCurrentSessionId, selectMarkerColor } from "./uiSlice";
 
 export type MarkersState = {
   [key in MapName]: {
@@ -101,39 +101,47 @@ export const selectMarkers = (state: AppState) => {
 
 export const addMarker = (coords: Coords) =>
   (dispatch: AppDispatch, getState: () => AppState) => {
-    const id = nanoid(5);
+    const sessionId = selectCurrentSessionId(getState());
+    if (!sessionId) return;
+    const markerId = nanoid(5);
     const color = selectMarkerColor(getState());
     const mapName = selectCurrentMap(getState());
-    getDB().addMarker(id, mapName, { coords, color });
-    dispatch(drawMarker({ id, coords, color, mapName }));
+    getDB().addMarker(sessionId, markerId, mapName, { coords, color });
+    dispatch(drawMarker({ id: markerId, coords, color, mapName }));
   };
 
 export const removeMarkers = (ids: string[]) =>
   (dispatch: AppDispatch, getState: () => AppState) => {
+    const sessionId = selectCurrentSessionId(getState());
+    if (!sessionId) return;
     const mapName = selectCurrentMap(getState());
-    ids.forEach((id) => {
-      getDB().removeMarker(id, mapName);
+    ids.forEach((markerId) => {
+      getDB().removeMarker(sessionId, markerId);
     });
     dispatch(eraseMarkers({ mapName, ids }));
   };
 
 export const toggleExtract = (extId: string) =>
   (dispatch: AppDispatch, getState: () => AppState) => {
+    const sessionId = selectCurrentSessionId(getState());
+    if (!sessionId) return;
     const mapName = selectCurrentMap(getState());
     const isExtractSelected = selectIsExtractSelected(extId)(getState());
     if (isExtractSelected) {
-      getDB().removeExtraction(extId, mapName);
+      getDB().removeExtraction(sessionId, extId, mapName);
       dispatch(unselectExtract({ mapName, extId }));
     } else {
-      getDB().addExtraction(extId, mapName);
+      getDB().addExtraction(sessionId, extId, mapName);
       dispatch(selectExtract({ mapName, extId }));
     }
   };
 
 export const clearMap = () =>
   (dispatch: AppDispatch, getState: () => AppState) => {
+    const sessionId = selectCurrentSessionId(getState());
+    if (!sessionId) return;
     const mapName = selectCurrentMap(getState());
-    getDB().clearMap(mapName);
+    getDB().clearMap(sessionId, mapName);
     dispatch(clearMapById({ mapId: mapName }));
   };
 

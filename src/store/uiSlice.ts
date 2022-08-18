@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppState } from ".";
+import { AppDispatch, AppState } from ".";
 import { getDB, Session } from "../firebase";
 import { Language } from "../I18nContext";
 import { Color } from "../types";
@@ -54,7 +54,7 @@ export const uiSlice = createSlice({
   }
 });
 
-export const { selectMap, changeMarkerColor, switchToTrackPad } = uiSlice.actions;
+export const { changeMarkerColor, switchToTrackPad } = uiSlice.actions;
 
 export const selectCurrentMap = (state: AppState) => state.ui.currentMap;
 export const selectMarkerColor = (state: AppState) => state.ui.markerColor;
@@ -64,10 +64,11 @@ export const selectIsLoading = (state: AppState) => state.ui.loading;
 
 export const loadSession = createAsyncThunk<{ session: Session }, string | undefined, { state: AppState }>(
   "ui/loadSession",
-  async (sessionId: string | undefined) => {
+  async (sessionId: string | undefined, { getState }) => {
     const session = (sessionId)
       ? await getDB().loadSession(sessionId)
-      : await getDB().createSession()
+      : await getDB().createSession();
+    getDB().listen(session.id, selectCurrentMap(getState()));
     return { session };
   },
   {
@@ -77,5 +78,13 @@ export const loadSession = createAsyncThunk<{ session: Session }, string | undef
     },
   }
 );
+
+export const selectMap = ({ mapId }: { mapId: MapName }) =>
+  (dispatch: AppDispatch, getState: () => AppState) => {
+    const sessionId = selectCurrentSessionId(getState());
+    if (!sessionId) return;
+    getDB().listen(sessionId, mapId);
+    dispatch(uiSlice.actions.selectMap({ mapId }));
+  };
 
 export default uiSlice.reducer;

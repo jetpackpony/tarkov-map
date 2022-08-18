@@ -5,7 +5,7 @@ import { Color, Coords, isColor, isCoords } from "../types";
 export type DBListener = (type: DocumentChangeType, data: MapObject) => void;
 
 export interface DB {
-  listen: () => Unsubscribe,
+  listen: (sessionId: string, mapName: MapName) => Unsubscribe,
   addDataListener: (f: DBListener) => void,
   addMarker: (sessionId: string, markerId: string, mapName: MapName, data: MarkerData) => Promise<void>,
   removeMarker: (sessionId: string, markerId: string) => Promise<void>,

@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   collection, deleteDoc, doc, getDoc, getDocs,
-  getFirestore, onSnapshot, query, setDoc, where
+  getFirestore, onSnapshot, query, setDoc, Unsubscribe, where
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import firebaseConfig from './config';
@@ -24,24 +24,34 @@ export const initFirebase = (): DB => {
   if (!process.env.DB_COLLECTION_NAME) {
     throw new Error("Can't find the DB collection name");
   }
-  const mapObjectsRef = collection(db, process.env.DB_COLLECTION_NAME);
   const listeners: DBListener[] = [];
   const sessionCollectionRef = collection(db, 'sessions');
+  let currentListener: Unsubscribe | null = null;
 
   // Sub to updates
-  const listen: DB["listen"] = () => {
-    return onSnapshot(mapObjectsRef, (querySnapshot) => {
-      querySnapshot.docChanges().forEach((docChange) => {
-        const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';
-        if (source !== 'local') {
-          const type = docChange.type;
-          const data = docChange.doc.data();
-          if (isMarkerMapObject(data) || isExtractMapObject(data)) {
-            listeners.forEach((f) => f(type, data));
+  const listen: DB["listen"] = (sessionId, mapName) => {
+    if (currentListener) {
+      currentListener();
+    }
+    currentListener = onSnapshot(
+      query(
+        collection(sessionCollectionRef, sessionId, "mapObjects"),
+        where("map", '==', mapName)
+      ),
+      (querySnapshot) => {
+        querySnapshot.docChanges().forEach((docChange) => {
+          const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';
+          if (source !== 'local') {
+            const type = docChange.type;
+            const data = docChange.doc.data();
+            if (isMarkerMapObject(data) || isExtractMapObject(data)) {
+              listeners.forEach((f) => f(type, data));
+            }
           }
-        }
-      })
-    });
+        })
+      }
+    );
+    return currentListener;
   };
 
   const addDataListener: DB["addDataListener"] = (f) => {

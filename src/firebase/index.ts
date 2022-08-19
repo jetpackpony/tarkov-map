@@ -89,15 +89,14 @@ export const initFirebase = (): DB => {
     return deleteDoc(getMarkerDoc(sessionId, id));
   };
 
-  const clearMap: DB["clearMap"] = (sessionId, mapName) => {
-    return getDocs(
+  const clearMap: DB["clearMap"] = async (sessionId, mapName) => {
+    const res = await getDocs(
       query(
         collection(sessionCollectionRef, sessionId, "mapObjects"),
         where("map", '==', mapName)
       )
-    ).then((res) => {
-      res.forEach((doc) => deleteDoc(doc.ref));
-    });
+    );
+    return Promise.all(res.docs.map((doc) => deleteDoc(doc.ref)));
   };
 
   const loadSession: DB["loadSession"] = async (sessionId: string) => {

@@ -11,7 +11,7 @@ export interface DB {
   removeMarker: (sessionId: string, markerId: string) => Promise<void>,
   addExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
   removeExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
-  clearMap: (sessionId: string, mapName: MapName) => Promise<void>,
+  clearMap: (sessionId: string, mapName: MapName) => Promise<void[]>,
   loadSession: (sessionId: string) => Promise<Session>;
   createSession: () => Promise<Session>;
 };

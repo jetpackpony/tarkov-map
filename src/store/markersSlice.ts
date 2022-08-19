@@ -44,7 +44,7 @@ export const markersSlice = createSlice({
           .filter((m) => !ids.includes(m.id))
       );
     },
-    clearMapById: (state, action: PayloadAction<{ mapId: MapName }>) => {
+    clearMap: (state, action: PayloadAction<{ mapId: MapName }>) => {
       state[action.payload.mapId] = getMapInitState();
     },
     clearAllMaps: (state) => {
@@ -71,7 +71,7 @@ export const markersSlice = createSlice({
   }
 });
 
-export const { drawMarker, eraseMarkers, clearMapById, clearAllMaps, selectExtract, unselectExtract } = markersSlice.actions;
+export const { drawMarker, eraseMarkers, clearAllMaps, selectExtract, unselectExtract } = markersSlice.actions;
 
 export const selectIsExtractSelected = (extId: string) => (state: AppState) => {
   const index = selectSelectedExtracts(state).findIndex((id) => id === extId);
@@ -147,7 +147,7 @@ export const clearMap = () =>
     if (!sessionId) return;
     const mapName = selectCurrentMap(getState());
     getDB().clearMap(sessionId, mapName);
-    dispatch(clearMapById({ mapId: mapName }));
+    dispatch(markersSlice.actions.clearMap({ mapId: mapName }));
   };
 
 export default markersSlice.reducer;

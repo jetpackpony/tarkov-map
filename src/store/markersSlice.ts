@@ -47,6 +47,11 @@ export const markersSlice = createSlice({
     clearMapById: (state, action: PayloadAction<{ mapId: MapName }>) => {
       state[action.payload.mapId] = getMapInitState();
     },
+    clearAllMaps: (state) => {
+      Object.values(MapName).forEach((mapId) => {
+        state[mapId] = getMapInitState();
+      });
+    },
     selectExtract: (state, action: PayloadAction<{ mapName: MapName, extId: string }>) => {
       const { mapName, extId } = action.payload;
       const selectedExtracts = state[mapName].selectedExtracts;
@@ -66,7 +71,7 @@ export const markersSlice = createSlice({
   }
 });
 
-export const { drawMarker, eraseMarkers, clearMapById, selectExtract, unselectExtract } = markersSlice.actions;
+export const { drawMarker, eraseMarkers, clearMapById, clearAllMaps, selectExtract, unselectExtract } = markersSlice.actions;
 
 export const selectIsExtractSelected = (extId: string) => (state: AppState) => {
   const index = selectSelectedExtracts(state).findIndex((id) => id === extId);

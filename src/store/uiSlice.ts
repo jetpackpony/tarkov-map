@@ -4,6 +4,7 @@ import { getDB, Session } from "../firebase";
 import { Language } from "../I18nContext";
 import { Color } from "../types";
 import { MapName } from "./mapData";
+import { clearAllMaps } from "./markersSlice";
 
 export interface UIState {
   currentMap: MapName,
@@ -64,11 +65,12 @@ export const selectIsLoading = (state: AppState) => state.ui.loading;
 
 export const loadSession = createAsyncThunk<{ session: Session }, string | undefined, { state: AppState }>(
   "ui/loadSession",
-  async (sessionId: string | undefined, { getState }) => {
+  async (sessionId: string | undefined, { dispatch }) => {
     const session = (sessionId)
       ? await getDB().loadSession(sessionId)
       : await getDB().createSession();
-    getDB().listen(session.id, selectCurrentMap(getState()));
+    dispatch(clearAllMaps());
+    getDB().listen(session.id);
     return { session };
   },
   {
@@ -83,7 +85,6 @@ export const selectMap = ({ mapId }: { mapId: MapName }) =>
   (dispatch: AppDispatch, getState: () => AppState) => {
     const sessionId = selectCurrentSessionId(getState());
     if (!sessionId) return;
-    getDB().listen(sessionId, mapId);
     dispatch(uiSlice.actions.selectMap({ mapId }));
   };
 

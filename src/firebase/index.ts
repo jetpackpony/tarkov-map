@@ -29,15 +29,12 @@ export const initFirebase = (): DB => {
   let currentListener: Unsubscribe | null = null;
 
   // Sub to updates
-  const listen: DB["listen"] = (sessionId, mapName) => {
+  const listen: DB["listen"] = (sessionId) => {
     if (currentListener) {
       currentListener();
     }
     currentListener = onSnapshot(
-      query(
-        collection(sessionCollectionRef, sessionId, "mapObjects"),
-        where("map", '==', mapName)
-      ),
+      collection(sessionCollectionRef, sessionId, "mapObjects"),
       (querySnapshot) => {
         querySnapshot.docChanges().forEach((docChange) => {
           const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';

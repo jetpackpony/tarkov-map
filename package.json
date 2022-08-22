@@ -43,6 +43,7 @@
     "firebase": "^9.9.1",
     "nanoid": "^4.0.0",
     "preact": "^10.10.0",
+    "preact-router": "^4.1.0",
     "rambda": "^7.1.4",
     "react-color": "^2.19.3",
     "react-redux": "^8.0.2",

@@ -5,13 +5,15 @@ import { Color, Coords, isColor, isCoords } from "../types";
 export type DBListener = (type: DocumentChangeType, data: MapObject) => void;
 
 export interface DB {
-  listen: () => Unsubscribe,
+  listen: (sessionId: string) => Unsubscribe,
   addDataListener: (f: DBListener) => void,
-  addMarker: (id: string, mapName: MapName, data: MarkerData) => Promise<void>,
-  removeMarker: (id: string, mapName: MapName) => Promise<void>,
-  addExtraction: (id: string, mapName: MapName) => Promise<void>,
-  removeExtraction: (id: string, mapName: MapName) => Promise<void>,
-  clearMap: (mapName: MapName) => Promise<void>,
+  addMarker: (sessionId: string, markerId: string, mapName: MapName, data: MarkerData) => Promise<void>,
+  removeMarker: (sessionId: string, markerId: string) => Promise<void>,
+  addExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
+  removeExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
+  clearMap: (sessionId: string, mapName: MapName) => Promise<void[]>,
+  loadSession: (sessionId: string) => Promise<Session>;
+  createSession: () => Promise<Session>;
 };
 
 export interface MarkerMapObject {
@@ -63,5 +65,20 @@ export const isExtractMapObject = (obj: any): obj is ExtractMapObject => {
     && (obj.id && typeof obj.id === "string")
     && (obj.map && Object.values(MapName).includes(obj.map))
     && (obj.type && obj.type === "ext")
+  );
+};
+
+export interface Session {
+  id: string,
+  createdAt: string,
+  lastAccess: string
+};
+
+export const isSession = (obj: any): obj is Session => {
+  return (
+    obj
+    && (obj.id && typeof obj.id === "string")
+    && (obj.createdAt && typeof obj.createdAt === "string")
+    && (obj.lastAccess && typeof obj.lastAccess === "string")
   );
 };

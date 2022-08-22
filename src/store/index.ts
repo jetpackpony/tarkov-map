@@ -23,7 +23,8 @@ const subscribeToDBUpdates = (db: DB, dispatch: AppDispatch) => {
         ));
       }
       if (item.type === "ext") {
-        dispatch(selectExtract({ mapName: item.map, extId: item.id }));
+        const id = item.id.replace(item.map + "-", "");
+        dispatch(selectExtract({ mapName: item.map, extId: id }));
       }
     }
     if (type === "removed") {
@@ -31,11 +32,11 @@ const subscribeToDBUpdates = (db: DB, dispatch: AppDispatch) => {
         dispatch(eraseMarkers({ mapName: item.map, ids: [item.id] }));
       }
       if (item.type === "ext") {
-        dispatch(unselectExtract({ mapName: item.map, extId: item.id}));
+        const id = item.id.replace(item.map + "-", "");
+        dispatch(unselectExtract({ mapName: item.map, extId: id}));
       }
     }
   });
-  db.listen();
 };
 
 const makeStore = (db: DB | null) => {

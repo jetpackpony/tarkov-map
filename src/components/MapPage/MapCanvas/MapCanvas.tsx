@@ -5,6 +5,7 @@ import { useImageLoader } from './hooks';
 import styles from './mapCanvas.module.css';
 import { draw } from './drawing';
 import { Coords, ExtractMarker, Marker } from '../../../types';
+import LoadingSpinner from '../../LoadingSpinner';
 
 const maxScale = 3;
 const scaleBorder = 50;
@@ -145,7 +146,7 @@ const MapCanvas = ({
               onSwitchToTrackPad={onSwitchToTrackPad}
             />
           )
-          : <div class={styles['lds-dual-ring']}></div>
+          : <LoadingSpinner />
       }
     </div>
   );

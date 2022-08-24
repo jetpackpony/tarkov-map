@@ -7,14 +7,20 @@ const removeExpiredSessions = async (): Promise<string[]> => {
   if (!process.env["DATABASE_URL"]) {
     throw new Error("DATABASE_URL env variable is not set. Exiting");
   }
+  const SESSION_EXPIRE_PERIOD = Number(process.env["SESSION_EXPIRE_PERIOD"]);
+  if (!SESSION_EXPIRE_PERIOD) {
+    throw new Error("SESSION_EXPIRE_PERIOD env variable is not set. Exiting");
+  }
   admin.initializeApp({
     credential: admin.credential.cert(process.env["SVC_ACCOUNT_FILE"]),
     databaseURL: process.env["DATABASE_URL"],
   });
+  const lastAccessDate = new Date();
+  lastAccessDate.setDate(lastAccessDate.getDate() - SESSION_EXPIRE_PERIOD);
   const res = await admin
     .firestore()
     .collection("sessions")
-    .where("expireAt", "<=", new Date())
+    .where("lastAccess", "<=", lastAccessDate)
     .get();
 
   return Promise.all(

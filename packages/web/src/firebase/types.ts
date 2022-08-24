@@ -1,4 +1,4 @@
-import { DocumentChangeType, Unsubscribe } from "firebase/firestore";
+import { DocumentChangeType, Timestamp, Unsubscribe } from "firebase/firestore";
 import { MapName } from "../store/mapData";
 import { Color, Coords, isColor, isCoords } from "../types";
 
@@ -81,4 +81,27 @@ export const isSession = (obj: any): obj is Session => {
     && (obj.createdAt && typeof obj.createdAt === "string")
     && (obj.lastAccess && typeof obj.lastAccess === "string")
   );
+};
+
+export interface SessionInDB {
+  id: string,
+  createdAt: Timestamp,
+  lastAccess: Timestamp
+};
+
+export const isSessionInDB = (obj: any): obj is SessionInDB => {
+  return (
+    obj
+    && (obj.id && typeof obj.id === "string")
+    && (obj.createdAt && obj.createdAt instanceof Timestamp)
+    && (obj.lastAccess && obj.lastAccess instanceof Timestamp)
+  );
+};
+
+export const sessionDBToSession = (sessionDB: SessionInDB): Session => {
+  return {
+    id: sessionDB.id,
+    createdAt: sessionDB.createdAt.toDate().toISOString(),
+    lastAccess: sessionDB.lastAccess.toDate().toISOString()
+  }
 };

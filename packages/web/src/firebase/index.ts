@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
 import {
   collection, deleteDoc, doc, getDoc, getDocs,
-  getFirestore, onSnapshot, query, setDoc, Unsubscribe, where
+  getFirestore, onSnapshot, query, setDoc, Timestamp, Unsubscribe, where
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import firebaseConfig from './config';
-import { DB, DBListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, isSession, MarkerMapObject, Session } from "./types";
+import { DB, DBListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, isSession, isSessionInDB, MarkerMapObject, Session, sessionDBToSession, SessionInDB } from "./types";
 export * from "./types";
 
 let dbInstance: DB | null = null;
@@ -102,18 +102,18 @@ export const initFirebase = (): DB => {
   const loadSession: DB["loadSession"] = async (sessionId: string) => {
     const session = await getDoc(doc(sessionCollectionRef, sessionId));
     const data = session.data();
-    if (!session.exists() || !isSession(data)) {
+    if (!session.exists() || !isSessionInDB(data)) {
       return createSession();
     }
-    return data;
+    return sessionDBToSession(data);
   };
 
   const createSession: DB["createSession"] = async () => {
     const id = nanoid(10);
-    const sessionObject: Session = {
+    const sessionObject: SessionInDB = {
       id,
-      createdAt: (new Date()).toISOString(),
-      lastAccess: (new Date()).toISOString()
+      createdAt: Timestamp.fromDate(new Date()),
+      lastAccess: Timestamp.fromDate(new Date())
     };
     try {
       await setDoc(doc(sessionCollectionRef, id), sessionObject);
@@ -126,7 +126,7 @@ export const initFirebase = (): DB => {
       }
       throw new Error(msg);
     };
-    return sessionObject;
+    return sessionDBToSession(sessionObject);
   };
 
   return {

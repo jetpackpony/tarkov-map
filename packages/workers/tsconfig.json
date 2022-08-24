@@ -1,0 +1,17 @@
+{
+  /* Visit https://aka.ms/tsconfig.json to read more about this file */
+  "extends": "@tsconfig/node16-strictest-esm/tsconfig.json",
+  "include": [
+    "./src/**/*"
+  ],
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": true,
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "outDir": "./build",
+    "sourceMap": true,
+    "esModuleInterop": true
+  }
+}

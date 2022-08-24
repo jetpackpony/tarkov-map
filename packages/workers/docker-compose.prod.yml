@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  app:
+    image: jetpackpony/tarkov-map-workers
+    container_name: tarkov-map-workers
+    restart: always
+    networks:
+      - default
+    environment:
+      - SVC_ACCOUNT_FILE=/run/secrets/svc_account.json
+    secrets:
+      - svc_account.json
+    env_file:
+      - .env
+
+secrets:
+  svc_account.json:
+    file: ./.secrets/svc_account.json

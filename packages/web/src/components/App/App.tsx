@@ -15,9 +15,13 @@ const buildQueryParams = (...params: (Record<string, string | undefined> | null)
     }
     return acc;
   });
-  return Object.entries(args).reduce((acc, [key, value]) => (
-    acc + `${key}=${(value !== undefined) ? value : ""}&`
-  ), "");
+  const res = Object.entries(args).reduce(
+    (acc, [key, value]) => (
+      acc + `${key}=${(value !== undefined) ? value : ""}&`
+    ),
+    ""
+  );
+  return res.substring(0, res.length - 1);
 };
 
 const App = () => {
@@ -25,12 +29,12 @@ const App = () => {
   useFullScreen();
   return (
     <Router onChange={(args) => {
-      if (args.path === "/map") {
+      if (args.path === "/") {
         dispatch(loadSession(args.matches?.sessionId))
           .unwrap()
           .then(({ session }) => {
             if (args.matches?.sessionId !== session.id) {
-              route(args.path + "?" + buildQueryParams(args.matches, { sessionId: session.id }))
+              route(args.path + "?" + buildQueryParams(args.matches, { sessionId: session.id }));
             }
           })
           .catch((err) => {
@@ -40,7 +44,7 @@ const App = () => {
           });
       }
     }}>
-      <MapPage path="/map" />
+      <MapPage path="/" />
     </Router>
   );
 };

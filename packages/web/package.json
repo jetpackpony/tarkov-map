@@ -4,11 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --config webpack.dev.js --host 0.0.0.0",
-    "build-main": "webpack --config webpack.prod.js --progress",
-    "build-demo": "webpack --config webpack.prod.js --env DB_COLLECTION_NAME=mapObjectsDemo --progress",
-    "deploy-main": "firebase deploy --only hosting:main",
-    "deploy-demo": "firebase deploy --only hosting:demo",
-    "local": "firebase serve --only hosting"
+    "build": "webpack --config webpack.prod.js --progress",
+    "deploy": "firebase deploy --only hosting:main",
+    "serve": "firebase serve --only hosting"
   },
   "keywords": [],
   "author": "",

@@ -55,7 +55,6 @@ module.exports = (env) => merge(common(env), {
     new PreactRefreshPlugin(),
     new webpack.DefinePlugin({
       'process.env.OFFLINE': JSON.stringify(process.env.OFFLINE),
-      'process.env.DB_COLLECTION_NAME': JSON.stringify(process.env.DB_COLLECTION_NAME)
     }),
   ]
 });

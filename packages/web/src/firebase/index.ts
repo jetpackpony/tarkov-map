@@ -23,9 +23,6 @@ export const getDB = (): DB => {
 export const initFirebase = (): DB => {
   const firebaseApp = initializeApp(firebaseConfig);
   const db = getFirestore(firebaseApp);
-  if (!process.env.DB_COLLECTION_NAME) {
-    throw new Error("Can't find the DB collection name");
-  }
   const mapObjectListeners: DBMapObjectListener[] = [];
   const sessionListeners: DBSessionListener[] = [];
   const sessionCollectionRef = collection(db, 'sessions');

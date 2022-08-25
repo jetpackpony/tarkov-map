@@ -46,7 +46,6 @@ module.exports = (env) => merge(common(env), {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.OFFLINE': JSON.stringify(env.OFFLINE || "false"),
-      'process.env.DB_COLLECTION_NAME': JSON.stringify(env.DB_COLLECTION_NAME || "mapObjects")
     }),
     new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
     new BundleAnalyzerPlugin({

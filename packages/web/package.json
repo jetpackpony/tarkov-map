@@ -1,5 +1,5 @@
 {
-  "name": "tarkov",
+  "name": "@tarkov-map/web",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

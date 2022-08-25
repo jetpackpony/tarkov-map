@@ -1,19 +1,22 @@
-import { DocumentChangeType, Unsubscribe } from "firebase/firestore";
+import { DocumentChangeType, Timestamp, Unsubscribe } from "firebase/firestore";
 import { MapName } from "../store/mapData";
 import { Color, Coords, isColor, isCoords } from "../types";
 
-export type DBListener = (type: DocumentChangeType, data: MapObject) => void;
+export type DBMapObjectListener = (type: DocumentChangeType, data: MapObject) => void;
+export type DBSessionListener = (session: Session) => void;
 
 export interface DB {
-  listen: (sessionId: string) => Unsubscribe,
-  addDataListener: (f: DBListener) => void,
+  listen: (sessionId: string) => Unsubscribe[],
+  addMapObjectListener: (f: DBMapObjectListener) => void,
+  addSessionListener: (f: DBSessionListener) => void,
   addMarker: (sessionId: string, markerId: string, mapName: MapName, data: MarkerData) => Promise<void>,
   removeMarker: (sessionId: string, markerId: string) => Promise<void>,
   addExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
   removeExtraction: (sessionId: string, extId: string, mapName: MapName) => Promise<void>,
   clearMap: (sessionId: string, mapName: MapName) => Promise<void[]>,
-  loadSession: (sessionId: string) => Promise<Session>;
-  createSession: () => Promise<Session>;
+  loadSession: (sessionId: string) => Promise<Session>,
+  createSession: () => Promise<Session>,
+  updateSessionLastAccess: (sessionId: string, lastAccess: Date) => Promise<Date>
 };
 
 export interface MarkerMapObject {
@@ -81,4 +84,27 @@ export const isSession = (obj: any): obj is Session => {
     && (obj.createdAt && typeof obj.createdAt === "string")
     && (obj.lastAccess && typeof obj.lastAccess === "string")
   );
+};
+
+export interface SessionInDB {
+  id: string,
+  createdAt: Timestamp,
+  lastAccess: Timestamp
+};
+
+export const isSessionInDB = (obj: any): obj is SessionInDB => {
+  return (
+    obj
+    && (obj.id && typeof obj.id === "string")
+    && (obj.createdAt && obj.createdAt instanceof Timestamp)
+    && (obj.lastAccess && obj.lastAccess instanceof Timestamp)
+  );
+};
+
+export const sessionDBToSession = (sessionDB: SessionInDB): Session => {
+  return {
+    id: sessionDB.id,
+    createdAt: sessionDB.createdAt.toDate().toISOString(),
+    lastAccess: sessionDB.lastAccess.toDate().toISOString()
+  }
 };

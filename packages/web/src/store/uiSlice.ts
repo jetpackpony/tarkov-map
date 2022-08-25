@@ -38,6 +38,11 @@ export const uiSlice = createSlice({
     },
     switchToTrackPad: (state, action: PayloadAction<{ isTrackPad: boolean }>) => {
       state.isTrackPad = action.payload.isTrackPad;
+    },
+    updateSessionLastAccess: (state, action: PayloadAction<{ sessionId: string, lastAccess: string }>) => {
+      if (state.session && state.session.id === action.payload.sessionId) {
+        state.session.lastAccess = action.payload.lastAccess;
+      }
     }
   },
   extraReducers: (builder) => {
@@ -55,12 +60,13 @@ export const uiSlice = createSlice({
   }
 });
 
-export const { changeMarkerColor, switchToTrackPad } = uiSlice.actions;
+export const { changeMarkerColor, switchToTrackPad, updateSessionLastAccess } = uiSlice.actions;
 
 export const selectCurrentMap = (state: AppState) => state.ui.currentMap;
 export const selectMarkerColor = (state: AppState) => state.ui.markerColor;
 export const selectIsTrackPad = (state: AppState) => state.ui.isTrackPad;
 export const selectCurrentSessionId = (state: AppState) => state.ui.session?.id;
+export const selectCurrentSession = (state: AppState) => state.ui.session;
 export const selectIsLoading = (state: AppState) => state.ui.loading;
 
 export const loadSession = createAsyncThunk<{ session: Session }, string | undefined, { state: AppState }>(

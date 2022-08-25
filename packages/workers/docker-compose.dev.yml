@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      target: development
+    container_name: tarkov-map-workers
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 9229:9229
+    command: npm run start:dev
+    environment:
+      - SVC_ACCOUNT_FILE=/run/secrets/svc_account.json
+    secrets:
+      - svc_account.json
+    env_file:
+      - .env
+
+secrets:
+  svc_account.json:
+    file: ./.secrets/svc_account.json

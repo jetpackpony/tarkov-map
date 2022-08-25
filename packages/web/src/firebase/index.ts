@@ -4,7 +4,6 @@ import {
   getFirestore, onSnapshot, query, setDoc, Timestamp, Unsubscribe, updateDoc, where
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
-import firebaseConfig from './config';
 import { DB, DBMapObjectListener, DBSessionListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, isSession, isSessionInDB, MarkerMapObject, Session, sessionDBToSession, SessionInDB } from "./types";
 export * from "./types";
 
@@ -21,7 +20,13 @@ export const getDB = (): DB => {
 };
 
 export const initFirebase = (): DB => {
-  const firebaseApp = initializeApp(firebaseConfig);
+  if (!process.env.FIREBASE_API_KEY || !process.env.FIREBASE_PROJECT_ID) {
+    throw new Error("Can't find DB credentials in the environment");
+  }
+  const firebaseApp = initializeApp({
+    apiKey: process.env.FIREBASE_API_KEY,
+    projectId: process.env.FIREBASE_PROJECT_ID
+  });
   const db = getFirestore(firebaseApp);
   const mapObjectListeners: DBMapObjectListener[] = [];
   const sessionListeners: DBSessionListener[] = [];

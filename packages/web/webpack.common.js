@@ -1,6 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
+require('dotenv').config({ path: './.env' });
 
 module.exports = (env) => ({
   entry: {
@@ -26,6 +28,11 @@ module.exports = (env) => ({
     new HtmlWebpackPlugin({
       title: "Map of Tarkov"
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.OFFLINE': JSON.stringify(process.env.OFFLINE),
+      'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
+      'process.env.FIREBASE_PROJECT_ID': JSON.stringify(process.env.FIREBASE_PROJECT_ID),
+    }),
   ]
 });

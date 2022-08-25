@@ -4,7 +4,6 @@ const common = require('./webpack.common.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const webpack = require('webpack');
 
 module.exports = (env) => merge(common(env), {
   mode: "production",
@@ -44,9 +43,6 @@ module.exports = (env) => merge(common(env), {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.OFFLINE': JSON.stringify(env.OFFLINE || "false"),
-    }),
     new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
     new BundleAnalyzerPlugin({
       analyzerMode: "static"

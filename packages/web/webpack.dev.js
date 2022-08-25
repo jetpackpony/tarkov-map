@@ -2,7 +2,6 @@ require('dotenv').config();
 const path = require('path');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
-const webpack = require('webpack');
 const PreactRefreshPlugin = require('@prefresh/webpack');
 
 module.exports = (env) => merge(common(env), {
@@ -53,8 +52,5 @@ module.exports = (env) => merge(common(env), {
   },
   plugins: [
     new PreactRefreshPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.OFFLINE': JSON.stringify(process.env.OFFLINE),
-    }),
   ]
 });

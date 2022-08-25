@@ -1,12 +1,14 @@
 import { initializeApp } from "firebase/app";
 import {
   collection, deleteDoc, doc, getDoc, getDocs,
-  getFirestore, onSnapshot, query, setDoc, Timestamp, Unsubscribe, where
+  getFirestore, onSnapshot, query, setDoc, Timestamp, Unsubscribe, updateDoc, where
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import firebaseConfig from './config';
-import { DB, DBListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, isSession, isSessionInDB, MarkerMapObject, Session, sessionDBToSession, SessionInDB } from "./types";
+import { DB, DBMapObjectListener, DBSessionListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, isSession, isSessionInDB, MarkerMapObject, Session, sessionDBToSession, SessionInDB } from "./types";
 export * from "./types";
+
+const lastAccessUpdateDelay = 24 * 60 * 60 * 1000;
 
 let dbInstance: DB | null = null;
 
@@ -24,16 +26,19 @@ export const initFirebase = (): DB => {
   if (!process.env.DB_COLLECTION_NAME) {
     throw new Error("Can't find the DB collection name");
   }
-  const listeners: DBListener[] = [];
+  const mapObjectListeners: DBMapObjectListener[] = [];
+  const sessionListeners: DBSessionListener[] = [];
   const sessionCollectionRef = collection(db, 'sessions');
-  let currentListener: Unsubscribe | null = null;
+  let currentListeners: Unsubscribe[] = [];
 
   // Sub to updates
   const listen: DB["listen"] = (sessionId) => {
-    if (currentListener) {
-      currentListener();
-    }
-    currentListener = onSnapshot(
+    // Unsub from all current updates
+    currentListeners.forEach((l) => l());
+    currentListeners = [];
+
+    // Sub to updates for the selected sessionId
+    currentListeners.push(onSnapshot(
       collection(sessionCollectionRef, sessionId, "mapObjects"),
       (querySnapshot) => {
         querySnapshot.docChanges().forEach((docChange) => {
@@ -42,17 +47,30 @@ export const initFirebase = (): DB => {
             const type = docChange.type;
             const data = docChange.doc.data();
             if (isMarkerMapObject(data) || isExtractMapObject(data)) {
-              listeners.forEach((f) => f(type, data));
+              mapObjectListeners.forEach((f) => f(type, data));
             }
           }
         })
       }
-    );
-    return currentListener;
+    ));
+    currentListeners.push(onSnapshot(
+      doc(sessionCollectionRef, sessionId),
+      (docSnapshot) => {
+        const session = docSnapshot.data();
+        if (isSessionInDB(session)) {
+          sessionListeners.forEach((f) => f(sessionDBToSession(session)));
+        }
+      }
+    ));
+    return currentListeners;
   };
 
-  const addDataListener: DB["addDataListener"] = (f) => {
-    listeners.push(f);
+  const addMapObjectListener: DB["addMapObjectListener"] = (f) => {
+    mapObjectListeners.push(f);
+  };
+
+  const addSessionListener: DB["addSessionListener"] = (f) => {
+    sessionListeners.push(f);
   };
 
   const getMarkerDoc = (sessionId: string, markerId: string) => {
@@ -99,6 +117,18 @@ export const initFirebase = (): DB => {
     return Promise.all(res.docs.map((doc) => deleteDoc(doc.ref)));
   };
 
+  const updateSessionLastAccess: DB["updateSessionLastAccess"] = async (sessionId: string, lastAccess: Date) => {
+    const now = new Date();
+    if (now.valueOf() - lastAccess.valueOf() > lastAccessUpdateDelay) {
+      await updateDoc(doc(sessionCollectionRef, sessionId), {
+        lastAccess: Timestamp.fromDate(new Date())
+      });
+      return new Date();
+    } else {
+      return lastAccess;
+    }
+  };
+
   const loadSession: DB["loadSession"] = async (sessionId: string) => {
     const session = await getDoc(doc(sessionCollectionRef, sessionId));
     const data = session.data();
@@ -134,10 +164,12 @@ export const initFirebase = (): DB => {
     removeMarker,
     addExtraction,
     removeExtraction,
-    addDataListener,
+    addMapObjectListener,
+    addSessionListener,
     listen,
     clearMap,
     loadSession,
-    createSession
+    createSession,
+    updateSessionLastAccess
   };
 };

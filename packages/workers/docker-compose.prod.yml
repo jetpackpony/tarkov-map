@@ -15,4 +15,4 @@ services:
 
 secrets:
   svc_account.json:
-    file: ./.secrets/svc_account.json
+    file: ./svc_account.json

@@ -1,20 +1,20 @@
-import CustomsMain from './CustomsMain';
-import CustomsHiddenStashes from './CustomsHiddenStashes';
-import ShorelineMain from './ShorelineMain';
-import ShorelineHiddenStashes from './ShorelineHiddenStashes';
-import ShorelineKeys from './ShorelineKeys';
-import ShorelineResort from './ShorelineResort';
-import InterchangeMain from './InterchangeMain';
-import InterchangeHiddenStashes from './InterchangeHiddenStashes';
-import WoodsMain from './WoodsMain';
-import WoodsCaches from './WoodsCaches';
-import ReserveMain from './ReserveMain';
-import ReserveKeysAndDoors from './ReserveKeysAndDoors';
-import FactoryMain from './FactoryMain';
-import LabsMain from './LabsMain';
-import LighthouseMain from './LighthouseMain';
-import LighthouseHiddenStashes from './LighthouseHiddenStashes';
-import { AllMapData } from '../../types';
+import CustomsMain from "./CustomsMain";
+import CustomsHiddenStashes from "./CustomsHiddenStashes";
+import ShorelineMain from "./ShorelineMain";
+import ShorelineHiddenStashes from "./ShorelineHiddenStashes";
+import ShorelineKeys from "./ShorelineKeys";
+import ShorelineResort from "./ShorelineResort";
+import InterchangeMain from "./InterchangeMain";
+import InterchangeHiddenStashes from "./InterchangeHiddenStashes";
+import WoodsMain from "./WoodsMain";
+import WoodsCaches from "./WoodsCaches";
+import ReserveMain from "./ReserveMain";
+import ReserveKeysAndDoors from "./ReserveKeysAndDoors";
+import FactoryMain from "./FactoryMain";
+import LabsMain from "./LabsMain";
+import LighthouseMain from "./LighthouseMain";
+import LighthouseHiddenStashes from "./LighthouseHiddenStashes";
+import { AllMapData } from "../../types";
 
 export enum MapName {
   CustomsMain = "customs-main",
@@ -33,7 +33,7 @@ export enum MapName {
   ShorelineResort = "shoreline-resort",
   WoodsMain = "woods-main",
   WoodsCaches = "woods-caches",
-};
+}
 
 const mapData: AllMapData = {
   maps: {
@@ -53,7 +53,7 @@ const mapData: AllMapData = {
     [MapName.ShorelineResort]: ShorelineResort,
     [MapName.WoodsMain]: WoodsMain,
     [MapName.WoodsCaches]: WoodsCaches,
-  }
+  },
 };
 
 export default mapData;

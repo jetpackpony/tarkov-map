@@ -8,10 +8,5 @@ export default () => {
   const dispatch = useAppDispatch();
   const onMapSelected = compose(dispatch, selectMap);
 
-  return (
-    <MapSelector
-      currentMap={currentMap}
-      onMapSelected={onMapSelected}
-    />
-  )
+  return <MapSelector currentMap={currentMap} onMapSelected={onMapSelected} />;
 };

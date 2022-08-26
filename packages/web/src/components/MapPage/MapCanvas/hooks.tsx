@@ -1,7 +1,16 @@
-import { Ref } from 'preact';
-import { useEffect, useLayoutEffect, useState, useRef, TargetedEvent } from 'preact/compat';
+import { Ref } from "preact";
+import {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useRef,
+  TargetedEvent,
+} from "preact/compat";
 
-export const useImageLoader = (imgPath: string, onLoad: (img: HTMLImageElement) => void) => {
+export const useImageLoader = (
+  imgPath: string,
+  onLoad: (img: HTMLImageElement) => void
+) => {
   const [imgObj, setImgObj] = useState<HTMLImageElement | null>(null);
   const onImageLoaded = (e: Event) => {
     setImgObj((e as TargetedEvent<HTMLImageElement, Event>).currentTarget);
@@ -30,7 +39,7 @@ export const useCanvasWithResizeHandler = () => {
     if (canvasRef.current) {
       setCanvasSize({
         w: canvasRef.current.width,
-        h: canvasRef.current.height
+        h: canvasRef.current.height,
       });
     }
   };
@@ -49,6 +58,6 @@ export const useCanvasWithResizeHandler = () => {
 
   return {
     canvasRef,
-    addResizeListener
+    addResizeListener,
   };
 };

@@ -1,18 +1,18 @@
-import { MapGroupId } from '../../types';
-import lighthouseStashesImg from '../../mapImages/LighthouseHiddenStashes.webp';
+import { MapGroupId } from "../../types";
+import lighthouseStashesImg from "../../mapImages/LighthouseHiddenStashes.webp";
 
 const mapData = {
   groupId: MapGroupId.Lighthouse,
   groupName: {
     en: "Lighthouse",
-    ru: "Маяк"
+    ru: "Маяк",
   },
   title: {
     en: "Hidden Stashes",
-    ru: "Тайники"
+    ru: "Тайники",
   },
   imgPath: lighthouseStashesImg,
-  extracts: []
+  extracts: [],
 };
 
 export default mapData;

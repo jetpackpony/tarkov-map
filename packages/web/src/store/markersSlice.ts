@@ -4,13 +4,17 @@ import { AppDispatch, AppState } from ".";
 import { getDB } from "../firebase";
 import { Color, Coords, ExtractMarker, Marker } from "../types";
 import mapData, { MapName } from "./mapData";
-import { selectCurrentMap, selectCurrentSessionId, selectMarkerColor } from "./uiSlice";
+import {
+  selectCurrentMap,
+  selectCurrentSessionId,
+  selectMarkerColor,
+} from "./uiSlice";
 
 export type MarkersState = {
   [key in MapName]: {
-    markers: Marker[],
-    selectedExtracts: string[]
-  }
+    markers: Marker[];
+    selectedExtracts: string[];
+  };
 };
 
 const remove = (id: number, list: any[]) => {
@@ -19,7 +23,7 @@ const remove = (id: number, list: any[]) => {
 
 export const getMapInitState = () => ({
   markers: [],
-  selectedExtracts: []
+  selectedExtracts: [],
 });
 
 const getAllMapsInitState = (): MarkersState => {
@@ -33,15 +37,25 @@ export const markersSlice = createSlice({
   name: "markers",
   initialState: getAllMapsInitState(),
   reducers: {
-    drawMarker: (state, action: PayloadAction<{ mapName: MapName, id: string, coords: Coords, color: Color }>) => {
+    drawMarker: (
+      state,
+      action: PayloadAction<{
+        mapName: MapName;
+        id: string;
+        coords: Coords;
+        color: Color;
+      }>
+    ) => {
       const { id, coords, color, mapName } = action.payload;
       state[mapName].markers.push({ id, coords, color, type: "user" });
     },
-    eraseMarkers: (state, action: PayloadAction<{ mapName: MapName, ids: string[] }>) => {
+    eraseMarkers: (
+      state,
+      action: PayloadAction<{ mapName: MapName; ids: string[] }>
+    ) => {
       const { mapName, ids } = action.payload;
-      state[mapName].markers = (
-        state[mapName].markers
-          .filter((m) => !ids.includes(m.id))
+      state[mapName].markers = state[mapName].markers.filter(
+        (m) => !ids.includes(m.id)
       );
     },
     clearMap: (state, action: PayloadAction<{ mapId: MapName }>) => {
@@ -52,7 +66,10 @@ export const markersSlice = createSlice({
         state[mapId] = getMapInitState();
       });
     },
-    selectExtract: (state, action: PayloadAction<{ mapName: MapName, extId: string }>) => {
+    selectExtract: (
+      state,
+      action: PayloadAction<{ mapName: MapName; extId: string }>
+    ) => {
       const { mapName, extId } = action.payload;
       const selectedExtracts = state[mapName].selectedExtracts;
       const index = selectedExtracts.findIndex((id) => id === extId);
@@ -60,22 +77,31 @@ export const markersSlice = createSlice({
         state[mapName].selectedExtracts.push(extId);
       }
     },
-    unselectExtract: (state, action: PayloadAction<{ mapName: MapName, extId: string }>) => {
+    unselectExtract: (
+      state,
+      action: PayloadAction<{ mapName: MapName; extId: string }>
+    ) => {
       const { mapName, extId } = action.payload;
       const selectedExtracts = state[mapName].selectedExtracts;
       const index = selectedExtracts.findIndex((id) => id === extId);
       if (index >= 0) {
         state[mapName].selectedExtracts = remove(index, selectedExtracts);
       }
-    }
-  }
+    },
+  },
 });
 
-export const { drawMarker, eraseMarkers, clearAllMaps, selectExtract, unselectExtract } = markersSlice.actions;
+export const {
+  drawMarker,
+  eraseMarkers,
+  clearAllMaps,
+  selectExtract,
+  unselectExtract,
+} = markersSlice.actions;
 
 export const selectIsExtractSelected = (extId: string) => (state: AppState) => {
   const index = selectSelectedExtracts(state).findIndex((id) => id === extId);
-  return (index >= 0);
+  return index >= 0;
 };
 
 export const selectSelectedExtracts = (state: AppState) => {
@@ -95,7 +121,7 @@ export const selectExtractionMarkers = (state: AppState): ExtractMarker[] => {
     .map((e) => {
       return {
         ...e,
-        type: "extraction"
+        type: "extraction",
       };
     });
 };
@@ -104,8 +130,8 @@ export const selectMarkers = (state: AppState) => {
   return [...selectUserMarkers(state), ...selectExtractionMarkers(state)];
 };
 
-export const addMarker = (coords: Coords) =>
-  (dispatch: AppDispatch, getState: () => AppState) => {
+export const addMarker =
+  (coords: Coords) => (dispatch: AppDispatch, getState: () => AppState) => {
     const sessionId = selectCurrentSessionId(getState());
     if (!sessionId) return;
     const markerId = nanoid(5);
@@ -115,8 +141,8 @@ export const addMarker = (coords: Coords) =>
     dispatch(drawMarker({ id: markerId, coords, color, mapName }));
   };
 
-export const removeMarkers = (ids: string[]) =>
-  (dispatch: AppDispatch, getState: () => AppState) => {
+export const removeMarkers =
+  (ids: string[]) => (dispatch: AppDispatch, getState: () => AppState) => {
     const sessionId = selectCurrentSessionId(getState());
     if (!sessionId) return;
     const mapName = selectCurrentMap(getState());
@@ -126,8 +152,8 @@ export const removeMarkers = (ids: string[]) =>
     dispatch(eraseMarkers({ mapName, ids }));
   };
 
-export const toggleExtract = (extId: string) =>
-  (dispatch: AppDispatch, getState: () => AppState) => {
+export const toggleExtract =
+  (extId: string) => (dispatch: AppDispatch, getState: () => AppState) => {
     const sessionId = selectCurrentSessionId(getState());
     if (!sessionId) return;
     const mapName = selectCurrentMap(getState());
@@ -141,8 +167,8 @@ export const toggleExtract = (extId: string) =>
     }
   };
 
-export const clearMap = () =>
-  (dispatch: AppDispatch, getState: () => AppState) => {
+export const clearMap =
+  () => (dispatch: AppDispatch, getState: () => AppState) => {
     const sessionId = selectCurrentSessionId(getState());
     if (!sessionId) return;
     const mapName = selectCurrentMap(getState());

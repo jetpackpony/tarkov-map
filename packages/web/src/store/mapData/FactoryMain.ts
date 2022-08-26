@@ -1,18 +1,18 @@
-import { MapGroupId } from '../../types';
-import img from '../../mapImages/FactoryMain.webp';
+import { MapGroupId } from "../../types";
+import img from "../../mapImages/FactoryMain.webp";
 
 const mapData = {
   groupId: MapGroupId.Factory,
   groupName: {
     en: "Factory",
-    ru: "Завод"
+    ru: "Завод",
   },
   title: {
     en: "Main",
-    ru: "Главная"
+    ru: "Главная",
   },
   imgPath: img,
-  extracts: []
+  extracts: [],
 };
 
 export default mapData;

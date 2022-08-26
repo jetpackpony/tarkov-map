@@ -1,10 +1,34 @@
 import { initializeApp } from "firebase/app";
 import {
-  collection, deleteDoc, doc, getDoc, getDocs,
-  getFirestore, onSnapshot, query, setDoc, Timestamp, Unsubscribe, updateDoc, where
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  onSnapshot,
+  query,
+  setDoc,
+  Timestamp,
+  Unsubscribe,
+  updateDoc,
+  where,
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
-import { DB, DBMapObjectListener, DBSessionListener, ExtractMapObject, isExtractMapObject, isMarkerMapObject, isSession, isSessionInDB, MarkerMapObject, Session, sessionDBToSession, SessionInDB } from "./types";
+import {
+  DB,
+  DBMapObjectListener,
+  DBSessionListener,
+  ExtractMapObject,
+  isExtractMapObject,
+  isMarkerMapObject,
+  isSession,
+  isSessionInDB,
+  MarkerMapObject,
+  Session,
+  sessionDBToSession,
+  SessionInDB,
+} from "./types";
 export * from "./types";
 
 const lastAccessUpdateDelay = 24 * 60 * 60 * 1000;
@@ -25,12 +49,12 @@ export const initFirebase = (): DB => {
   }
   const firebaseApp = initializeApp({
     apiKey: process.env.FIREBASE_API_KEY,
-    projectId: process.env.FIREBASE_PROJECT_ID
+    projectId: process.env.FIREBASE_PROJECT_ID,
   });
   const db = getFirestore(firebaseApp);
   const mapObjectListeners: DBMapObjectListener[] = [];
   const sessionListeners: DBSessionListener[] = [];
-  const sessionCollectionRef = collection(db, 'sessions');
+  const sessionCollectionRef = collection(db, "sessions");
   let currentListeners: Unsubscribe[] = [];
 
   // Sub to updates
@@ -40,30 +64,33 @@ export const initFirebase = (): DB => {
     currentListeners = [];
 
     // Sub to updates for the selected sessionId
-    currentListeners.push(onSnapshot(
-      collection(sessionCollectionRef, sessionId, "mapObjects"),
-      (querySnapshot) => {
-        querySnapshot.docChanges().forEach((docChange) => {
-          const source = docChange.doc.metadata.hasPendingWrites ? 'local' : 'server';
-          if (source !== 'local') {
-            const type = docChange.type;
-            const data = docChange.doc.data();
-            if (isMarkerMapObject(data) || isExtractMapObject(data)) {
-              mapObjectListeners.forEach((f) => f(type, data));
+    currentListeners.push(
+      onSnapshot(
+        collection(sessionCollectionRef, sessionId, "mapObjects"),
+        (querySnapshot) => {
+          querySnapshot.docChanges().forEach((docChange) => {
+            const source = docChange.doc.metadata.hasPendingWrites
+              ? "local"
+              : "server";
+            if (source !== "local") {
+              const type = docChange.type;
+              const data = docChange.doc.data();
+              if (isMarkerMapObject(data) || isExtractMapObject(data)) {
+                mapObjectListeners.forEach((f) => f(type, data));
+              }
             }
-          }
-        })
-      }
-    ));
-    currentListeners.push(onSnapshot(
-      doc(sessionCollectionRef, sessionId),
-      (docSnapshot) => {
+          });
+        }
+      )
+    );
+    currentListeners.push(
+      onSnapshot(doc(sessionCollectionRef, sessionId), (docSnapshot) => {
         const session = docSnapshot.data();
         if (isSessionInDB(session)) {
           sessionListeners.forEach((f) => f(sessionDBToSession(session)));
         }
-      }
-    ));
+      })
+    );
     return currentListeners;
   };
 
@@ -79,12 +106,17 @@ export const initFirebase = (): DB => {
     return doc(sessionCollectionRef, sessionId, "mapObjects", markerId);
   };
 
-  const addMarker: DB["addMarker"] = async (sessionId, markerId, mapName, data) => {
+  const addMarker: DB["addMarker"] = async (
+    sessionId,
+    markerId,
+    mapName,
+    data
+  ) => {
     const mapObject: MarkerMapObject = {
       id: markerId,
       map: mapName,
       type: "marker",
-      data
+      data,
     };
     return setDoc(getMarkerDoc(sessionId, markerId), mapObject);
   };
@@ -99,12 +131,16 @@ export const initFirebase = (): DB => {
       id,
       map: mapName,
       type: "ext",
-      data: {}
+      data: {},
     };
     return setDoc(getMarkerDoc(sessionId, id), mapObject);
   };
 
-  const removeExtraction: DB["removeExtraction"] = (sessionId, extId, mapName) => {
+  const removeExtraction: DB["removeExtraction"] = (
+    sessionId,
+    extId,
+    mapName
+  ) => {
     const id = `${mapName}-${extId}`;
     return deleteDoc(getMarkerDoc(sessionId, id));
   };
@@ -113,17 +149,20 @@ export const initFirebase = (): DB => {
     const res = await getDocs(
       query(
         collection(sessionCollectionRef, sessionId, "mapObjects"),
-        where("map", '==', mapName)
+        where("map", "==", mapName)
       )
     );
     return Promise.all(res.docs.map((doc) => deleteDoc(doc.ref)));
   };
 
-  const updateSessionLastAccess: DB["updateSessionLastAccess"] = async (sessionId: string, lastAccess: Date) => {
+  const updateSessionLastAccess: DB["updateSessionLastAccess"] = async (
+    sessionId: string,
+    lastAccess: Date
+  ) => {
     const now = new Date();
     if (now.valueOf() - lastAccess.valueOf() > lastAccessUpdateDelay) {
       await updateDoc(doc(sessionCollectionRef, sessionId), {
-        lastAccess: Timestamp.fromDate(new Date())
+        lastAccess: Timestamp.fromDate(new Date()),
       });
       return new Date();
     } else {
@@ -145,7 +184,7 @@ export const initFirebase = (): DB => {
     const sessionObject: SessionInDB = {
       id,
       createdAt: Timestamp.fromDate(new Date()),
-      lastAccess: Timestamp.fromDate(new Date())
+      lastAccess: Timestamp.fromDate(new Date()),
     };
     try {
       await setDoc(doc(sessionCollectionRef, id), sessionObject);
@@ -157,7 +196,7 @@ export const initFirebase = (): DB => {
         msg += e.message;
       }
       throw new Error(msg);
-    };
+    }
     return sessionDBToSession(sessionObject);
   };
 
@@ -172,6 +211,6 @@ export const initFirebase = (): DB => {
     clearMap,
     loadSession,
     createSession,
-    updateSessionLastAccess
+    updateSessionLastAccess,
   };
 };

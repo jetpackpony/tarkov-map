@@ -1,8 +1,8 @@
-import { h } from 'preact';
-import { useEffect, useRef } from 'preact/compat';
-import { useCanvasWithResizeHandler } from './hooks';
-import styles from './canvas.module.css';
-import { Coords } from '../../../types';
+import { h } from "preact";
+import { useEffect, useRef } from "preact/compat";
+import { useCanvasWithResizeHandler } from "./hooks";
+import styles from "./canvas.module.css";
+import { Coords } from "../../../types";
 
 const minDragDist = 5;
 const trackPadScaleMulti = 0.01;
@@ -18,21 +18,21 @@ const resizeHandler = (canvas: HTMLCanvasElement) => {
 };
 
 interface DragState {
-  started: boolean,
-  mouseDownCoords: Coords,
-  prevPos: Coords,
-  maxDistFromOrigin: number,
-  removeEventListener: () => void
-};
+  started: boolean;
+  mouseDownCoords: Coords;
+  prevPos: Coords;
+  maxDistFromOrigin: number;
+  removeEventListener: () => void;
+}
 
 interface CanvasWrapperProps {
-  redrawCanvas: (canvas: HTMLCanvasElement) => void,
-  onLeftClick: (offsetX: number, offsetY: number) => void,
-  onPan: (canvas: HTMLCanvasElement, deltaX: number, deltaY: number) => void,
-  onZoom: (canvas: HTMLCanvasElement, deltaY: number, pos: Coords) => void,
-  isTrackPad: boolean,
-  onSwitchToTrackPad: (payload: { isTrackPad: boolean }) => any
-};
+  redrawCanvas: (canvas: HTMLCanvasElement) => void;
+  onLeftClick: (offsetX: number, offsetY: number) => void;
+  onPan: (canvas: HTMLCanvasElement, deltaX: number, deltaY: number) => void;
+  onZoom: (canvas: HTMLCanvasElement, deltaY: number, pos: Coords) => void;
+  isTrackPad: boolean;
+  onSwitchToTrackPad: (payload: { isTrackPad: boolean }) => any;
+}
 
 const CanvasWrapper = ({
   redrawCanvas,
@@ -40,7 +40,7 @@ const CanvasWrapper = ({
   onPan,
   onZoom,
   isTrackPad,
-  onSwitchToTrackPad
+  onSwitchToTrackPad,
 }: CanvasWrapperProps) => {
   const { canvasRef, addResizeListener } = useCanvasWithResizeHandler();
 
@@ -52,7 +52,7 @@ const CanvasWrapper = ({
     mouseDownCoords: { x: 0, y: 0 },
     prevPos: { x: 0, y: 0 },
     maxDistFromOrigin: 0,
-    removeEventListener: () => { }
+    removeEventListener: () => {},
   });
 
   const redrawCanvasDebounced = () => {
@@ -76,13 +76,16 @@ const CanvasWrapper = ({
     if (canvasRef.current) {
       if (e.ctrlKey) {
         // This is trackpad pinching (scale)
-        onZoom(canvasRef.current, e.deltaY * trackPadScaleMulti, { x: e.offsetX, y: e.offsetY });
+        onZoom(canvasRef.current, e.deltaY * trackPadScaleMulti, {
+          x: e.offsetX,
+          y: e.offsetY,
+        });
       } else if (isTrackPad) {
         // this is trackpad moving
         onPan(canvasRef.current, e.deltaX * posMulti, e.deltaY * posMulti);
       } else {
         // This is a real mouse wheel scale
-        const delta = e.deltaY / Math.abs(e.deltaY) * mouseWheelScaleMulti;
+        const delta = (e.deltaY / Math.abs(e.deltaY)) * mouseWheelScaleMulti;
         onZoom(canvasRef.current, delta, { x: e.offsetX, y: e.offsetY });
       }
     }
@@ -103,7 +106,8 @@ const CanvasWrapper = ({
     const deltaY = dragState.current.prevPos.y - e.offsetY;
     dragState.current.prevPos.x = e.offsetX;
     dragState.current.prevPos.y = e.offsetY;
-    canvasRef.current && onPan(canvasRef.current, deltaX * posMulti, deltaY * posMulti);
+    canvasRef.current &&
+      onPan(canvasRef.current, deltaX * posMulti, deltaY * posMulti);
     if (!isDrawing.current) {
       redrawCanvasDebounced();
     }
@@ -115,17 +119,18 @@ const CanvasWrapper = ({
       dragState.current.started = true;
       dragState.current.mouseDownCoords = {
         x: e.offsetX,
-        y: e.offsetY
+        y: e.offsetY,
       };
       dragState.current.prevPos = {
         x: e.offsetX,
-        y: e.offsetY
+        y: e.offsetY,
       };
       dragState.current.maxDistFromOrigin = 0;
       if (canvasRef.current) {
-        canvasRef.current.addEventListener('mousemove', onMouseMove);
-        dragState.current.removeEventListener =
-          () => canvasRef.current && canvasRef.current.removeEventListener('mousemove', onMouseMove);
+        canvasRef.current.addEventListener("mousemove", onMouseMove);
+        dragState.current.removeEventListener = () =>
+          canvasRef.current &&
+          canvasRef.current.removeEventListener("mousemove", onMouseMove);
       }
     }
   };
@@ -135,7 +140,7 @@ const CanvasWrapper = ({
       dragState.current.removeEventListener();
       if (dragState.current.maxDistFromOrigin < minDragDist) {
         e.preventDefault();
-        onLeftClick(e.offsetX, e.offsetY)
+        onLeftClick(e.offsetX, e.offsetY);
       }
       dragState.current.started = false;
     }
@@ -162,8 +167,7 @@ const CanvasWrapper = ({
       onWheel={onWheel}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
-    >
-    </canvas>
+    ></canvas>
   );
 };
 

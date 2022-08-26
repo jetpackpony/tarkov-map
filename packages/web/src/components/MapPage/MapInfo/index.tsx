@@ -1,7 +1,10 @@
 import { compose } from "rambda";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import mapData from "../../../store/mapData";
-import { selectSelectedExtracts, toggleExtract } from "../../../store/markersSlice";
+import {
+  selectSelectedExtracts,
+  toggleExtract,
+} from "../../../store/markersSlice";
 import { selectCurrentMap } from "../../../store/uiSlice";
 import MapInfo from "./MapInfo";
 

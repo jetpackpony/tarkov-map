@@ -1,18 +1,18 @@
-import { MapGroupId } from '../../types';
-import img from '../../mapImages/InterchangeHiddenStashes.webp';
+import { MapGroupId } from "../../types";
+import img from "../../mapImages/InterchangeHiddenStashes.webp";
 
 const mapData = {
   groupId: MapGroupId.Interchange,
   groupName: {
     en: "Interchange",
-    ru: "Развязка "
+    ru: "Развязка ",
   },
   title: {
     en: "Hidden Stashes",
-    ru: "Тайники"
+    ru: "Тайники",
   },
   imgPath: img,
-  extracts: []
+  extracts: [],
 };
 
 export default mapData;

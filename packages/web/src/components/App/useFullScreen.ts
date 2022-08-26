@@ -1,5 +1,5 @@
-import { h } from 'preact';
-import { useEffect } from 'preact/compat';
+import { h } from "preact";
+import { useEffect } from "preact/compat";
 
 const fullScreenListener = (e: KeyboardEvent) => {
   if (e.ctrlKey && e.keyCode == 13) {
@@ -16,7 +16,8 @@ const fullScreenListener = (e: KeyboardEvent) => {
 const useFullScreen = () => {
   useEffect(() => {
     document.addEventListener("keydown", fullScreenListener, false);
-    return () => document.removeEventListener("keydown", fullScreenListener, false);
+    return () =>
+      document.removeEventListener("keydown", fullScreenListener, false);
   }, []);
 };
 

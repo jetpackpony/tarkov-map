@@ -24,7 +24,7 @@ const buildQueryParams = (...params: (Record<string, string | undefined> | null)
   return res.substring(0, res.length - 1);
 };
 
-const App = () => {
+const Routes = () => {
   const dispatch = useAppDispatch();
   useFullScreen();
   return (
@@ -49,4 +49,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Routes;

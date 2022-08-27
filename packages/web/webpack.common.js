@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
+const ESLintPlugin = require("eslint-webpack-plugin");
 require("dotenv").config({ path: "./.env" });
 
 module.exports = (env) => ({
@@ -25,6 +26,9 @@ module.exports = (env) => ({
     ],
   },
   plugins: [
+    new ESLintPlugin({
+      extensions: ["js", "jsx", "ts", "tsx"],
+    }),
     new HtmlWebpackPlugin({
       title: "Map of Tarkov",
     }),

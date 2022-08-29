@@ -13,7 +13,7 @@ import {
 } from "../../../store/uiSlice";
 import mapData from "../../../store/mapData";
 
-export default () => {
+const MapCanvasContainer = () => {
   const currentMap = useAppSelector(selectCurrentMap);
   const imgPath = mapData.maps[currentMap].imgPath;
   const markers = useAppSelector(selectMarkers);
@@ -34,3 +34,5 @@ export default () => {
     />
   );
 };
+
+export default MapCanvasContainer;

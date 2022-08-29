@@ -22,10 +22,8 @@ import {
   ExtractMapObject,
   isExtractMapObject,
   isMarkerMapObject,
-  isSession,
   isSessionInDB,
   MarkerMapObject,
-  Session,
   sessionDBToSession,
   SessionInDB,
 } from "./types";
@@ -164,9 +162,8 @@ export const initFirebase = (): DB => {
         lastAccess: Timestamp.fromDate(new Date()),
       });
       return new Date();
-    } else {
-      return lastAccess;
     }
+    return lastAccess;
   };
 
   const loadSession: DB["loadSession"] = async (sessionId: string) => {

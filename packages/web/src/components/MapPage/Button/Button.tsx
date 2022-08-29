@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 const Button = ({ children, onClick, className }: ButtonProps) => {
-  let classes = [styles.button];
+  const classes = [styles.button];
   if (className) {
     classes.push(className);
   }

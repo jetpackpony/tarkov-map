@@ -31,7 +31,7 @@ interface CanvasWrapperProps {
   onPan: (canvas: HTMLCanvasElement, deltaX: number, deltaY: number) => void;
   onZoom: (canvas: HTMLCanvasElement, deltaY: number, pos: Coords) => void;
   isTrackPad: boolean;
-  onSwitchToTrackPad: (payload: { isTrackPad: boolean }) => any;
+  onSwitchToTrackPad: (payload: { isTrackPad: boolean }) => void;
 }
 
 const CanvasWrapper = ({
@@ -154,7 +154,7 @@ const CanvasWrapper = ({
   // Resize canvas after initial load
   useEffect(() => {
     canvasRef.current && resizeHandler(canvasRef.current);
-  }, []);
+  }, [canvasRef]);
 
   return (
     <canvas
@@ -167,7 +167,7 @@ const CanvasWrapper = ({
       onWheel={onWheel}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
-    ></canvas>
+    />
   );
 };
 

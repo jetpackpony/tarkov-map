@@ -1,4 +1,3 @@
-import { Ref } from "preact";
 import {
   useEffect,
   useLayoutEffect,
@@ -12,26 +11,26 @@ export const useImageLoader = (
   onLoad: (img: HTMLImageElement) => void
 ) => {
   const [imgObj, setImgObj] = useState<HTMLImageElement | null>(null);
-  const onImageLoaded = (e: Event) => {
-    setImgObj((e as TargetedEvent<HTMLImageElement, Event>).currentTarget);
-    onLoad((e as TargetedEvent<HTMLImageElement, Event>).currentTarget);
-  };
   useEffect(() => {
-    if (imgObj) setImgObj(null);
+    const onImageLoaded = (e: Event) => {
+      setImgObj((e as TargetedEvent<HTMLImageElement, Event>).currentTarget);
+      onLoad((e as TargetedEvent<HTMLImageElement, Event>).currentTarget);
+    };
+    setImgObj(null);
     const img = new Image();
     img.addEventListener("load", onImageLoaded);
     img.src = imgPath;
     return () => img.removeEventListener("load", onImageLoaded);
-  }, [imgPath]);
+  }, [imgPath, onLoad]);
 
   return imgObj;
 };
 
-type CanvasResizeListener = (canvas: HTMLCanvasElement) => any;
+type CanvasResizeListener = (canvas: HTMLCanvasElement) => void;
 
 export const useCanvasWithResizeHandler = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [_, setCanvasSize] = useState({ w: 0, h: 0 });
+  const [, setCanvasSize] = useState({ w: 0, h: 0 });
   const listeners = useRef<CanvasResizeListener[]>([]);
 
   const resizeCanvas = () => {

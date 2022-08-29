@@ -18,7 +18,7 @@ const buildQueryParams = (
     return acc;
   });
   const res = Object.entries(args).reduce(
-    (acc, [key, value]) => acc + `${key}=${value !== undefined ? value : ""}&`,
+    (acc, [key, value]) => `${acc}${key}=${value !== undefined ? value : ""}&`,
     ""
   );
   return res.substring(0, res.length - 1);
@@ -36,9 +36,9 @@ const Routes = () => {
             .then(({ session }) => {
               if (args.matches?.sessionId !== session.id) {
                 route(
-                  args.path +
-                    "?" +
-                    buildQueryParams(args.matches, { sessionId: session.id })
+                  `${args.path}?${buildQueryParams(args.matches, {
+                    sessionId: session.id,
+                  })}`
                 );
               }
             })

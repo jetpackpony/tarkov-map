@@ -12,10 +12,10 @@ import LoadingSpinner from "../LoadingSpinner";
 import { useSelector } from "react-redux";
 
 interface MapPageContainerProps {
-  path: string;
+  path?: string;
 }
 
-export default ({ path }: MapPageContainerProps) => {
+const MapPageContainer = ({}: MapPageContainerProps) => {
   const isLoading = useSelector(selectIsLoading);
   const markerColor = useAppSelector(selectMarkerColor);
   const dispatch = useAppDispatch();
@@ -32,3 +32,5 @@ export default ({ path }: MapPageContainerProps) => {
     />
   );
 };
+
+export default MapPageContainer;

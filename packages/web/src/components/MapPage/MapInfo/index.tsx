@@ -8,7 +8,7 @@ import {
 import { selectCurrentMap } from "../../../store/uiSlice";
 import MapInfo from "./MapInfo";
 
-export default () => {
+const MapInfoContainer = () => {
   const currentMap = useAppSelector(selectCurrentMap);
   const dispatch = useAppDispatch();
   const extracts = mapData.maps[currentMap].extracts;
@@ -23,3 +23,5 @@ export default () => {
     />
   );
 };
+
+export default MapInfoContainer;

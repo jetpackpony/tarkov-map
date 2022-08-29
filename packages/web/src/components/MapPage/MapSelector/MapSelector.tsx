@@ -31,7 +31,7 @@ const getMapGroups = (lang: Language): MapGroups => {
 
 interface MapSelectorProps {
   currentMap: MapName;
-  onMapSelected: (payload: { mapId: MapName }) => any;
+  onMapSelected: (payload: { mapId: MapName }) => void;
 }
 
 const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {
@@ -40,11 +40,12 @@ const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {
   return (
     <ul class={styles.container}>
       {Object.values(mapGroups).map((group) => (
-        <li class={styles.groupContainer}>
+        <li key={group.groupName} class={styles.groupContainer}>
           <h4 class={styles.groupHeader}>{group.groupName}</h4>
           <ul>
             {Object.entries(group.maps).map(([mapId, name]) => (
               <li
+                key={mapId}
                 class={`${styles.map} ${
                   mapId === currentMap ? styles.selected : ""
                 }`}

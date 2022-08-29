@@ -32,7 +32,7 @@ const groupExtracts = (extracts: ExtractData[], lang: Language) => {
 interface ExtractItemProps {
   extract: ExtractData;
   isSelected: boolean;
-  toggleExtract: (extId: string) => any;
+  toggleExtract: (extId: string) => void;
 }
 
 const ExtractItem = ({
@@ -52,7 +52,7 @@ const ExtractItem = ({
           <div
             title={t("Activation needed")}
             class={styles.activationRequired}
-          ></div>
+          />
         ) : null}
       </div>
       {extract.specialConditions ? (
@@ -79,9 +79,7 @@ const FactionList = ({ title, children }: FactionListProps) => {
           onClick={() => setUnfolded(!unfolded)}
         >
           {title}
-          <i
-            class={`${styles.arrow} ${unfolded ? styles.up : styles.down}`}
-          ></i>
+          <i class={`${styles.arrow} ${unfolded ? styles.up : styles.down}`} />
         </button>
       </h4>
       <ul class={`${styles.extractsList} ${!unfolded ? styles.hidden : ""}`}>
@@ -94,7 +92,7 @@ const FactionList = ({ title, children }: FactionListProps) => {
 interface MapInfoProps {
   extracts: ExtractData[];
   selected: string[];
-  toggleExtract: (extId: string) => any;
+  toggleExtract: (extId: string) => void;
 }
 
 const MapInfo = ({
@@ -117,6 +115,7 @@ const MapInfo = ({
       <FactionList title={t("PMC")}>
         {groups.pmc.map((e) => (
           <ExtractItem
+            key={e.id}
             extract={e}
             isSelected={selected.includes(e.id)}
             toggleExtract={toggleExtract}
@@ -126,6 +125,7 @@ const MapInfo = ({
       <FactionList title={t("Scav")}>
         {groups.scav.map((e) => (
           <ExtractItem
+            key={e.id}
             extract={e}
             isSelected={selected.includes(e.id)}
             toggleExtract={toggleExtract}

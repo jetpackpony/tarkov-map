@@ -14,8 +14,8 @@ import { Color } from "../../types";
 
 export interface MapPageProps {
   markerColor: Color;
-  onMarkerColorChanged: (payload: { color: Color }) => any;
-  clearMap: () => any;
+  onMarkerColorChanged: (payload: { color: Color }) => void;
+  clearMap: () => void;
 }
 
 export const MapPage = ({

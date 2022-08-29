@@ -1,6 +1,6 @@
 import { h } from "preact";
 import CanvasWrapper from "./CanvasWrapper";
-import { useRef, useEffect } from "preact/compat";
+import { useRef, useEffect, useCallback } from "preact/compat";
 import { useImageLoader } from "./hooks";
 import styles from "./mapCanvas.module.css";
 import { draw } from "./drawing";
@@ -40,8 +40,8 @@ const updatePosOnScale = (
   scale: number,
   cursorPos: Coords
 ) => {
-  let wp = (cursorPos.x - pos.x) / (img.width * prevScale);
-  let hp = (cursorPos.y - pos.y) / (img.height * prevScale);
+  const wp = (cursorPos.x - pos.x) / (img.width * prevScale);
+  const hp = (cursorPos.y - pos.y) / (img.height * prevScale);
   return {
     x: cursorPos.x - img.width * scale * wp,
     y: cursorPos.y - img.height * scale * hp,
@@ -61,11 +61,10 @@ const clampPos = (
     // If the image does not fit into canvas, make its sides stick to the
     // sides of the canvas
     return clamp(pos, imgCanvasLenDiff - panBorder, panBorder);
-  } else {
-    // If the image does fit into canvas, let it flow freely inside the canvas
-    // but not outside of it
-    return clamp(pos, panBorder, imgCanvasLenDiff - panBorder);
   }
+  // If the image does fit into canvas, let it flow freely inside the canvas
+  // but not outside of it
+  return clamp(pos, panBorder, imgCanvasLenDiff - panBorder);
 };
 
 const maxX = 20;
@@ -86,9 +85,9 @@ interface MapCanvasProps {
   imgPath: string;
   markers: (Marker | ExtractMarker)[];
   isTrackPad: boolean;
-  addMarker: (coords: Coords) => any;
-  removeMarkers: (ids: string[]) => any;
-  onSwitchToTrackPad: (payload: { isTrackPad: boolean }) => any;
+  addMarker: (coords: Coords) => void;
+  removeMarkers: (ids: string[]) => void;
+  onSwitchToTrackPad: (payload: { isTrackPad: boolean }) => void;
 }
 
 const MapCanvas = ({
@@ -100,9 +99,9 @@ const MapCanvas = ({
   onSwitchToTrackPad,
 }: MapCanvasProps) => {
   const viewportState = useRef(getInitViewportState());
-  const onImageLoaded = (img: HTMLImageElement) => {
+  const onImageLoaded = useCallback(() => {
     viewportState.current.scale = 0.01;
-  };
+  }, [imgPath, viewportState]);
   const imgObj = useImageLoader(imgPath, onImageLoaded);
   // Reset vieport state every time the map is changed
   useEffect(() => {
@@ -111,7 +110,7 @@ const MapCanvas = ({
 
   const onZoom = (canvas: HTMLCanvasElement, deltaY: number, pos: Coords) => {
     if (!imgObj) return;
-    let prevScale = viewportState.current.scale;
+    const prevScale = viewportState.current.scale;
     viewportState.current.scale -= deltaY;
     viewportState.current.scale = clampScale(
       canvas,

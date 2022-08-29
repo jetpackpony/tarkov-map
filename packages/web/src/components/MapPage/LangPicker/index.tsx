@@ -24,6 +24,7 @@ const LangPicker = () => {
     <div>
       {Object.values(Language).map((lang) => (
         <LangButton
+          key={lang}
           lang={lang}
           selected={lang === getCurrentLang()}
           changeLang={(lang) => setLang(lang)}

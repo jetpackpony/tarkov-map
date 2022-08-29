@@ -22,7 +22,7 @@ interface DragState {
   mouseDownCoords: Coords;
   prevPos: Coords;
   maxDistFromOrigin: number;
-  removeEventListener: () => void;
+  removeEventListener?: () => void;
 }
 
 interface CanvasWrapperProps {
@@ -52,7 +52,6 @@ const CanvasWrapper = ({
     mouseDownCoords: { x: 0, y: 0 },
     prevPos: { x: 0, y: 0 },
     maxDistFromOrigin: 0,
-    removeEventListener: () => {},
   });
 
   const redrawCanvasDebounced = () => {
@@ -137,7 +136,8 @@ const CanvasWrapper = ({
 
   const onMouseUp = (e: MouseEvent) => {
     if (dragState.current.started) {
-      dragState.current.removeEventListener();
+      typeof dragState.current.removeEventListener === "function" &&
+        dragState.current.removeEventListener();
       if (dragState.current.maxDistFromOrigin < minDragDist) {
         e.preventDefault();
         onLeftClick(e.offsetX, e.offsetY);

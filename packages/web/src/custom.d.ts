@@ -15,7 +15,7 @@ interface ObjectConstructor {
     ? (keyof T)[]
     : T extends number
     ? []
-    : T extends Array<any> | string
+    : T extends Array | string
     ? string[]
     : never;
   entries<T, V>(

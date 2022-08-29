@@ -27,7 +27,7 @@ const LangPicker = () => {
           key={lang}
           lang={lang}
           selected={lang === getCurrentLang()}
-          changeLang={(lang) => setLang(lang)}
+          changeLang={(lang) => typeof setLang === "function" && setLang(lang)}
         />
       ))}
     </div>

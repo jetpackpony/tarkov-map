@@ -3,7 +3,7 @@ import { Action, Middleware } from "@reduxjs/toolkit";
 import { selectCurrentSession } from "./uiSlice";
 import { AppState } from ".";
 
-export const updateSessionLastAccessMiddleware: Middleware<{}, AppState> =
+export const updateSessionLastAccessMiddleware: Middleware<unknown, AppState> =
   ({ getState }) =>
   (next) =>
   (action: Action) => {

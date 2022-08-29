@@ -17,7 +17,7 @@ export type MarkersState = {
   };
 };
 
-const remove = (id: number, list: any[]) => {
+const remove = <T>(id: number, list: T[]): T[] => {
   return list.slice(0, id).concat(list.slice(id + 1));
 };
 

@@ -101,7 +101,7 @@ const MapCanvas = ({
   const viewportState = useRef(getInitViewportState());
   const onImageLoaded = useCallback(() => {
     viewportState.current.scale = 0.01;
-  }, [imgPath, viewportState]);
+  }, [viewportState]);
   const imgObj = useImageLoader(imgPath, onImageLoaded);
   // Reset vieport state every time the map is changed
   useEffect(() => {

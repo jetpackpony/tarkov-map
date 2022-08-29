@@ -22,7 +22,7 @@ export const subscribeToDBUpdates = (db: DB, dispatch: AppDispatch) => {
         );
       }
       if (item.type === "ext") {
-        const id = item.id.replace(item.map + "-", "");
+        const id = item.id.replace(`${item.map}-`, "");
         dispatch(selectExtract({ mapName: item.map, extId: id }));
       }
     }
@@ -31,7 +31,7 @@ export const subscribeToDBUpdates = (db: DB, dispatch: AppDispatch) => {
         dispatch(eraseMarkers({ mapName: item.map, ids: [item.id] }));
       }
       if (item.type === "ext") {
-        const id = item.id.replace(item.map + "-", "");
+        const id = item.id.replace(`${item.map}-`, "");
         dispatch(unselectExtract({ mapName: item.map, extId: id }));
       }
     }

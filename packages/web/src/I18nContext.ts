@@ -15,13 +15,12 @@ export const isLanguage = isEnum(Language);
 
 export interface LanguageContextInterface {
   getCurrentLang: () => Language;
-  setLang: (lang: Language) => void;
+  setLang?: (lang: Language) => void;
   t: (handle: string) => string;
 }
 
-export const LanguageContext = createContext({
+export const LanguageContext = createContext<LanguageContextInterface>({
   getCurrentLang: (): Language => Language.EN,
-  setLang: (lang: Language) => {},
   t: (handle: string) => handle,
 });
 

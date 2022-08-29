@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = (env) =>
   merge(common(env), {
@@ -48,6 +49,9 @@ module.exports = (env) =>
       ],
     },
     plugins: [
+      new ESLintPlugin({
+        extensions: ["js", "jsx", "ts", "tsx"],
+      }),
       new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
       new BundleAnalyzerPlugin({
         analyzerMode: "static",

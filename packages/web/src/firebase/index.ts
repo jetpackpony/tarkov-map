@@ -131,7 +131,6 @@ export const initFirebase = (): DB => {
       id,
       map: mapName,
       type: "ext",
-      data: {},
     };
     return setDoc(getMarkerDoc(sessionId, id), mapObject);
   };

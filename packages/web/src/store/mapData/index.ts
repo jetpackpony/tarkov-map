@@ -56,4 +56,8 @@ const mapData: AllMapData = {
   },
 };
 
+export const isMapName = (name: string): name is MapName => {
+  return Object.values<string>(MapName).includes(name);
+};
+
 export default mapData;

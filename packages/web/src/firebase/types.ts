@@ -1,6 +1,6 @@
 import { DocumentChangeType, Timestamp, Unsubscribe } from "firebase/firestore";
-import { MapName } from "../store/mapData";
-import { Color, Coords, isColor, isCoords } from "../types";
+import { isMapName, MapName } from "../store/mapData";
+import { Color, Coords, isColor, isCoords, isObject } from "../types";
 
 export type DBMapObjectListener = (
   type: DocumentChangeType,
@@ -54,45 +54,32 @@ export interface ExtractMapObject {
   id: string;
   map: MapName;
   type: "ext";
-  data: ExtractData;
 }
-
-export interface ExtractData {}
 
 export type MapObject = MarkerMapObject | ExtractMapObject;
 
-export const isMakerData = (data: any): data is MarkerData => {
-  return (
-    data &&
-    data.coords &&
-    isCoords(data.coords) &&
-    data.color &&
-    isColor(data.color)
-  );
+export const isMakerData = (data: unknown): data is MarkerData => {
+  return isObject(data) && isCoords(data.coords) && isColor(data.color);
 };
 
-export const isMarkerMapObject = (obj: any): obj is MarkerMapObject => {
+export const isMarkerMapObject = (obj: unknown): obj is MarkerMapObject => {
   return (
-    obj &&
-    obj.id &&
+    isObject(obj) &&
     typeof obj.id === "string" &&
-    obj.map &&
-    Object.values(MapName).includes(obj.map) &&
-    obj.type &&
+    obj.id !== "" &&
+    typeof obj.map === "string" &&
+    isMapName(obj.map) &&
     obj.type === "marker" &&
-    obj.data &&
     isMakerData(obj.data)
   );
 };
 
-export const isExtractMapObject = (obj: any): obj is ExtractMapObject => {
+export const isExtractMapObject = (obj: unknown): obj is ExtractMapObject => {
   return (
-    obj &&
-    obj.id &&
+    isObject(obj) &&
     typeof obj.id === "string" &&
-    obj.map &&
-    Object.values(MapName).includes(obj.map) &&
-    obj.type &&
+    typeof obj.map === "string" &&
+    isMapName(obj.map) &&
     obj.type === "ext"
   );
 };
@@ -103,14 +90,11 @@ export interface Session {
   lastAccess: string;
 }
 
-export const isSession = (obj: any): obj is Session => {
+export const isSession = (obj: unknown): obj is Session => {
   return (
-    obj &&
-    obj.id &&
+    isObject(obj) &&
     typeof obj.id === "string" &&
-    obj.createdAt &&
     typeof obj.createdAt === "string" &&
-    obj.lastAccess &&
     typeof obj.lastAccess === "string"
   );
 };
@@ -121,14 +105,11 @@ export interface SessionInDB {
   lastAccess: Timestamp;
 }
 
-export const isSessionInDB = (obj: any): obj is SessionInDB => {
+export const isSessionInDB = (obj: unknown): obj is SessionInDB => {
   return (
-    obj &&
-    obj.id &&
+    isObject(obj) &&
     typeof obj.id === "string" &&
-    obj.createdAt &&
     obj.createdAt instanceof Timestamp &&
-    obj.lastAccess &&
     obj.lastAccess instanceof Timestamp
   );
 };

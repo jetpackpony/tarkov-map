@@ -8,16 +8,19 @@ export interface Coords {
   y: number;
 }
 
-export const isCoords = (coords: any): coords is Coords => {
+export const isObject = (obj: unknown): obj is Record<string, unknown> => {
+  return typeof obj === "object" && obj !== null;
+};
+
+export const isCoords = (coords: unknown): coords is Coords => {
   return (
-    typeof coords === "object" &&
-    typeof coords !== null &&
+    isObject(coords) &&
     typeof coords.x === "number" &&
     typeof coords.y === "number"
   );
 };
 
-export const isColor = (color: any): color is Color => {
+export const isColor = (color: unknown): color is Color => {
   return typeof color === "string" && color !== "";
 };
 
@@ -74,6 +77,6 @@ export enum MapGroupId {
 
 export const isEnum =
   <Enum>(e: Enum) =>
-  (token: any): token is Enum[keyof Enum] => {
+  (token: unknown): token is Enum[keyof Enum] => {
     return Object.values(e).includes(token);
   };

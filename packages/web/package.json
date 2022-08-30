@@ -6,7 +6,7 @@
     "start": "webpack serve --config webpack.dev.js --host 0.0.0.0",
     "build": "webpack --config webpack.prod.js --progress",
     "deploy": "firebase deploy --only hosting:main",
-    "serve": "firebase serve --only hosting",
+    "serve": "serve -s dist/",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "lint": "eslint ."

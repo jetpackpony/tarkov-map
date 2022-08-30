@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 import { AppDispatch, AppState } from ".";
-import { getDB } from "../firebase";
+import { getDB } from "../db";
 import { Color, Coords, ExtractMarker, Marker } from "../types";
 import mapData, { MapName } from "./mapData";
 import {

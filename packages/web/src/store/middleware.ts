@@ -1,4 +1,4 @@
-import { getDB } from "../firebase";
+import { getDB } from "../db";
 import { Action, Middleware } from "@reduxjs/toolkit";
 import { selectCurrentSession } from "./uiSlice";
 import { AppState } from ".";

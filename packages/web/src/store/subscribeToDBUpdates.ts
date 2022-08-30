@@ -4,7 +4,7 @@ import {
   selectExtract,
   unselectExtract,
 } from "./markersSlice";
-import type { DB } from "../firebase";
+import type { DB } from "../db";
 import { updateSessionLastAccess } from "./uiSlice";
 import { AppDispatch } from ".";
 

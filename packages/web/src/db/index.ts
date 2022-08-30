@@ -39,7 +39,6 @@ let dbInstance: DB | null = null;
 
 export const getDB = (): DB => {
   if (!dbInstance) {
-    console.log("Initializing Firebase");
     dbInstance = initFirebase();
   }
   return dbInstance;

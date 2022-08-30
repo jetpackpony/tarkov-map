@@ -1,4 +1,4 @@
-import type { DB } from "../firebase";
+import type { DB } from "../db";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import markersReducer from "./markersSlice";
 import uiReducer from "./uiSlice";

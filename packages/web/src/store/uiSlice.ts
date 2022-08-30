@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, AppState } from ".";
-import { getDB, Session } from "../firebase";
+import { getDB, Session } from "../db";
 import { Language } from "../I18nContext";
 import { Color } from "../types";
 import { MapName } from "./mapData";

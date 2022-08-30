@@ -1,7 +1,7 @@
 import { h } from "preact";
 import { Provider } from "react-redux";
 import makeStore from "../../store";
-import { getDB } from "../../firebase/index";
+import { getDB } from "../../db/index";
 import useFullScreen from "./useFullScreen";
 import { LanguageContext, useInitLanguageContext } from "../../I18nContext";
 import Routes from "./Routes";

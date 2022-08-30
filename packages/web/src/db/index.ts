@@ -15,19 +15,22 @@ import {
   where,
 } from "firebase/firestore";
 import { nanoid } from "nanoid";
+import { MapName } from "../store/mapData";
 import {
-  DB,
   DBMapObjectListener,
   DBSessionListener,
   ExtractMapObject,
   isExtractMapObject,
   isMarkerMapObject,
   isSessionInDB,
+  MarkerData,
   MarkerMapObject,
+  Session,
   sessionDBToSession,
   SessionInDB,
 } from "./types";
 export * from "./types";
+export type DB = ReturnType<typeof initFirebase>;
 
 const lastAccessUpdateDelay = 24 * 60 * 60 * 1000;
 const COLLECTION_NAME =
@@ -35,16 +38,17 @@ const COLLECTION_NAME =
     ? process.env.SESSION_COLLECTION_PROD
     : process.env.SESSION_COLLECTION_DEV;
 
-let dbInstance: DB | null = null;
+export const getDB = (() => {
+  let dbInstance: DB;
+  return (): DB => {
+    if (!dbInstance) {
+      dbInstance = initFirebase();
+    }
+    return dbInstance;
+  };
+})();
 
-export const getDB = (): DB => {
-  if (!dbInstance) {
-    dbInstance = initFirebase();
-  }
-  return dbInstance;
-};
-
-export const initFirebase = (): DB => {
+const initFirebase = () => {
   if (
     !process.env.FIREBASE_API_KEY ||
     !process.env.FIREBASE_PROJECT_ID ||
@@ -63,7 +67,7 @@ export const initFirebase = (): DB => {
   let currentListeners: Unsubscribe[] = [];
 
   // Sub to updates
-  const listen: DB["listen"] = (sessionId) => {
+  const listen = (sessionId: string): Unsubscribe[] => {
     // Unsub from all current updates
     currentListeners.forEach((l) => l());
     currentListeners = [];
@@ -98,12 +102,11 @@ export const initFirebase = (): DB => {
     );
     return currentListeners;
   };
-
-  const addMapObjectListener: DB["addMapObjectListener"] = (f) => {
+  const addMapObjectListener = (f: DBMapObjectListener): void => {
     mapObjectListeners.push(f);
   };
 
-  const addSessionListener: DB["addSessionListener"] = (f) => {
+  const addSessionListener = (f: DBSessionListener): void => {
     sessionListeners.push(f);
   };
 
@@ -111,12 +114,12 @@ export const initFirebase = (): DB => {
     return doc(sessionCollectionRef, sessionId, "mapObjects", markerId);
   };
 
-  const addMarker: DB["addMarker"] = async (
-    sessionId,
-    markerId,
-    mapName,
-    data
-  ) => {
+  const addMarker = async (
+    sessionId: string,
+    markerId: string,
+    mapName: MapName,
+    data: MarkerData
+  ): Promise<void> => {
     const mapObject: MarkerMapObject = {
       id: markerId,
       map: mapName,
@@ -126,11 +129,15 @@ export const initFirebase = (): DB => {
     return setDoc(getMarkerDoc(sessionId, markerId), mapObject);
   };
 
-  const removeMarker: DB["removeMarker"] = (sessionId, markerId) => {
+  const removeMarker = (sessionId: string, markerId: string): Promise<void> => {
     return deleteDoc(getMarkerDoc(sessionId, markerId));
   };
 
-  const addExtraction: DB["addExtraction"] = (sessionId, extId, mapName) => {
+  const addExtraction = (
+    sessionId: string,
+    extId: string,
+    mapName: MapName
+  ): Promise<void> => {
     const id = `${mapName}-${extId}`;
     const mapObject: ExtractMapObject = {
       id,
@@ -140,16 +147,19 @@ export const initFirebase = (): DB => {
     return setDoc(getMarkerDoc(sessionId, id), mapObject);
   };
 
-  const removeExtraction: DB["removeExtraction"] = (
-    sessionId,
-    extId,
-    mapName
-  ) => {
+  const removeExtraction = (
+    sessionId: string,
+    extId: string,
+    mapName: MapName
+  ): Promise<void> => {
     const id = `${mapName}-${extId}`;
     return deleteDoc(getMarkerDoc(sessionId, id));
   };
 
-  const clearMap: DB["clearMap"] = async (sessionId, mapName) => {
+  const clearMap = async (
+    sessionId: string,
+    mapName: MapName
+  ): Promise<void[]> => {
     const res = await getDocs(
       query(
         collection(sessionCollectionRef, sessionId, "mapObjects"),
@@ -159,10 +169,10 @@ export const initFirebase = (): DB => {
     return Promise.all(res.docs.map((doc) => deleteDoc(doc.ref)));
   };
 
-  const updateSessionLastAccess: DB["updateSessionLastAccess"] = async (
+  const updateSessionLastAccess = async (
     sessionId: string,
     lastAccess: Date
-  ) => {
+  ): Promise<Date> => {
     const now = new Date();
     if (now.valueOf() - lastAccess.valueOf() > lastAccessUpdateDelay) {
       await updateDoc(doc(sessionCollectionRef, sessionId), {
@@ -173,7 +183,7 @@ export const initFirebase = (): DB => {
     return lastAccess;
   };
 
-  const loadSession: DB["loadSession"] = async (sessionId: string) => {
+  const loadSession = async (sessionId: string): Promise<Session> => {
     const session = await getDoc(doc(sessionCollectionRef, sessionId));
     const data = session.data();
     if (!session.exists() || !isSessionInDB(data)) {
@@ -182,7 +192,7 @@ export const initFirebase = (): DB => {
     return sessionDBToSession(data);
   };
 
-  const createSession: DB["createSession"] = async () => {
+  const createSession = async (): Promise<Session> => {
     const id = nanoid(10);
     const sessionObject: SessionInDB = {
       id,

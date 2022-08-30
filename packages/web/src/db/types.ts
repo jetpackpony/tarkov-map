@@ -1,4 +1,4 @@
-import { DocumentChangeType, Timestamp, Unsubscribe } from "firebase/firestore";
+import { DocumentChangeType, Timestamp } from "firebase/firestore";
 import { isMapName, MapName } from "../store/mapData";
 import { Color, Coords, isColor, isCoords, isObject } from "../types";
 
@@ -7,36 +7,6 @@ export type DBMapObjectListener = (
   data: MapObject
 ) => void;
 export type DBSessionListener = (session: Session) => void;
-
-export interface DB {
-  listen: (sessionId: string) => Unsubscribe[];
-  addMapObjectListener: (f: DBMapObjectListener) => void;
-  addSessionListener: (f: DBSessionListener) => void;
-  addMarker: (
-    sessionId: string,
-    markerId: string,
-    mapName: MapName,
-    data: MarkerData
-  ) => Promise<void>;
-  removeMarker: (sessionId: string, markerId: string) => Promise<void>;
-  addExtraction: (
-    sessionId: string,
-    extId: string,
-    mapName: MapName
-  ) => Promise<void>;
-  removeExtraction: (
-    sessionId: string,
-    extId: string,
-    mapName: MapName
-  ) => Promise<void>;
-  clearMap: (sessionId: string, mapName: MapName) => Promise<void[]>;
-  loadSession: (sessionId: string) => Promise<Session>;
-  createSession: () => Promise<Session>;
-  updateSessionLastAccess: (
-    sessionId: string,
-    lastAccess: Date
-  ) => Promise<Date>;
-}
 
 export interface MarkerMapObject {
   id: string;

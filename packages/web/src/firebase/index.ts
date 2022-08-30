@@ -30,6 +30,10 @@ import {
 export * from "./types";
 
 const lastAccessUpdateDelay = 24 * 60 * 60 * 1000;
+const COLLECTION_NAME =
+  process.env.NODE_ENV === "production"
+    ? process.env.SESSION_COLLECTION_PROD
+    : process.env.SESSION_COLLECTION_DEV;
 
 let dbInstance: DB | null = null;
 
@@ -42,7 +46,11 @@ export const getDB = (): DB => {
 };
 
 export const initFirebase = (): DB => {
-  if (!process.env.FIREBASE_API_KEY || !process.env.FIREBASE_PROJECT_ID) {
+  if (
+    !process.env.FIREBASE_API_KEY ||
+    !process.env.FIREBASE_PROJECT_ID ||
+    !COLLECTION_NAME
+  ) {
     throw new Error("Can't find DB credentials in the environment");
   }
   const firebaseApp = initializeApp({
@@ -52,7 +60,7 @@ export const initFirebase = (): DB => {
   const db = getFirestore(firebaseApp);
   const mapObjectListeners: DBMapObjectListener[] = [];
   const sessionListeners: DBSessionListener[] = [];
-  const sessionCollectionRef = collection(db, "sessions");
+  const sessionCollectionRef = collection(db, COLLECTION_NAME);
   let currentListeners: Unsubscribe[] = [];
 
   // Sub to updates

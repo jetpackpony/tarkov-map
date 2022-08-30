@@ -37,6 +37,12 @@ module.exports = (env) => ({
       "process.env.FIREBASE_PROJECT_ID": JSON.stringify(
         process.env.FIREBASE_PROJECT_ID
       ),
+      "process.env.SESSION_COLLECTION_PROD": JSON.stringify(
+        process.env.SESSION_COLLECTION_PROD
+      ),
+      "process.env.SESSION_COLLECTION_DEV": JSON.stringify(
+        process.env.SESSION_COLLECTION_DEV
+      ),
     }),
   ],
 });

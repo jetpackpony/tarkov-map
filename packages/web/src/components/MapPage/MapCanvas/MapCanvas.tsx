@@ -1,6 +1,6 @@
 import { h } from "preact";
 import CanvasWrapper from "./CanvasWrapper";
-import { useRef, useEffect, useCallback } from "preact/compat";
+import { useRef, useEffect } from "preact/compat";
 import { useImageLoader } from "./hooks";
 import styles from "./mapCanvas.module.css";
 import { draw } from "./drawing";
@@ -12,7 +12,7 @@ const scaleBorder = 50;
 const panBorder = 30;
 
 const getInitViewportState = () => ({
-  scale: 1,
+  scale: 0.01,
   pos: { x: 0, y: 0 },
 });
 
@@ -99,10 +99,7 @@ const MapCanvas = ({
   onSwitchToTrackPad,
 }: MapCanvasProps) => {
   const viewportState = useRef(getInitViewportState());
-  const onImageLoaded = useCallback(() => {
-    viewportState.current.scale = 0.01;
-  }, [viewportState]);
-  const imgObj = useImageLoader(imgPath, onImageLoaded);
+  const imgObj = useImageLoader(imgPath);
   // Reset vieport state every time the map is changed
   useEffect(() => {
     viewportState.current = getInitViewportState();

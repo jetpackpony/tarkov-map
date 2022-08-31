@@ -55,13 +55,15 @@ const CanvasWrapper = ({
   });
 
   const redrawCanvasDebounced = () => {
-    requestAnimationFrame(() => {
-      if (canvasRef.current) {
-        redrawCanvas(canvasRef.current);
-      }
-      isDrawing.current = false;
-    });
-    isDrawing.current = true;
+    if (!isDrawing.current) {
+      isDrawing.current = true;
+      requestAnimationFrame(() => {
+        if (canvasRef.current) {
+          redrawCanvas(canvasRef.current);
+        }
+        isDrawing.current = false;
+      });
+    }
   };
   addResizeListener(redrawCanvasDebounced);
 
@@ -88,9 +90,7 @@ const CanvasWrapper = ({
         onZoom(canvasRef.current, delta, { x: e.offsetX, y: e.offsetY });
       }
     }
-    if (!isDrawing.current) {
-      redrawCanvasDebounced();
-    }
+    redrawCanvasDebounced();
   };
 
   const onMouseMove = (e: MouseEvent) => {
@@ -107,9 +107,7 @@ const CanvasWrapper = ({
     dragState.current.prevPos.y = e.offsetY;
     canvasRef.current &&
       onPan(canvasRef.current, deltaX * posMulti, deltaY * posMulti);
-    if (!isDrawing.current) {
-      redrawCanvasDebounced();
-    }
+    redrawCanvasDebounced();
   };
 
   const onMouseDown = (e: MouseEvent) => {

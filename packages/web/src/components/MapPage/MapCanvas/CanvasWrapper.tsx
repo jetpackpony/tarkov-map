@@ -144,6 +144,14 @@ const CanvasWrapper = ({
     }
   };
 
+  const onMouseLeave = () => {
+    if (dragState.current.started) {
+      typeof dragState.current.removeEventListener === "function" &&
+        dragState.current.removeEventListener();
+      dragState.current.started = false;
+    }
+  };
+
   // Redraw every time anything changes
   useEffect(() => {
     redrawCanvasDebounced();
@@ -165,6 +173,8 @@ const CanvasWrapper = ({
       onWheel={onWheel}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
+      onBlur={onMouseLeave}
+      onMouseLeave={onMouseLeave}
     />
   );
 };

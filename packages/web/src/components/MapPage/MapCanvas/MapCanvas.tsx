@@ -8,11 +8,12 @@ import { Coords, ExtractMarker, Marker } from "../../../types";
 import LoadingSpinner from "../../LoadingSpinner";
 
 const maxScale = 3;
+const minScale = 0.01;
 const scaleBorder = 50;
 const panBorder = 30;
 
 const getInitViewportState = () => ({
-  scale: 0.01,
+  scale: minScale,
   pos: { x: 0, y: 0 },
 });
 
@@ -108,7 +109,7 @@ const MapCanvas = ({
   const onZoom = (canvas: HTMLCanvasElement, deltaY: number, pos: Coords) => {
     if (!imgObj) return;
     const prevScale = viewportState.current.scale;
-    viewportState.current.scale -= deltaY;
+    viewportState.current.scale -= (prevScale / maxScale + minScale) * deltaY;
     viewportState.current.scale = clampScale(
       canvas,
       imgObj,

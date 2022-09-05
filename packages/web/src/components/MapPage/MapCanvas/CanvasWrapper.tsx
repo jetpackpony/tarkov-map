@@ -5,7 +5,7 @@ import styles from "./canvas.module.css";
 import { Coords } from "../../../types";
 
 const minDragDist = 5;
-const trackPadScaleMulti = 0.01;
+const trackPadScaleMulti = 0.02;
 const mouseWheelScaleMulti = 0.3;
 const posMulti = 1;
 

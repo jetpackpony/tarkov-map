@@ -1,18 +1,18 @@
-import img from '../../mapImages/CustomsHiddenStashes.webp';
-import { MapGroupId } from '../../types';
+import img from "../../mapImages/CustomsHiddenStashes.webp";
+import { MapGroupId } from "../../types";
 
 const mapData = {
   groupId: MapGroupId.Customs,
   groupName: {
     en: "Customs",
-    ru: "Таможня"
+    ru: "Таможня",
   },
   title: {
     en: "Hidden Stashes",
-    ru: "Тайники"
+    ru: "Тайники",
   },
   imgPath: img,
-  extracts: []
+  extracts: [],
 };
 
 export default mapData;

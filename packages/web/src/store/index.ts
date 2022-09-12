@@ -1,22 +1,21 @@
-import type { DB } from '../firebase';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import markersReducer from './markersSlice';
-import uiReducer from './uiSlice';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { subscribeToDBUpdates } from './subscribeToDBUpdates';
-import { updateSessionLastAccessMiddleware } from './middleware';
+import type { DB } from "../db";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import markersReducer from "./markersSlice";
+import uiReducer from "./uiSlice";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { subscribeToDBUpdates } from "./subscribeToDBUpdates";
+import { updateSessionLastAccessMiddleware } from "./middleware";
 
 const rootReducer = combineReducers({
   markers: markersReducer,
-  ui: uiReducer
+  ui: uiReducer,
 });
 
 const makeStore = (db: DB | null) => {
   const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => (
-      getDefaultMiddleware().concat(updateSessionLastAccessMiddleware)
-    ),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(updateSessionLastAccessMiddleware),
   });
 
   if (db) {
@@ -27,7 +26,7 @@ const makeStore = (db: DB | null) => {
 };
 
 export type AppState = ReturnType<typeof rootReducer>;
-export type AppDispatch = ReturnType<typeof makeStore>['dispatch'];
+export type AppDispatch = ReturnType<typeof makeStore>["dispatch"];
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;

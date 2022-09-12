@@ -1,8 +1,8 @@
 .pickerButton {
-  padding: .3rem;
+  padding: 0.3rem;
   border: none;
   background-color: transparent;
-  opacity: .6;
+  opacity: 0.6;
   text-transform: uppercase;
 }
 

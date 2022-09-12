@@ -1,18 +1,18 @@
-import { MapGroupId } from '../../types';
-import img from '../../mapImages/ShorelineKeys.webp';
+import { MapGroupId } from "../../types";
+import img from "../../mapImages/ShorelineKeys.webp";
 
 const mapData = {
   groupId: MapGroupId.Shoreline,
   groupName: {
     en: "Shoreline",
-    ru: "Берег"
+    ru: "Берег",
   },
   title: {
     en: "Keys",
-    ru: "Ключи"
+    ru: "Ключи",
   },
   imgPath: img,
-  extracts: []
+  extracts: [],
 };
 
 export default mapData;

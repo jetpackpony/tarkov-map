@@ -1,11 +1,19 @@
 import { compose } from "rambda";
 import MapCanvas from "./MapCanvas";
 import { useAppDispatch, useAppSelector } from "../../../store";
-import { addMarker, removeMarkers, selectMarkers } from "../../../store/markersSlice";
-import { selectCurrentMap, selectIsTrackPad, switchToTrackPad } from "../../../store/uiSlice";
+import {
+  addMarker,
+  removeMarkers,
+  selectMarkers,
+} from "../../../store/markersSlice";
+import {
+  selectCurrentMap,
+  selectIsTrackPad,
+  switchToTrackPad,
+} from "../../../store/uiSlice";
 import mapData from "../../../store/mapData";
 
-export default () => {
+const MapCanvasContainer = () => {
   const currentMap = useAppSelector(selectCurrentMap);
   const imgPath = mapData.maps[currentMap].imgPath;
   const markers = useAppSelector(selectMarkers);
@@ -26,3 +34,5 @@ export default () => {
     />
   );
 };
+
+export default MapCanvasContainer;

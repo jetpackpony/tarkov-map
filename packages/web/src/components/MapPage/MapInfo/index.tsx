@@ -1,11 +1,14 @@
 import { compose } from "rambda";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import mapData from "../../../store/mapData";
-import { selectSelectedExtracts, toggleExtract } from "../../../store/markersSlice";
+import {
+  selectSelectedExtracts,
+  toggleExtract,
+} from "../../../store/markersSlice";
 import { selectCurrentMap } from "../../../store/uiSlice";
 import MapInfo from "./MapInfo";
 
-export default () => {
+const MapInfoContainer = () => {
   const currentMap = useAppSelector(selectCurrentMap);
   const dispatch = useAppDispatch();
   const extracts = mapData.maps[currentMap].extracts;
@@ -20,3 +23,5 @@ export default () => {
     />
   );
 };
+
+export default MapInfoContainer;

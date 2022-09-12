@@ -1,18 +1,18 @@
-import { MapGroupId } from '../../types';
-import img from '../../mapImages/WoodsMain.webp';
+import { MapGroupId } from "../../types";
+import img from "../../mapImages/WoodsMain.webp";
 
 const mapData = {
   groupId: MapGroupId.Woods,
   groupName: {
     en: "Woods",
-    ru: "Лес "
+    ru: "Лес ",
   },
   title: {
     en: "Main",
-    ru: "Главная"
+    ru: "Главная",
   },
   imgPath: img,
-  extracts: []
+  extracts: [],
 };
 
 export default mapData;

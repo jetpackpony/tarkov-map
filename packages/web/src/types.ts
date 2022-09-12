@@ -1,4 +1,4 @@
-import { LocalizedString } from "./I18nContext";
+import { LocalizedString } from "./language";
 import { MapName } from "./store/mapData";
 
 export type Color = string;

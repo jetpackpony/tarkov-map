@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, AppState } from ".";
 import { getDB, Session } from "../db";
-import { Language } from "../I18nContext";
+import { Language } from "../language";
 import { Color } from "../types";
 import { MapName } from "./mapData";
 import { clearAllMaps } from "./markersSlice";
@@ -49,6 +49,9 @@ export const uiSlice = createSlice({
         state.session.lastAccess = action.payload.lastAccess;
       }
     },
+    selectLanguage: (state, action: PayloadAction<{ lang: Language }>) => {
+      state.lang = action.payload.lang;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loadSession.pending, (state) => {
@@ -65,8 +68,12 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { changeMarkerColor, switchToTrackPad, updateSessionLastAccess } =
-  uiSlice.actions;
+export const {
+  changeMarkerColor,
+  switchToTrackPad,
+  updateSessionLastAccess,
+  selectLanguage,
+} = uiSlice.actions;
 
 export const selectCurrentMap = (state: AppState) => state.ui.currentMap;
 export const selectMarkerColor = (state: AppState) => state.ui.markerColor;
@@ -74,6 +81,7 @@ export const selectIsTrackPad = (state: AppState) => state.ui.isTrackPad;
 export const selectCurrentSessionId = (state: AppState) => state.ui.session?.id;
 export const selectCurrentSession = (state: AppState) => state.ui.session;
 export const selectIsLoading = (state: AppState) => state.ui.loading;
+export const selectCurrentLang = (state: AppState) => state.ui.lang;
 
 export const loadSession = createAsyncThunk<
   { session: Session },

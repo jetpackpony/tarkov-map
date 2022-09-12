@@ -1,37 +1,15 @@
 import { h } from "preact";
-import { Language, useLanguageContext } from "../../../I18nContext";
-import Button from "../Button/Button";
-import styles from "./langPicker.module.css";
+import { compose } from "rambda";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { selectCurrentLang, selectLanguage } from "../../../store/uiSlice";
+import LangPicker from "./LangPicker";
 
-interface LangButtonProps {
-  lang: Language;
-  selected: boolean;
-  changeLang: (lang: Language) => void;
-}
+const LangPickerContainer = () => {
+  const selectedLang = useAppSelector(selectCurrentLang);
+  const dispatch = useAppDispatch();
+  const onChangeLang = compose(dispatch, selectLanguage);
 
-const LangButton = ({ lang, selected, changeLang }: LangButtonProps) => (
-  <Button
-    className={`${styles.pickerButton} ${selected ? styles.selected : ""}`}
-    onClick={() => changeLang(lang)}
-  >
-    {lang}
-  </Button>
-);
-
-const LangPicker = () => {
-  const { getCurrentLang, setLang } = useLanguageContext();
-  return (
-    <div>
-      {Object.values(Language).map((lang) => (
-        <LangButton
-          key={lang}
-          lang={lang}
-          selected={lang === getCurrentLang()}
-          changeLang={(lang) => typeof setLang === "function" && setLang(lang)}
-        />
-      ))}
-    </div>
-  );
+  return <LangPicker selectedLang={selectedLang} onChangeLang={onChangeLang} />;
 };
 
-export default LangPicker;
+export default LangPickerContainer;

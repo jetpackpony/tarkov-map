@@ -9,8 +9,8 @@ import ColorPicker from "./ColorPicker";
 import MapSelector from "./MapSelector";
 import Button from "./Button/Button";
 import LangPicker from "./LangPicker";
-import { useLanguageContext } from "../../I18nContext";
 import { Color } from "../../types";
+import { useLanguage } from "../../language";
 
 export interface MapPageProps {
   markerColor: Color;
@@ -23,7 +23,7 @@ export const MapPage = ({
   onMarkerColorChanged,
   clearMap,
 }: MapPageProps) => {
-  const { t } = useLanguageContext();
+  const { t } = useLanguage();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   return (

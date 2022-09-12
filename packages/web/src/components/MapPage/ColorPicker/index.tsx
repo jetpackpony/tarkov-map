@@ -2,7 +2,7 @@ import { h } from "preact";
 import { HuePicker } from "react-color";
 import styles from "./colorPicker.module.css";
 import { Color } from "../../../types";
-import { useLanguageContext } from "../../../I18nContext";
+import { useLanguage } from "../../../language";
 
 interface ColorPickerProps {
   color: Color;
@@ -10,7 +10,7 @@ interface ColorPickerProps {
 }
 
 const ColorPicker = ({ color, onChange }: ColorPickerProps) => {
-  const { t } = useLanguageContext();
+  const { t } = useLanguage();
   return (
     <div class={styles.colorPicker}>
       {t("Marker color")}

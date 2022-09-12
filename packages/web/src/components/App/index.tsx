@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import makeStore from "../../store";
 import { getDB } from "../../db/index";
 import useFullScreen from "./useFullScreen";
-import { LanguageContext, useInitLanguageContext } from "../../I18nContext";
 import Routes from "./Routes";
 
 const offline =
@@ -13,13 +12,10 @@ const store = makeStore(db);
 
 const App = () => {
   useFullScreen();
-  const languageContextValue = useInitLanguageContext();
   return (
-    <LanguageContext.Provider value={languageContextValue}>
-      <Provider store={store}>
-        <Routes />
-      </Provider>
-    </LanguageContext.Provider>
+    <Provider store={store}>
+      <Routes />
+    </Provider>
   );
 };
 

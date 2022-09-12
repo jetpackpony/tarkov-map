@@ -3,7 +3,7 @@ import { sortBy, compose, toLower, path, defaultTo } from "rambda";
 import styles from "./mapInfo.module.css";
 import { useState } from "preact/compat";
 import { ExtractData } from "../../../types";
-import { useLanguageContext, Language } from "../../../I18nContext";
+import { Language, useLanguage } from "../../../language";
 
 const sortByName = (lang: Language) =>
   sortBy(
@@ -40,14 +40,14 @@ const ExtractItem = ({
   isSelected,
   toggleExtract,
 }: ExtractItemProps) => {
-  const { getCurrentLang, t } = useLanguageContext();
+  const { currentLang, t } = useLanguage();
   return (
     <li
       class={isSelected ? styles.selected : undefined}
       onClick={() => toggleExtract(extract.id)}
     >
       <div>
-        <div>{extract.names[getCurrentLang()]}</div>
+        <div>{extract.names[currentLang]}</div>
         {extract.activationCoords ? (
           <div
             title={t("Activation needed")}
@@ -57,7 +57,7 @@ const ExtractItem = ({
       </div>
       {extract.specialConditions ? (
         <div class={styles.specialConds}>
-          {extract.specialConditions[getCurrentLang()]}
+          {extract.specialConditions[currentLang]}
         </div>
       ) : null}
     </li>
@@ -100,7 +100,7 @@ const MapInfo = ({
   selected = [],
   toggleExtract,
 }: MapInfoProps) => {
-  const { getCurrentLang, t } = useLanguageContext();
+  const { currentLang, t } = useLanguage();
   if (extracts.length === 0) {
     return (
       <div class={styles.mapInfo}>
@@ -108,7 +108,7 @@ const MapInfo = ({
       </div>
     );
   }
-  const groups = groupExtracts(extracts, getCurrentLang());
+  const groups = groupExtracts(extracts, currentLang);
   return (
     <div class={styles.mapInfo}>
       <h3 class={styles.header}>Extractions</h3>

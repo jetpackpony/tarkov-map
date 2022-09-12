@@ -2,7 +2,7 @@ import { h } from "preact";
 import mapData, { MapName } from "../../../store/mapData";
 import styles from "./mapSelector.module.css";
 import { MapGroupId } from "../../../types";
-import { useLanguageContext, Language } from "../../../I18nContext";
+import { Language, useLanguage } from "../../../language";
 
 type MapGroup = {
   groupName: string;
@@ -35,8 +35,8 @@ interface MapSelectorProps {
 }
 
 const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {
-  const { getCurrentLang } = useLanguageContext();
-  const mapGroups = getMapGroups(getCurrentLang());
+  const { currentLang } = useLanguage();
+  const mapGroups = getMapGroups(currentLang);
   return (
     <ul class={styles.container}>
       {Object.values(mapGroups).map((group) => (

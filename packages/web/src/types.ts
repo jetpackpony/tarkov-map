@@ -76,7 +76,7 @@ export enum MapGroupId {
 }
 
 export const isEnum =
-  <Enum>(e: Enum) =>
+  <Enum extends Record<string | number | symbol, unknown>>(e: Enum) =>
   (token: unknown): token is Enum[keyof Enum] => {
     return Object.values(e).includes(token);
   };

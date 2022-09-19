@@ -177,3 +177,7 @@ export const clearMap =
   };
 
 export default markersSlice.reducer;
+
+export const rehydrate = () => {
+  return markersSlice.getInitialState();
+};

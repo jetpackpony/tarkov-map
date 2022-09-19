@@ -1,21 +1,33 @@
 import type { DB } from "../db";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import markersReducer from "./markersSlice";
-import uiReducer from "./uiSlice";
+import markersReducer, * as markersSlice from "./markersSlice";
+import uiReducer, * as uiSlice from "./uiSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { subscribeToDBUpdates } from "./subscribeToDBUpdates";
-import { updateSessionLastAccessMiddleware } from "./middleware";
+import {
+  saveStateToLocalstorageMiddleware,
+  updateSessionLastAccessMiddleware,
+} from "./middleware";
 
 const rootReducer = combineReducers({
   markers: markersReducer,
   ui: uiReducer,
 });
 
+const getPreloadedState = () => ({
+  markers: markersSlice.rehydrate(),
+  ui: uiSlice.rehydrate(),
+});
+
 const makeStore = (db: DB | null) => {
   const store = configureStore({
     reducer: rootReducer,
+    preloadedState: getPreloadedState(),
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(updateSessionLastAccessMiddleware),
+      getDefaultMiddleware().concat(
+        updateSessionLastAccessMiddleware,
+        saveStateToLocalstorageMiddleware
+      ),
   });
 
   if (db) {

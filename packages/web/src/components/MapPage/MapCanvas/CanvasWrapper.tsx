@@ -22,7 +22,6 @@ interface DragState {
   mouseDownCoords: Coords;
   prevPos: Coords;
   maxDistFromOrigin: number;
-  removeEventListener?: () => void;
 }
 
 interface CanvasWrapperProps {
@@ -94,6 +93,9 @@ const CanvasWrapper = ({
   };
 
   const onMouseMove = (e: MouseEvent) => {
+    if (!dragState.current.started) {
+      return;
+    }
     const distX = dragState.current.mouseDownCoords.x - e.offsetX;
     const distY = dragState.current.mouseDownCoords.y - e.offsetY;
     const dist = distX * distX + distY * distY;
@@ -123,19 +125,11 @@ const CanvasWrapper = ({
         y: e.offsetY,
       };
       dragState.current.maxDistFromOrigin = 0;
-      if (canvasRef.current) {
-        canvasRef.current.addEventListener("mousemove", onMouseMove);
-        dragState.current.removeEventListener = () =>
-          canvasRef.current &&
-          canvasRef.current.removeEventListener("mousemove", onMouseMove);
-      }
     }
   };
 
   const onMouseUp = (e: MouseEvent) => {
     if (dragState.current.started) {
-      typeof dragState.current.removeEventListener === "function" &&
-        dragState.current.removeEventListener();
       if (dragState.current.maxDistFromOrigin < minDragDist) {
         e.preventDefault();
         onLeftClick(e.offsetX, e.offsetY);
@@ -146,8 +140,6 @@ const CanvasWrapper = ({
 
   const onMouseLeave = () => {
     if (dragState.current.started) {
-      typeof dragState.current.removeEventListener === "function" &&
-        dragState.current.removeEventListener();
       dragState.current.started = false;
     }
   };
@@ -173,6 +165,7 @@ const CanvasWrapper = ({
       onWheel={onWheel}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
+      onMouseMove={onMouseMove}
       onBlur={onMouseLeave}
       onMouseLeave={onMouseLeave}
     />

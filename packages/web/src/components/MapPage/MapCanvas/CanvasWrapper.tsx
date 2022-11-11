@@ -8,6 +8,18 @@ const minDragDist = 5;
 const trackPadScaleMulti = 0.02;
 const mouseWheelScaleMulti = 0.3;
 const posMulti = 1;
+const pinchScaleMulti = 0.02;
+
+const distance = (one: Coords, two: Coords) => {
+  return Math.sqrt((one.x - two.x) ** 2 + (one.y - two.y) ** 2);
+};
+
+const getMiddleCoords = (one: Coords, two: Coords): Coords => {
+  return {
+    x: Math.abs(one.x - two.x) / 2 + Math.min(one.x, two.x),
+    y: Math.abs(one.y - two.y) / 2 + Math.min(one.y, two.y),
+  };
+};
 
 const resizeHandler = (canvas: HTMLCanvasElement) => {
   const parent = canvas.parentElement;
@@ -42,6 +54,8 @@ const CanvasWrapper = ({
   onSwitchToTrackPad,
 }: CanvasWrapperProps) => {
   const { canvasRef, addResizeListener } = useCanvasWithResizeHandler();
+  const activePointers = useRef(new Map<number, PointerEvent>());
+  const prevDiff = useRef(-1);
 
   addResizeListener(resizeHandler);
 
@@ -92,43 +106,79 @@ const CanvasWrapper = ({
     redrawCanvasDebounced();
   };
 
-  const onMouseMove = (e: MouseEvent) => {
-    if (!dragState.current.started) {
-      return;
-    }
-    const distX = dragState.current.mouseDownCoords.x - e.offsetX;
-    const distY = dragState.current.mouseDownCoords.y - e.offsetY;
-    const dist = distX * distX + distY * distY;
-    if (dist > dragState.current.maxDistFromOrigin) {
-      dragState.current.maxDistFromOrigin = dist;
-    }
+  const onPointerMove = (e: PointerEvent) => {
+    activePointers.current.set(e.pointerId, e);
+    if (activePointers.current.size === 2) {
+      const pointers = Array.from(activePointers.current.values());
+      const pointer0 = {
+        x: pointers[0].offsetX,
+        y: pointers[0].offsetY,
+      };
+      const pointer1 = {
+        x: pointers[1].offsetX,
+        y: pointers[1].offsetY,
+      };
+      const currDiff = distance(pointer0, pointer1);
+      const delta = (prevDiff.current - currDiff) * pinchScaleMulti;
+      canvasRef.current &&
+        onZoom(canvasRef.current, delta, getMiddleCoords(pointer0, pointer1));
+      prevDiff.current = currDiff;
+      redrawCanvasDebounced();
+    } else if (dragState.current.started) {
+      const distX = dragState.current.mouseDownCoords.x - e.offsetX;
+      const distY = dragState.current.mouseDownCoords.y - e.offsetY;
+      const dist = distX * distX + distY * distY;
+      if (dist > dragState.current.maxDistFromOrigin) {
+        dragState.current.maxDistFromOrigin = dist;
+      }
 
-    const deltaX = dragState.current.prevPos.x - e.offsetX;
-    const deltaY = dragState.current.prevPos.y - e.offsetY;
-    dragState.current.prevPos.x = e.offsetX;
-    dragState.current.prevPos.y = e.offsetY;
-    canvasRef.current &&
-      onPan(canvasRef.current, deltaX * posMulti, deltaY * posMulti);
-    redrawCanvasDebounced();
+      const deltaX = dragState.current.prevPos.x - e.offsetX;
+      const deltaY = dragState.current.prevPos.y - e.offsetY;
+      dragState.current.prevPos.x = e.offsetX;
+      dragState.current.prevPos.y = e.offsetY;
+      canvasRef.current &&
+        onPan(canvasRef.current, deltaX * posMulti, deltaY * posMulti);
+      redrawCanvasDebounced();
+    }
   };
 
-  const onMouseDown = (e: MouseEvent) => {
+  const onPointerDown = (e: PointerEvent) => {
     e.preventDefault();
+    activePointers.current.set(e.pointerId, e);
     if (e.button === 0) {
-      dragState.current.started = true;
-      dragState.current.mouseDownCoords = {
-        x: e.offsetX,
-        y: e.offsetY,
-      };
-      dragState.current.prevPos = {
-        x: e.offsetX,
-        y: e.offsetY,
-      };
-      dragState.current.maxDistFromOrigin = 0;
+      if (activePointers.current.size === 2) {
+        // If this is a second pointer, remove the drag thing and start the zoom thing
+        if (dragState.current.started) {
+          dragState.current.started = false;
+        }
+        const pointers = Array.from(activePointers.current.values());
+        prevDiff.current = distance(
+          {
+            x: pointers[0].offsetX,
+            y: pointers[0].offsetY,
+          },
+          {
+            x: pointers[1].offsetX,
+            y: pointers[1].offsetY,
+          }
+        );
+      } else if (activePointers.current.size === 1) {
+        dragState.current.started = true;
+        dragState.current.mouseDownCoords = {
+          x: e.offsetX,
+          y: e.offsetY,
+        };
+        dragState.current.prevPos = {
+          x: e.offsetX,
+          y: e.offsetY,
+        };
+        dragState.current.maxDistFromOrigin = 0;
+      }
     }
   };
 
-  const onMouseUp = (e: MouseEvent) => {
+  const onPointerUp = (e: PointerEvent) => {
+    activePointers.current.delete(e.pointerId);
     if (dragState.current.started) {
       if (dragState.current.maxDistFromOrigin < minDragDist) {
         e.preventDefault();
@@ -138,7 +188,8 @@ const CanvasWrapper = ({
     }
   };
 
-  const onMouseLeave = () => {
+  const onPointerLeave = (e: PointerEvent) => {
+    activePointers.current.delete(e.pointerId);
     if (dragState.current.started) {
       dragState.current.started = false;
     }
@@ -163,11 +214,11 @@ const CanvasWrapper = ({
       height={100}
       onContextMenu={(e: MouseEvent) => e.preventDefault()}
       onWheel={onWheel}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onMouseMove={onMouseMove}
-      onBlur={onMouseLeave}
-      onMouseLeave={onMouseLeave}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerMove={onPointerMove}
+      onBlur={onPointerLeave}
+      onPointerLeave={onPointerLeave}
     />
   );
 };

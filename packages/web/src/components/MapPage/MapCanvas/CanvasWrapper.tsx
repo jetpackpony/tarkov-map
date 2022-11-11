@@ -143,7 +143,6 @@ const CanvasWrapper = ({
   };
 
   const onPointerDown = (e: PointerEvent) => {
-    e.preventDefault();
     activePointers.current.set(e.pointerId, e);
     if (e.button === 0) {
       if (activePointers.current.size === 2) {
@@ -195,6 +194,11 @@ const CanvasWrapper = ({
     }
   };
 
+  const onBlur = () => {
+    activePointers.current.clear();
+    dragState.current.started = false;
+  };
+
   // Redraw every time anything changes
   useEffect(() => {
     redrawCanvasDebounced();
@@ -207,6 +211,7 @@ const CanvasWrapper = ({
 
   return (
     <canvas
+      tabIndex={0}
       class={styles.canvas}
       ref={canvasRef}
       id="canvas"
@@ -217,7 +222,7 @@ const CanvasWrapper = ({
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerMove={onPointerMove}
-      onBlur={onPointerLeave}
+      onBlur={onBlur}
       onPointerLeave={onPointerLeave}
     />
   );

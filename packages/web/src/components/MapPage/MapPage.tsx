@@ -25,15 +25,22 @@ export const MapPage = ({
 }: MapPageProps) => {
   const { t } = useLanguage();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isTouchUsed, setIsTouchUsed] = useState(false);
   const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <main class={styles.mapPage}>
-      <MapHeader openSidebar={() => setSidebarOpen(true)} />
+      <MapHeader
+        openSidebar={(isTouchUsed) => {
+          setIsTouchUsed(isTouchUsed);
+          setSidebarOpen(true);
+        }}
+      />
       <MapCanvas />
       <Sidebar
         isOpen={isSidebarOpen}
         close={closeSidebar}
+        showCloseButton={isTouchUsed}
         headerElement={<LangPicker />}
       >
         <ColorPicker

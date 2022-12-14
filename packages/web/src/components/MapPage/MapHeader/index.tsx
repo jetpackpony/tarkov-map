@@ -1,9 +1,12 @@
 import { h } from "preact";
 import styles from "./mapHeader.module.css";
 
-const MenuButton = ({ onHover }: { onHover: (e: MouseEvent) => void }) => {
+interface MenuButtonProps {
+  onHover: (e: PointerEvent) => void;
+}
+const MenuButton = ({ onHover }: MenuButtonProps) => {
   return (
-    <button class={styles.menuIcon} onMouseEnter={onHover}>
+    <button class={styles.menuIcon} onPointerEnter={onHover}>
       <div />
       <div />
       <div />
@@ -11,14 +14,13 @@ const MenuButton = ({ onHover }: { onHover: (e: MouseEvent) => void }) => {
   );
 };
 
-const MapHeader = ({
-  openSidebar,
-}: {
-  openSidebar: (e: MouseEvent) => void;
-}) => {
+interface MapHeaderProps {
+  openSidebar: (isTouchUsed: boolean) => void;
+}
+const MapHeader = ({ openSidebar }: MapHeaderProps) => {
   return (
     <header class={styles.mapPageHeader}>
-      <MenuButton onHover={openSidebar} />
+      <MenuButton onHover={(e) => openSidebar(e.pointerType === "touch")} />
     </header>
   );
 };

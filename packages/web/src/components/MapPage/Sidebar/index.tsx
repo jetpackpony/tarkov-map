@@ -1,5 +1,5 @@
 import { ComponentChildren, h } from "preact";
-import Button from "../Button/Button";
+import CloseButton from "./CloseButton";
 import styles from "./sidebar.module.css";
 
 interface SidebarProps {
@@ -7,9 +7,16 @@ interface SidebarProps {
   headerElement: ComponentChildren;
   isOpen: boolean;
   close: () => void;
+  showCloseButton: boolean;
 }
 
-const Sidebar = ({ children, headerElement, isOpen, close }: SidebarProps) => {
+const Sidebar = ({
+  children,
+  headerElement,
+  isOpen,
+  close,
+  showCloseButton,
+}: SidebarProps) => {
   const classes = [styles.sidebar];
   if (!isOpen) classes.push(styles.hidden);
   return (
@@ -17,10 +24,7 @@ const Sidebar = ({ children, headerElement, isOpen, close }: SidebarProps) => {
       <div class={styles.container}>
         <header class={styles.header}>
           {headerElement}
-          <Button className={styles.closeButton} onClick={close}>
-            <div />
-            <div />
-          </Button>
+          {showCloseButton && <CloseButton onClick={close} />}
         </header>
         <div class={styles.sidebarContent}>{children}</div>
       </div>

@@ -1,8 +1,8 @@
 import { ComponentChildren, h } from "preact";
 import styles from "./Button.module.css";
 
-interface ButtonProps {
-  children: ComponentChildren;
+export interface ButtonProps {
+  children?: ComponentChildren;
   onClick: (e: MouseEvent) => void;
   className?: string;
 }

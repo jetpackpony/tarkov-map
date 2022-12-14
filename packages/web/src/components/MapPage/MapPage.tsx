@@ -25,6 +25,7 @@ export const MapPage = ({
 }: MapPageProps) => {
   const { t } = useLanguage();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const closeSidebar = () => setSidebarOpen(false);
 
   return (
     <main class={styles.mapPage}>
@@ -32,18 +33,14 @@ export const MapPage = ({
       <MapCanvas />
       <Sidebar
         isOpen={isSidebarOpen}
-        close={() => setSidebarOpen(false)}
-        headerElement={
-          <>
-            <LangPicker />
-          </>
-        }
+        close={closeSidebar}
+        headerElement={<LangPicker />}
       >
         <ColorPicker
           color={markerColor}
           onChange={(color) => onMarkerColorChanged({ color })}
         />
-        <MapSelector />
+        <MapSelector onMapSelected={closeSidebar} />
         <MapInfo />
         <Button onClick={clearMap}>{t("Clear map")}</Button>
       </Sidebar>

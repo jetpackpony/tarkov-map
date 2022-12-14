@@ -1,14 +1,24 @@
 import { compose } from "rambda";
 import { useAppDispatch, useAppSelector } from "../../../store";
+import { MapName } from "../../../store/mapData";
 import { selectCurrentMap, selectMap } from "../../../store/uiSlice";
 import MapSelector from "./MapSelector";
 
-const MapSelectorContainer = () => {
+export type onMapSelected = (payload: { mapId: MapName }) => void;
+
+interface MapSelectorContainerProps {
+  onMapSelected?: onMapSelected;
+}
+
+const MapSelectorContainer = ({ onMapSelected }: MapSelectorContainerProps) => {
   const currentMap = useAppSelector(selectCurrentMap);
   const dispatch = useAppDispatch();
-  const onMapSelected = compose(dispatch, selectMap);
+  const onSelected: onMapSelected = (payload) => {
+    onMapSelected && onMapSelected(payload);
+    compose(dispatch, selectMap)(payload);
+  };
 
-  return <MapSelector currentMap={currentMap} onMapSelected={onMapSelected} />;
+  return <MapSelector currentMap={currentMap} onMapSelected={onSelected} />;
 };
 
 export default MapSelectorContainer;

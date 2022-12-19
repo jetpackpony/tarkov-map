@@ -3,6 +3,7 @@ import { useEffect, useRef } from "preact/compat";
 import { useCanvasWithResizeHandler } from "./hooks";
 import styles from "./canvas.module.css";
 import { Coords } from "../../../types";
+import { getDevicePixelRatio } from "./utils";
 
 const minDragDist = 5;
 const trackPadScaleMulti = 0.02;
@@ -24,8 +25,10 @@ const getMiddleCoords = (one: Coords, two: Coords): Coords => {
 const resizeHandler = (canvas: HTMLCanvasElement) => {
   const parent = canvas.parentElement;
   if (parent) {
-    canvas.width = parent.clientWidth;
-    canvas.height = parent.clientHeight;
+    canvas.width = parent.clientWidth * getDevicePixelRatio();
+    canvas.height = parent.clientHeight * getDevicePixelRatio();
+    canvas.style.width = `${parent.clientWidth}px`;
+    canvas.style.height = `${parent.clientHeight}px`;
   }
 };
 
@@ -90,17 +93,28 @@ const CanvasWrapper = ({
     if (canvasRef.current) {
       if (e.ctrlKey) {
         // This is trackpad pinching (scale)
-        onZoom(canvasRef.current, e.deltaY * trackPadScaleMulti, {
-          x: e.offsetX,
-          y: e.offsetY,
-        });
+        onZoom(
+          canvasRef.current,
+          e.deltaY * trackPadScaleMulti * getDevicePixelRatio(),
+          {
+            x: e.offsetX * getDevicePixelRatio(),
+            y: e.offsetY * getDevicePixelRatio(),
+          }
+        );
       } else if (isTrackPad) {
         // this is trackpad moving
-        onPan(canvasRef.current, e.deltaX * posMulti, e.deltaY * posMulti);
+        onPan(
+          canvasRef.current,
+          e.deltaX * posMulti * getDevicePixelRatio(),
+          e.deltaY * posMulti * getDevicePixelRatio()
+        );
       } else {
         // This is a real mouse wheel scale
         const delta = (e.deltaY / Math.abs(e.deltaY)) * mouseWheelScaleMulti;
-        onZoom(canvasRef.current, delta, { x: e.offsetX, y: e.offsetY });
+        onZoom(canvasRef.current, delta, {
+          x: e.offsetX * getDevicePixelRatio(),
+          y: e.offsetY * getDevicePixelRatio(),
+        });
       }
     }
     redrawCanvasDebounced();
@@ -119,9 +133,14 @@ const CanvasWrapper = ({
         y: pointers[1].offsetY,
       };
       const currDiff = distance(pointer0, pointer1);
-      const delta = (prevDiff.current - currDiff) * pinchScaleMulti;
+      const delta =
+        (prevDiff.current - currDiff) * pinchScaleMulti * getDevicePixelRatio();
+      const middle = getMiddleCoords(pointer0, pointer1);
       canvasRef.current &&
-        onZoom(canvasRef.current, delta, getMiddleCoords(pointer0, pointer1));
+        onZoom(canvasRef.current, delta, {
+          x: middle.x * getDevicePixelRatio(),
+          y: middle.y * getDevicePixelRatio(),
+        });
       prevDiff.current = currDiff;
       redrawCanvasDebounced();
     } else if (dragState.current.started) {
@@ -137,7 +156,11 @@ const CanvasWrapper = ({
       dragState.current.prevPos.x = e.offsetX;
       dragState.current.prevPos.y = e.offsetY;
       canvasRef.current &&
-        onPan(canvasRef.current, deltaX * posMulti, deltaY * posMulti);
+        onPan(
+          canvasRef.current,
+          deltaX * posMulti * getDevicePixelRatio(),
+          deltaY * posMulti * getDevicePixelRatio()
+        );
       redrawCanvasDebounced();
     }
   };
@@ -181,7 +204,10 @@ const CanvasWrapper = ({
     if (dragState.current.started) {
       if (dragState.current.maxDistFromOrigin < minDragDist) {
         e.preventDefault();
-        onLeftClick(e.offsetX, e.offsetY);
+        onLeftClick(
+          e.offsetX * getDevicePixelRatio(),
+          e.offsetY * getDevicePixelRatio()
+        );
       }
       dragState.current.started = false;
     }

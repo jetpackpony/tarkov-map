@@ -6,6 +6,7 @@ import styles from "./mapCanvas.module.css";
 import { draw } from "./drawing";
 import { Coords, ExtractMarker, Marker } from "../../../types";
 import LoadingSpinner from "../../LoadingSpinner";
+import { getDevicePixelRatio } from "./utils";
 
 const maxScale = 3;
 const minScale = 0.01;
@@ -68,8 +69,8 @@ const clampPos = (
   return clamp(pos, panBorder, imgCanvasLenDiff - panBorder);
 };
 
-const maxX = 20;
-const maxY = 30;
+const maxX = 10 * getDevicePixelRatio();
+const maxY = 15 * getDevicePixelRatio();
 const getCloseMarkers = (
   scale: number,
   markers: (Marker | ExtractMarker)[],

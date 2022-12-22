@@ -97,8 +97,8 @@ const CanvasWrapper = ({
           canvasRef.current,
           e.deltaY * trackPadScaleMulti * getDevicePixelRatio(),
           {
-            x: e.offsetX * getDevicePixelRatio(),
-            y: e.offsetY * getDevicePixelRatio(),
+            x: e.clientX * getDevicePixelRatio(),
+            y: e.clientY * getDevicePixelRatio(),
           }
         );
       } else if (isTrackPad) {
@@ -112,8 +112,8 @@ const CanvasWrapper = ({
         // This is a real mouse wheel scale
         const delta = (e.deltaY / Math.abs(e.deltaY)) * mouseWheelScaleMulti;
         onZoom(canvasRef.current, delta, {
-          x: e.offsetX * getDevicePixelRatio(),
-          y: e.offsetY * getDevicePixelRatio(),
+          x: e.clientX * getDevicePixelRatio(),
+          y: e.clientY * getDevicePixelRatio(),
         });
       }
     }
@@ -125,12 +125,12 @@ const CanvasWrapper = ({
     if (activePointers.current.size === 2) {
       const pointers = Array.from(activePointers.current.values());
       const pointer0 = {
-        x: pointers[0].offsetX,
-        y: pointers[0].offsetY,
+        x: pointers[0].clientX,
+        y: pointers[0].clientY,
       };
       const pointer1 = {
-        x: pointers[1].offsetX,
-        y: pointers[1].offsetY,
+        x: pointers[1].clientX,
+        y: pointers[1].clientY,
       };
       const currDiff = distance(pointer0, pointer1);
       const delta =
@@ -144,17 +144,17 @@ const CanvasWrapper = ({
       prevDiff.current = currDiff;
       redrawCanvasDebounced();
     } else if (dragState.current.started) {
-      const distX = dragState.current.mouseDownCoords.x - e.offsetX;
-      const distY = dragState.current.mouseDownCoords.y - e.offsetY;
+      const distX = dragState.current.mouseDownCoords.x - e.clientX;
+      const distY = dragState.current.mouseDownCoords.y - e.clientY;
       const dist = distX * distX + distY * distY;
       if (dist > dragState.current.maxDistFromOrigin) {
         dragState.current.maxDistFromOrigin = dist;
       }
 
-      const deltaX = dragState.current.prevPos.x - e.offsetX;
-      const deltaY = dragState.current.prevPos.y - e.offsetY;
-      dragState.current.prevPos.x = e.offsetX;
-      dragState.current.prevPos.y = e.offsetY;
+      const deltaX = dragState.current.prevPos.x - e.clientX;
+      const deltaY = dragState.current.prevPos.y - e.clientY;
+      dragState.current.prevPos.x = e.clientX;
+      dragState.current.prevPos.y = e.clientY;
       canvasRef.current &&
         onPan(
           canvasRef.current,
@@ -176,23 +176,23 @@ const CanvasWrapper = ({
         const pointers = Array.from(activePointers.current.values());
         prevDiff.current = distance(
           {
-            x: pointers[0].offsetX,
-            y: pointers[0].offsetY,
+            x: pointers[0].clientX,
+            y: pointers[0].clientY,
           },
           {
-            x: pointers[1].offsetX,
-            y: pointers[1].offsetY,
+            x: pointers[1].clientX,
+            y: pointers[1].clientY,
           }
         );
       } else if (activePointers.current.size === 1) {
         dragState.current.started = true;
         dragState.current.mouseDownCoords = {
-          x: e.offsetX,
-          y: e.offsetY,
+          x: e.clientX,
+          y: e.clientY,
         };
         dragState.current.prevPos = {
-          x: e.offsetX,
-          y: e.offsetY,
+          x: e.clientX,
+          y: e.clientY,
         };
         dragState.current.maxDistFromOrigin = 0;
       }
@@ -205,8 +205,8 @@ const CanvasWrapper = ({
       if (dragState.current.maxDistFromOrigin < minDragDist) {
         e.preventDefault();
         onLeftClick(
-          e.offsetX * getDevicePixelRatio(),
-          e.offsetY * getDevicePixelRatio()
+          e.clientX * getDevicePixelRatio(),
+          e.clientY * getDevicePixelRatio()
         );
       }
       dragState.current.started = false;

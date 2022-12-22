@@ -49,7 +49,14 @@ export const MapPage = ({
         />
         <MapSelector onMapSelected={closeSidebar} />
         <MapInfo />
-        <Button onClick={clearMap}>{t("Clear map")}</Button>
+        <Button
+          onClick={() => {
+            clearMap();
+            closeSidebar();
+          }}
+        >
+          {t("Clear map")}
+        </Button>
       </Sidebar>
     </main>
   );

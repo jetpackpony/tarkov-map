@@ -5,15 +5,16 @@ export interface ButtonProps {
   children?: ComponentChildren;
   onClick: (e: MouseEvent) => void;
   className?: string;
+  title?: string;
 }
 
-const Button = ({ children, onClick, className }: ButtonProps) => {
+const Button = ({ children, onClick, className, title }: ButtonProps) => {
   const classes = [styles.button];
   if (className) {
     classes.push(className);
   }
   return (
-    <button class={classes.join(" ")} onClick={onClick}>
+    <button class={classes.join(" ")} onClick={onClick} title={title}>
       {children}
     </button>
   );

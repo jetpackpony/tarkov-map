@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 import { useState } from "preact/compat";
 import ColorPicker from "./ColorPicker";
 import MapSelector from "./MapSelector";
-import Button from "./Button/Button";
+import Button from "../Button";
 import LangPicker from "./LangPicker";
 import { Color } from "../../types";
 import { useLanguage } from "../../language";

@@ -34,3 +34,8 @@
   margin-bottom: 1rem;
   min-height: 3em;
 }
+
+.header .buttons {
+  display: flex;
+  gap: 1rem;
+}

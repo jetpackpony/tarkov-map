@@ -1,5 +1,6 @@
 import { ComponentChildren, h } from "preact";
-import CloseButton from "./CloseButton";
+import CloseButton from "../../CloseButton";
+import FullScreenButton from "../../FullScreenButton";
 import styles from "./sidebar.module.css";
 
 interface SidebarProps {
@@ -24,7 +25,10 @@ const Sidebar = ({
       <div class={styles.container}>
         <header class={styles.header}>
           {headerElement}
-          {showCloseButton && <CloseButton onClick={close} />}
+          <div class={styles.buttons}>
+            <FullScreenButton onClick={close} />
+            {showCloseButton && <CloseButton onClick={close} />}
+          </div>
         </header>
         <div class={styles.sidebarContent}>{children}</div>
       </div>

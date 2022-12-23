@@ -24,5 +24,8 @@
     "html",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
+  }
 }

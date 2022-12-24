@@ -92,6 +92,7 @@ const CanvasWrapper = ({
 
     if (canvasRef.current) {
       if (e.ctrlKey) {
+        !isTrackPad && onSwitchToTrackPad({ isTrackPad: true });
         // This is trackpad pinching (scale)
         onZoom(
           canvasRef.current,
@@ -101,7 +102,7 @@ const CanvasWrapper = ({
             y: e.clientY * getDevicePixelRatio(),
           }
         );
-      } else if (isTrackPad) {
+      } else if (isTrackPad || e.deltaX !== 0) {
         // this is trackpad moving
         onPan(
           canvasRef.current,

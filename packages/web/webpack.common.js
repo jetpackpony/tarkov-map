@@ -19,7 +19,7 @@ module.exports = (env) => ({
   module: {
     rules: [
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/i,
+        test: /\.(?:ico|gif|png|jpg|jpeg|webp|svg)$/i,
         type: "asset/resource",
       },
     ],

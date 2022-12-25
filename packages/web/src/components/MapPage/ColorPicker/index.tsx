@@ -14,7 +14,11 @@ const ColorPicker = ({ color, onChange }: ColorPickerProps) => {
   return (
     <div class={styles.colorPicker}>
       {t("Marker color")}
-      <HuePicker color={color} onChangeComplete={({ hex }) => onChange(hex)} />
+      <HuePicker
+        width="70%"
+        color={color}
+        onChangeComplete={({ hex }) => onChange(hex)}
+      />
     </div>
   );
 };

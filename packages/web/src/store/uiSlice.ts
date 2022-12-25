@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, AppState } from ".";
 import { getDB, Session } from "../db";
 import { isLanguage, Language } from "../language";
-import { Color } from "../types";
+import { Color, isColor } from "../types";
 import { isMapName, MapName } from "./mapData";
 import { clearAllMaps } from "./markersSlice";
 
@@ -121,13 +121,16 @@ export default uiSlice.reducer;
 export const hydrate = (state: AppState) => {
   localStorage.setItem("currentMap", selectCurrentMap(state));
   localStorage.setItem("lang", selectCurrentLang(state));
+  localStorage.setItem("markerColor", selectMarkerColor(state));
 };
 
 export const rehydrate = () => {
   const currentMap = localStorage.getItem("currentMap");
   const lang = localStorage.getItem("lang");
+  const markerColor = localStorage.getItem("markerColor");
   const ui = { ...uiSlice.getInitialState() };
   if (currentMap && isMapName(currentMap)) ui.currentMap = currentMap;
   if (lang && isLanguage(lang)) ui.lang = lang;
+  if (markerColor && isColor(markerColor)) ui.markerColor = markerColor;
   return ui;
 };

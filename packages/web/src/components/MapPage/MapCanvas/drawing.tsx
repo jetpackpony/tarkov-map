@@ -1,4 +1,5 @@
 import { Coords, ExtractMarker, isCoords, Marker } from "../../../types";
+import { getDevicePixelRatio } from "./utils";
 
 const drawActivationPoint = (
   ctx: CanvasRenderingContext2D,
@@ -30,6 +31,8 @@ const drawActivationPoint = (
     marker.activationCoords.x * scale,
     marker.activationCoords.y * scale
   );
+  const initScale = 0.7 * getDevicePixelRatio();
+  ctx.scale(initScale, initScale);
   ctx.beginPath();
   ctx.arc(0, 0, 15, 0, Math.PI * 2);
   ctx.stroke();
@@ -42,7 +45,7 @@ const drawSpecialConditions = (
   scale: number,
   marker: ExtractMarker
 ) => {
-  const innerScale = 0.04;
+  const innerScale = 0.03 * getDevicePixelRatio();
   ctx.save();
   ctx.fillStyle = "white";
   ctx.shadowBlur = 0;
@@ -72,6 +75,8 @@ const drawExtractionWithActivation = (
   ctx.fillStyle = "#045C96";
   ctx.lineWidth = 3;
   ctx.translate(marker.coords.x * scale, marker.coords.y * scale);
+  const initScale = 0.7 * getDevicePixelRatio();
+  ctx.scale(initScale, initScale);
   ctx.beginPath();
   ctx.arc(0, 0, 15, Math.PI / 2, (Math.PI * 3) / 2);
   ctx.stroke();
@@ -95,6 +100,8 @@ const drawNormalExtraction = (
   ctx.fillStyle = "#045C96";
   ctx.lineWidth = 3;
   ctx.translate(marker.coords.x * scale, marker.coords.y * scale);
+  const initScale = 0.7 * getDevicePixelRatio();
+  ctx.scale(initScale, initScale);
   ctx.beginPath();
   ctx.arc(0, 0, 15, 0, Math.PI * 2);
   ctx.stroke();
@@ -123,7 +130,7 @@ const drawUserMarker = (
   scale: number,
   marker: Marker
 ) => {
-  const initScale = 0.08;
+  const initScale = 0.05 * getDevicePixelRatio();
   ctx.save();
   ctx.strokeStyle = "black";
   ctx.fillStyle = marker.color;

@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { Language } from "../../../language";
-import Button from "../Button/Button";
+import Button from "../../Button";
 import styles from "./langPicker.module.css";
 
 interface LangButtonProps {

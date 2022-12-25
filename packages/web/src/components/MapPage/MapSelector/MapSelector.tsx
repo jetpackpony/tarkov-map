@@ -3,6 +3,7 @@ import mapData, { MapName } from "../../../store/mapData";
 import styles from "./mapSelector.module.css";
 import { MapGroupId } from "../../../types";
 import { Language, useLanguage } from "../../../language";
+import { onMapSelected } from ".";
 
 type MapGroup = {
   groupName: string;
@@ -29,9 +30,9 @@ const getMapGroups = (lang: Language): MapGroups => {
   }, {} as MapGroups);
 };
 
-interface MapSelectorProps {
+export interface MapSelectorProps {
   currentMap: MapName;
-  onMapSelected: (payload: { mapId: MapName }) => void;
+  onMapSelected: onMapSelected;
 }
 
 const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {

@@ -102,11 +102,7 @@ const MapInfo = ({
 }: MapInfoProps) => {
   const { currentLang, t } = useLanguage();
   if (extracts.length === 0) {
-    return (
-      <div class={styles.mapInfo}>
-        <div>No extracts for this map</div>
-      </div>
-    );
+    return null;
   }
   const groups = groupExtracts(extracts, currentLang);
   return (

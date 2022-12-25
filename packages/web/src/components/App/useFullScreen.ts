@@ -1,14 +1,30 @@
 import { useEffect } from "preact/compat";
 
-export const isFullScreen = () => {
-  return document.fullscreenElement;
+export const isFullscreen = () => {
+  return (
+    document.fullscreenElement ||
+    document.mozFullScreenElement ||
+    document.msFullscreenElement ||
+    document.webkitFullscreenElement
+  );
 };
 
+const requestFullscreen =
+  document.documentElement.requestFullscreen ||
+  document.documentElement.mozRequestFullScreen ||
+  document.documentElement.webkitRequestFullscreen ||
+  document.documentElement.msRequestFullscreen;
+const exitFullscreen =
+  document.exitFullscreen ||
+  document.mozCancelFullScreen ||
+  document.webkitExitFullscreen ||
+  document.msExitFullscreen;
+
 export const toggleFullscreen = () => {
-  if (!isFullScreen()) {
-    document.documentElement.requestFullscreen();
-  } else if (document.exitFullscreen) {
-    document.exitFullscreen();
+  if (!isFullscreen()) {
+    requestFullscreen.call(document.documentElement);
+  } else {
+    exitFullscreen.call(document);
   }
 };
 

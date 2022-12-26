@@ -1,4 +1,6 @@
 .fullScreenButton {
+  composes: button from "../Button/Button.module.css";
+
   position: relative;
   width: 1.8rem;
   height: 1.8rem;

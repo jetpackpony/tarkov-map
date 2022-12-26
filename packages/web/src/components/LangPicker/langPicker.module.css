@@ -1,4 +1,6 @@
 .pickerButton {
+  composes: button from "../Button/Button.module.css";
+
   padding: 0.3rem;
   border: none;
   background-color: transparent;

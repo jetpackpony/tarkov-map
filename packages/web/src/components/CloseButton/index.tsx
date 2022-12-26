@@ -1,11 +1,14 @@
 import Icon from "../Icon";
-import Button, { ButtonProps } from "../Button";
 import styles from "./closeButton.module.css";
 
-const CloseButton = ({ onClick }: ButtonProps) => (
-  <Button className={styles.closeButton} onClick={onClick} title="Close Menu">
+interface CloseButtonProps {
+  onClick: (e: MouseEvent) => void;
+}
+
+const CloseButton = ({ onClick }: CloseButtonProps) => (
+  <button class={styles.closeButton} onClick={onClick} title="Close Menu">
     <Icon name="close" className={styles.closeIcon} />
-  </Button>
+  </button>
 );
 
 export default CloseButton;

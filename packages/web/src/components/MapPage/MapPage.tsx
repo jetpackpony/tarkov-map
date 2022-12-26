@@ -7,7 +7,7 @@ import Sidebar from "../Sidebar";
 import { useState } from "preact/compat";
 import ColorPicker from "../ColorPicker";
 import MapSelector from "./MapSelector";
-import Button from "../Button";
+import buttonStyles from "../Button/Button.module.css";
 import LangPicker from "../LangPicker";
 import { Color } from "../../types";
 import { useLanguage } from "../../language";
@@ -49,14 +49,15 @@ export const MapPage = ({
         />
         <MapSelector onMapSelected={closeSidebar} />
         <MapInfo />
-        <Button
+        <button
+          class={buttonStyles.button}
           onClick={() => {
             clearMap();
             closeSidebar();
           }}
         >
           {t("Clear map")}
-        </Button>
+        </button>
       </Sidebar>
     </main>
   );

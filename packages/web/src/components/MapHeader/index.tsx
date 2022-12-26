@@ -1,5 +1,5 @@
 import { h } from "preact";
-import MenuButton from "../../MenuButton";
+import MenuButton from "../MenuButton";
 import styles from "./mapHeader.module.css";
 
 interface MapHeaderProps {

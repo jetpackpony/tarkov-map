@@ -1,14 +1,14 @@
 import { h } from "preact";
 import MapCanvas from "./MapCanvas";
 import MapInfo from "./MapInfo";
-import MapHeader from "./MapHeader";
+import MapHeader from "../MapHeader";
 import styles from "./mapPage.module.css";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar";
 import { useState } from "preact/compat";
-import ColorPicker from "./ColorPicker";
+import ColorPicker from "../ColorPicker";
 import MapSelector from "./MapSelector";
 import Button from "../Button";
-import LangPicker from "./LangPicker";
+import LangPicker from "../LangPicker";
 import { Color } from "../../types";
 import { useLanguage } from "../../language";
 

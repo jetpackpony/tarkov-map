@@ -1,6 +1,6 @@
 import { ComponentChildren, h } from "preact";
-import CloseButton from "../../CloseButton";
-import FullScreenButton from "../../FullScreenButton";
+import CloseButton from "../CloseButton";
+import FullScreenButton from "../FullScreenButton";
 import styles from "./sidebar.module.css";
 
 interface SidebarProps {

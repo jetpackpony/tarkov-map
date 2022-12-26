@@ -19,7 +19,7 @@ const MenuButton = ({ onClick }: MenuButtonProps) => {
         onClick(true);
       }}
     >
-      <Icon name="menu" className={styles.menuIcon} />
+      <Icon name="menu" />
     </button>
   );
 };

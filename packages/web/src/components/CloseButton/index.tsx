@@ -7,7 +7,7 @@ interface CloseButtonProps {
 
 const CloseButton = ({ onClick }: CloseButtonProps) => (
   <button class={styles.closeButton} onClick={onClick} title="Close Menu">
-    <Icon name="close" className={styles.closeIcon} />
+    <Icon name="close" />
   </button>
 );
 

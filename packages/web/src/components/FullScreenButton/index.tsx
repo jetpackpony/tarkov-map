@@ -15,10 +15,7 @@ const FullScreenButton = ({ onClick }: FullScreenButtonProps) => (
     }}
     title={isFullscreen() ? "Exit Fullscreen" : "Fullscreen"}
   >
-    <Icon
-      name={isFullscreen() ? "exit-fullscreen" : "fullscreen"}
-      className={styles.fullScreenIcon}
-    />
+    <Icon name={isFullscreen() ? "exit-fullscreen" : "fullscreen"} />
   </button>
 );
 

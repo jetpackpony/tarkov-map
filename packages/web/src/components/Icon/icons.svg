@@ -18,5 +18,10 @@
       <polygon
         points="326.628 304 464 304 464 272 272 272 272 464 304 464 304 326.628 473.372 496 496 496 496 473.372 326.628 304" />
     </symbol>
+    <symbol id="icon-menu" viewBox="0 0 512 512">
+      <rect width="352" height="32" x="80" y="96" />
+      <rect width="352" height="32" x="80" y="240" />
+      <rect width="352" height="32" x="80" y="384" />
+    </symbol>
   </defs>
 </svg>

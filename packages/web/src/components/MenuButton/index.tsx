@@ -1,4 +1,5 @@
 import { h } from "preact";
+import Icon from "../Icon";
 import styles from "./menuButton.module.css";
 
 interface MenuButtonProps {
@@ -7,7 +8,7 @@ interface MenuButtonProps {
 const MenuButton = ({ onClick }: MenuButtonProps) => {
   return (
     <button
-      class={styles.menuIcon}
+      class={styles.menuButton}
       // With mouse or pen, activate button by hovering
       onPointerEnter={(e: PointerEvent) => {
         e.pointerType !== "touch" && onClick(false);
@@ -18,9 +19,7 @@ const MenuButton = ({ onClick }: MenuButtonProps) => {
         onClick(true);
       }}
     >
-      <div />
-      <div />
-      <div />
+      <Icon name="menu" className={styles.menuIcon} />
     </button>
   );
 };

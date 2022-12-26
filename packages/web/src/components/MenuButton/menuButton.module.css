@@ -1,11 +1,15 @@
-.menuIcon {
-  padding: 0.5em;
-  border: none;
-  outline: none;
+.menuButton {
+  composes: button from "../Button/Button.module.css";
+
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.2rem;
 }
-.menuIcon > div {
-  width: 35px;
-  height: 3px;
-  background-color: #9a8866;
-  margin: 5px 0;
+
+.menuIcon {
+  stroke: #9a8866;
+  fill: #9a8866;
+  width: 100%;
+  height: 100%;
 }

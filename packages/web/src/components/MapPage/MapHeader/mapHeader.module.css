@@ -1,19 +1,6 @@
 .mapPageHeader {
   position: absolute;
-  top: 50;
   right: 0;
   opacity: 0.5;
   z-index: 999;
-}
-
-.menuIcon {
-  padding: 0.5em;
-  border: none;
-  outline: none;
-}
-.menuIcon > div {
-  width: 35px;
-  height: 3px;
-  background-color: #9a8866;
-  margin: 5px 0;
 }

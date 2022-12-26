@@ -2,11 +2,8 @@
   margin-bottom: 1em;
 }
 
-.groupContainer {
-}
-
 .groupHeader {
-  color: #9a8866;
+  color: var(--primary-color);
 }
 
 .map {
@@ -16,9 +13,9 @@
 }
 
 .map:hover {
-  background-color: #042f47;
+  background-color: var(--list-item-hovered);
 }
 
 .map.selected {
-  background-color: #074a71;
+  background-color: var(--list-item-selected);
 }

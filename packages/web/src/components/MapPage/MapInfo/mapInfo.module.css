@@ -1,8 +1,8 @@
 .mapInfo {
-  color: #aeaeb0;
+  color: var(--font-color);
 }
 
 .header {
-  color: #9a8866;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 }

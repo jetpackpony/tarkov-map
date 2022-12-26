@@ -41,7 +41,7 @@ const MapSelector = ({ currentMap, onMapSelected }: MapSelectorProps) => {
   return (
     <ul class={styles.container}>
       {Object.values(mapGroups).map((group) => (
-        <li key={group.groupName} class={styles.groupContainer}>
+        <li key={group.groupName}>
           <h4 class={styles.groupHeader}>{group.groupName}</h4>
           <ul>
             {Object.entries(group.maps).map(([mapId, name]) => (

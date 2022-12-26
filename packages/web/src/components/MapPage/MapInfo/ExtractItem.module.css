@@ -5,11 +5,11 @@
 }
 
 .extractItem:hover {
-  background-color: #042f47;
+  background-color: var(--list-item-hovered);
 }
 
 .extractItem.selected {
-  background-color: #074a71;
+  background-color: var(--list-item-selected);
 }
 
 .title {

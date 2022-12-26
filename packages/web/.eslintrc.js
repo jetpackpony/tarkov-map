@@ -9,6 +9,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "preact",
     "prettier",
+    "plugin:css-modules/recommended",
   ],
   overrides: [],
   parser: "@typescript-eslint/parser",
@@ -16,7 +17,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "css-modules"],
   rules: {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",

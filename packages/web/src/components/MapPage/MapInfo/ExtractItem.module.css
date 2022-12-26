@@ -1,0 +1,33 @@
+.extractItem {
+  padding: 0.3em 1em;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.extractItem:hover {
+  background-color: #042f47;
+}
+
+.extractItem.selected {
+  background-color: #074a71;
+}
+
+.title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.extractItem .activationRequired {
+  margin: 0 0.5em;
+  width: 1em;
+  height: 1em;
+  border-radius: 0.5em;
+  background-color: lightseagreen;
+}
+
+.extractItem .specialConds {
+  font-size: 14px;
+  padding-left: 1em;
+  color: #6c6c6c;
+}

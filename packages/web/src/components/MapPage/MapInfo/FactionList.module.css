@@ -1,0 +1,31 @@
+.factionHeader {
+  color: #9a8866;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+.arrow {
+  border: solid #9a8866;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.arrow.up {
+  transform: translate(0.5rem, 0) rotate(-135deg);
+}
+
+.arrow.down {
+  transform: translate(0.5rem, -0.2rem) rotate(45deg);
+}
+
+.extractsList {
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.extractsList.hidden {
+  height: 0;
+}

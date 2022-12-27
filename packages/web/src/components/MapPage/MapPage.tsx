@@ -1,14 +1,14 @@
 import { h } from "preact";
 import MapCanvas from "./MapCanvas";
 import MapInfo from "./MapInfo";
-import MapHeader from "./MapHeader";
+import MapHeader from "../MapHeader";
 import styles from "./mapPage.module.css";
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar";
 import { useState } from "preact/compat";
-import ColorPicker from "./ColorPicker";
+import ColorPicker from "../ColorPicker";
 import MapSelector from "./MapSelector";
-import Button from "../Button";
-import LangPicker from "./LangPicker";
+import buttonStyles from "../Button/Button.module.css";
+import LangPicker from "../LangPicker";
 import { Color } from "../../types";
 import { useLanguage } from "../../language";
 
@@ -49,14 +49,15 @@ export const MapPage = ({
         />
         <MapSelector onMapSelected={closeSidebar} />
         <MapInfo />
-        <Button
+        <button
+          class={buttonStyles.button}
           onClick={() => {
             clearMap();
             closeSidebar();
           }}
         >
           {t("Clear map")}
-        </Button>
+        </button>
       </Sidebar>
     </main>
   );

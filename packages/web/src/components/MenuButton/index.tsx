@@ -1,5 +1,6 @@
 import { h } from "preact";
-import styles from "./mapHeader.module.css";
+import Icon from "../Icon";
+import styles from "./menuButton.module.css";
 
 interface MenuButtonProps {
   onClick: (isTouchUsed: boolean) => void;
@@ -7,7 +8,7 @@ interface MenuButtonProps {
 const MenuButton = ({ onClick }: MenuButtonProps) => {
   return (
     <button
-      class={styles.menuIcon}
+      class={styles.menuButton}
       // With mouse or pen, activate button by hovering
       onPointerEnter={(e: PointerEvent) => {
         e.pointerType !== "touch" && onClick(false);
@@ -18,22 +19,9 @@ const MenuButton = ({ onClick }: MenuButtonProps) => {
         onClick(true);
       }}
     >
-      <div />
-      <div />
-      <div />
+      <Icon name="menu" />
     </button>
   );
 };
 
-interface MapHeaderProps {
-  openSidebar: (isTouchUsed: boolean) => void;
-}
-const MapHeader = ({ openSidebar }: MapHeaderProps) => {
-  return (
-    <header class={styles.mapPageHeader}>
-      <MenuButton onClick={openSidebar} />
-    </header>
-  );
-};
-
-export default MapHeader;
+export default MenuButton;

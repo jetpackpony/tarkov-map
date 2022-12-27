@@ -1,22 +1,22 @@
 import { isFullscreen, toggleFullscreen } from "../App/useFullScreen";
-import Button, { ButtonProps } from "../Button";
 import Icon from "../Icon";
 import styles from "./fullScreenButton.module.css";
 
-const FullScreenButton = ({ onClick }: ButtonProps) => (
-  <Button
-    className={styles.fullScreenButton}
+interface FullScreenButtonProps {
+  onClick: (e: MouseEvent) => void;
+}
+
+const FullScreenButton = ({ onClick }: FullScreenButtonProps) => (
+  <button
+    class={styles.fullScreenButton}
     onClick={(e) => {
       toggleFullscreen();
       onClick(e);
     }}
     title={isFullscreen() ? "Exit Fullscreen" : "Fullscreen"}
   >
-    <Icon
-      name={isFullscreen() ? "exit-fullscreen" : "fullscreen"}
-      className={styles.fullScreenIcon}
-    />
-  </Button>
+    <Icon name={isFullscreen() ? "exit-fullscreen" : "fullscreen"} />
+  </button>
 );
 
 export default FullScreenButton;

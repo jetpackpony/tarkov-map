@@ -1,8 +1,8 @@
 import { h } from "preact";
 import { HuePicker } from "react-color";
 import styles from "./colorPicker.module.css";
-import { Color } from "../../../types";
-import { useLanguage } from "../../../language";
+import { Color } from "../../types";
+import { useLanguage } from "../../language";
 
 interface ColorPickerProps {
   color: Color;

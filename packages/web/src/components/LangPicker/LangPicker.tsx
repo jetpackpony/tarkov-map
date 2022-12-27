@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { Language } from "../../../language";
+import { Language } from "../../language";
 import LangButton from "./LangButton";
 
 interface LangPickerProps {

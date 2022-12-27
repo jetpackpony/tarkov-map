@@ -1,6 +1,5 @@
 import { h } from "preact";
-import { Language } from "../../../language";
-import Button from "../../Button";
+import { Language } from "../../language";
 import styles from "./langPicker.module.css";
 
 interface LangButtonProps {
@@ -10,12 +9,12 @@ interface LangButtonProps {
 }
 
 const LangButton = ({ lang, selected, changeLang }: LangButtonProps) => (
-  <Button
-    className={`${styles.pickerButton} ${selected ? styles.selected : ""}`}
+  <button
+    class={`${styles.pickerButton} ${selected ? styles.selected : ""}`}
     onClick={() => changeLang(lang)}
   >
     {lang}
-  </Button>
+  </button>
 );
 
 export default LangButton;

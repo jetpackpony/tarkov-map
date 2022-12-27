@@ -1,0 +1,6 @@
+.icon {
+  stroke: var(--primary-color);
+  fill: var(--primary-color);
+  width: 100%;
+  height: 100%;
+}

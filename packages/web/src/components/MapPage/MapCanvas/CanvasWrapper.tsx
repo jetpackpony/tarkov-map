@@ -1,6 +1,6 @@
 import { h } from "preact";
 import { useEffect, useRef } from "preact/compat";
-import { useCanvasWithResizeHandler } from "./hooks";
+import { useCanvasWithResizeHandler } from "./useCanvasWithResizeHandler";
 import styles from "./canvas.module.css";
 import { Coords } from "../../../types";
 import { getDevicePixelRatio } from "./utils";

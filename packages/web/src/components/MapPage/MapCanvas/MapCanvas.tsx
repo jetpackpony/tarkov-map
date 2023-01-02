@@ -1,7 +1,7 @@
 import { h } from "preact";
 import CanvasWrapper from "./CanvasWrapper";
 import { useRef, useEffect } from "preact/compat";
-import { useImageLoader } from "./hooks";
+import { useImageLoader } from "./useImageLoader";
 import styles from "./mapCanvas.module.css";
 import { draw } from "./drawing";
 import { Coords, ExtractMarker, Marker } from "../../../types";

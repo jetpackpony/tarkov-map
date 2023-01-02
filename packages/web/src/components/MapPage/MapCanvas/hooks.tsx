@@ -5,6 +5,7 @@ import {
   useRef,
   TargetedEvent,
 } from "preact/compat";
+import { getDevicePixelRatio } from "./utils";
 
 export const useImageLoader = (
   imgPath: string,
@@ -29,10 +30,20 @@ export const useImageLoader = (
 
 type CanvasResizeListener = (canvas: HTMLCanvasElement) => void;
 
+const resizeHandler = (canvas: HTMLCanvasElement) => {
+  const parent = canvas.parentElement;
+  if (parent) {
+    canvas.width = parent.clientWidth * getDevicePixelRatio();
+    canvas.height = parent.clientHeight * getDevicePixelRatio();
+    canvas.style.width = `${parent.clientWidth}px`;
+    canvas.style.height = `${parent.clientHeight}px`;
+  }
+};
+
 export const useCanvasWithResizeHandler = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [, setCanvasSize] = useState({ w: 0, h: 0 });
-  const listeners = useRef<CanvasResizeListener[]>([]);
+  const listeners = useRef<CanvasResizeListener[]>([resizeHandler]);
 
   const resizeCanvas = () => {
     listeners.current.forEach((f) => canvasRef.current && f(canvasRef.current));
@@ -49,7 +60,12 @@ export const useCanvasWithResizeHandler = () => {
     }
   };
 
+  // Resize canvas after initial load
   useLayoutEffect(() => {
+    canvasRef.current && resizeHandler(canvasRef.current);
+  }, [canvasRef]);
+
+  useEffect(() => {
     window.addEventListener("resize", resizeCanvas);
     return () => {
       window.removeEventListener("resize", resizeCanvas);

@@ -22,16 +22,6 @@ const getMiddleCoords = (one: Coords, two: Coords): Coords => {
   };
 };
 
-const resizeHandler = (canvas: HTMLCanvasElement) => {
-  const parent = canvas.parentElement;
-  if (parent) {
-    canvas.width = parent.clientWidth * getDevicePixelRatio();
-    canvas.height = parent.clientHeight * getDevicePixelRatio();
-    canvas.style.width = `${parent.clientWidth}px`;
-    canvas.style.height = `${parent.clientHeight}px`;
-  }
-};
-
 interface DragState {
   started: boolean;
   mouseDownCoords: Coords;
@@ -59,9 +49,6 @@ const CanvasWrapper = ({
   const { canvasRef, addResizeListener } = useCanvasWithResizeHandler();
   const activePointers = useRef(new Map<number, PointerEvent>());
   const prevDiff = useRef(-1);
-
-  addResizeListener(resizeHandler);
-
   const isDrawing = useRef(false);
   const dragState = useRef<DragState>({
     started: false,
@@ -230,11 +217,6 @@ const CanvasWrapper = ({
   useEffect(() => {
     redrawCanvasDebounced();
   });
-
-  // Resize canvas after initial load
-  useEffect(() => {
-    canvasRef.current && resizeHandler(canvasRef.current);
-  }, [canvasRef]);
 
   return (
     <canvas

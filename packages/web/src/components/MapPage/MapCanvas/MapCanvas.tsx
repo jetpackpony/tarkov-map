@@ -1,19 +1,14 @@
 import { h } from "preact";
 import CanvasWrapper from "./CanvasWrapper";
-import { useEffect, useReducer } from "preact/compat";
+import { useEffect } from "preact/compat";
 import { useImageLoader } from "./useImageLoader";
 import styles from "./mapCanvas.module.css";
 import { draw } from "./drawing";
 import { Coords, ExtractMarker, Marker } from "../../../types";
 import LoadingSpinner from "../../LoadingSpinner";
 import { getCloseMarkers, getViewportCoords } from "./utils";
-import { viewportReducer } from "./viewportReducer/viewportReducer";
-import { initViewport } from "./viewportReducer/state";
-import { makeResetAction } from "./viewportReducer/resetAction";
-import { makeZoomAction } from "./viewportReducer/zoomAction";
-import { makePanAction } from "./viewportReducer/panAction";
 import { useCanvasWithResizeHandler } from "./useCanvasWithResizeHandler";
-import { makeClampViewportAction } from "./viewportReducer/clampViewportAction";
+import { useViewport } from "./viewportReducer/hook";
 
 interface MapCanvasProps {
   imgPath: string;
@@ -33,11 +28,13 @@ const MapCanvas = ({
   onSwitchToTrackPad,
 }: MapCanvasProps) => {
   const { canvasRef, canvasSize } = useCanvasWithResizeHandler();
-  const [viewportState, dispatch] = useReducer(
-    viewportReducer,
-    null,
-    initViewport
-  );
+  const {
+    viewportState,
+    zoomViewport,
+    panViewport,
+    resetViewport,
+    clampViewport,
+  } = useViewport();
   const imgObj = useImageLoader(imgPath);
 
   const onZoom = (
@@ -45,10 +42,10 @@ const MapCanvas = ({
     deltaY: number,
     cursorPos: Coords
   ) => {
-    dispatch(makeZoomAction({ canvas, deltaY, imgObj, cursorPos }));
+    zoomViewport({ canvas, deltaY, imgObj, cursorPos });
   };
   const onPan = (canvas: HTMLCanvasElement, deltaX: number, deltaY: number) => {
-    dispatch(makePanAction({ canvas, imgObj, deltaX, deltaY }));
+    panViewport({ canvas, imgObj, deltaX, deltaY });
   };
   const onLeftClick = (coords: Coords) => {
     const clickCoords = getViewportCoords(coords, viewportState);
@@ -81,13 +78,12 @@ const MapCanvas = ({
 
   // Reset vieport state every time the map is changed
   useEffect(() => {
-    dispatch(makeResetAction());
+    resetViewport();
   }, [imgPath]);
 
   useEffect(() => {
     console.log("clamping...");
-    canvasRef.current &&
-      dispatch(makeClampViewportAction({ imgObj, canvas: canvasRef.current }));
+    canvasRef.current && clampViewport({ imgObj, canvas: canvasRef.current });
   }, [imgObj, canvasRef.current, canvasSize.w, canvasSize.h]);
 
   useEffect(() => {

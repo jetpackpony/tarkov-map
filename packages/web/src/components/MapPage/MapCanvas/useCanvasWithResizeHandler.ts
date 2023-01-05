@@ -5,6 +5,7 @@ type CanvasResizeListener = (canvas: HTMLCanvasElement) => void;
 
 const resizeHandler = (canvas: HTMLCanvasElement) => {
   const parent = canvas.parentElement;
+  console.log("Resize handler: ", parent);
   if (parent) {
     canvas.width = parent.clientWidth * getDevicePixelRatio();
     canvas.height = parent.clientHeight * getDevicePixelRatio();
@@ -15,16 +16,28 @@ const resizeHandler = (canvas: HTMLCanvasElement) => {
 
 export const useCanvasWithResizeHandler = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [, setCanvasSize] = useState({ w: 0, h: 0 });
-  const listeners = useRef<CanvasResizeListener[]>([resizeHandler]);
+  const [canvasSize, setCanvasSize] = useState({
+    w: 100,
+    h: 100,
+    cssW: "100px",
+    cssH: "100px",
+  });
+  // const listeners = useRef<CanvasResizeListener[]>([resizeHandler]);
+  const listeners = useRef<CanvasResizeListener[]>([]);
 
   const resizeCanvas = () => {
-    listeners.current.forEach((f) => canvasRef.current && f(canvasRef.current));
+    // listeners.current.forEach((f) => canvasRef.current && f(canvasRef.current));
     if (canvasRef.current) {
-      setCanvasSize({
-        w: canvasRef.current.width,
-        h: canvasRef.current.height,
-      });
+      const parent = canvasRef.current.parentElement;
+      console.log("Resize handler: ", parent);
+      if (parent) {
+        setCanvasSize({
+          w: parent.clientWidth * getDevicePixelRatio(),
+          h: parent.clientHeight * getDevicePixelRatio(),
+          cssW: `${parent.clientWidth}px`,
+          cssH: `${parent.clientHeight}px`,
+        });
+      }
     }
   };
   const addResizeListener = (f: CanvasResizeListener) => {
@@ -35,8 +48,9 @@ export const useCanvasWithResizeHandler = () => {
 
   // Resize canvas after initial load
   useLayoutEffect(() => {
-    canvasRef.current && resizeHandler(canvasRef.current);
-  }, [canvasRef]);
+    console.log("Resizing after initial load");
+    resizeCanvas();
+  }, [canvasRef.current]);
 
   useEffect(() => {
     window.addEventListener("resize", resizeCanvas);
@@ -47,6 +61,7 @@ export const useCanvasWithResizeHandler = () => {
 
   return {
     canvasRef,
+    canvasSize,
     addResizeListener,
   };
 };

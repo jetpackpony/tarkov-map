@@ -2,24 +2,13 @@ import { h } from "preact";
 import { forwardRef, Ref, useRef } from "preact/compat";
 import styles from "./canvas.module.css";
 import { Coords } from "../../../types";
-import { getDevicePixelRatio } from "./utils";
+import { distance, getDevicePixelRatio, getMiddleCoords } from "./utils";
 
 const minDragDist = 5;
 const trackPadScaleMulti = 0.02;
 const mouseWheelScaleMulti = 0.3;
 const posMulti = 1;
 const pinchScaleMulti = 0.02;
-
-const distance = (one: Coords, two: Coords) => {
-  return Math.sqrt((one.x - two.x) ** 2 + (one.y - two.y) ** 2);
-};
-
-const getMiddleCoords = (one: Coords, two: Coords): Coords => {
-  return {
-    x: Math.abs(one.x - two.x) / 2 + Math.min(one.x, two.x),
-    y: Math.abs(one.y - two.y) / 2 + Math.min(one.y, two.y),
-  };
-};
 
 interface DragState {
   started: boolean;

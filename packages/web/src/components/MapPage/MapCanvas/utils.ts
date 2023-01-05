@@ -34,3 +34,14 @@ export const getViewportCoords = (
   );
   return { x, y };
 };
+
+export const distance = (one: Coords, two: Coords) => {
+  return Math.sqrt((one.x - two.x) ** 2 + (one.y - two.y) ** 2);
+};
+
+export const getMiddleCoords = (one: Coords, two: Coords): Coords => {
+  return {
+    x: Math.abs(one.x - two.x) / 2 + Math.min(one.x, two.x),
+    y: Math.abs(one.y - two.y) / 2 + Math.min(one.y, two.y),
+  };
+};

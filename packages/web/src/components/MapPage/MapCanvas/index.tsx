@@ -6,11 +6,7 @@ import {
   removeMarkers,
   selectMarkers,
 } from "../../../store/markersSlice";
-import {
-  selectCurrentMap,
-  selectIsTrackPad,
-  switchToTrackPad,
-} from "../../../store/uiSlice";
+import { selectCurrentMap } from "../../../store/uiSlice";
 import mapData from "../../../store/mapData";
 
 const MapCanvasContainer = () => {

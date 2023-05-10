@@ -2,7 +2,7 @@ import { h } from "preact";
 import { useCallback, useEffect } from "preact/compat";
 import styles from "./canvas.module.css";
 import { draw } from "./drawing";
-import { Coords, ExtractMarker, Marker } from "../../../types";
+import { Coords, ExtractMarker, Marker } from "../../../../types";
 import { useCanvasWithResizeHandler } from "./useCanvasWithResizeHandler";
 import { useInterpret, useSelector } from "@xstate/react";
 import {
@@ -10,7 +10,7 @@ import {
   selectViewport,
 } from "./canvasStateMachine/canvas.machine";
 import { isPointerEventType } from "./canvasStateMachine/types";
-import { getDevicePixelRatio } from "./utils";
+import { getDevicePixelRatio } from "./getDevicePixelRatio";
 import { makeLeftClickAction } from "./canvasStateMachine/actions";
 
 interface CanvasProps {

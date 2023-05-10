@@ -1,20 +1,29 @@
 import { assign } from "xstate";
 import { send, pure } from "xstate/lib/actions";
-import { Coords, Dimentions, ExtractMarker, Marker } from "../../../../types";
-import { distance, getCloseMarkers, getMiddleCoords } from "../utils";
+import {
+  Coords,
+  Dimentions,
+  ExtractMarker,
+  Marker,
+} from "../../../../../types";
 import {
   initViewport,
   panViewport,
   ViewportState,
   zoomViewport,
-} from "../viewport";
+} from "./viewport";
 import {
   MIN_DRAG_DIST,
   MOUSEWHEEL_SCALE_MULTIPLIER,
   PINCH_SCALE_MULTIPLIER,
   TRACKPAD_SCALE_MULTIPLIER,
-} from "../viewport/constants";
-import { getImageCoords } from "../viewport/utils";
+} from "./viewport/constants";
+import {
+  distance,
+  getCloseMarkers,
+  getImageCoords,
+  getMiddleCoords,
+} from "./viewport/calculations";
 import {
   CanvasMachineContext,
   PointerData,

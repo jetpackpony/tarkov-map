@@ -1,6 +1,6 @@
-import { Coords, Dimentions } from "../../../../types";
+import { Coords, Dimentions } from "../../../../../../types";
 import { MAX_SCALE, MIN_SCALE } from "./constants";
-import { clampPos, clampScale } from "./utils";
+import { clampPos, clampScale } from "./calculations";
 
 export interface ViewportState {
   canvasSize: Dimentions;

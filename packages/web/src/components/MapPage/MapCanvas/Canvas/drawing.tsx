@@ -1,5 +1,5 @@
-import { Coords, ExtractMarker, isCoords, Marker } from "../../../types";
-import { getDevicePixelRatio } from "./utils";
+import { Coords, ExtractMarker, isCoords, Marker } from "../../../../types";
+import { getDevicePixelRatio } from "./getDevicePixelRatio";
 
 const drawActivationPoint = (
   ctx: CanvasRenderingContext2D,

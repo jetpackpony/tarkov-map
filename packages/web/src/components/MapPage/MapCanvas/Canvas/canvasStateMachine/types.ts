@@ -1,5 +1,5 @@
-import { Coords, Dimentions } from "../../../../types";
-import { ViewportState } from "../viewport";
+import { Coords, Dimentions } from "../../../../../types";
+import { ViewportState } from "./viewport";
 
 export interface PointerData {
   prevPos: Coords;

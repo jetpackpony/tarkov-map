@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState, useRef } from "preact/compat";
-import { getDevicePixelRatio } from "./utils";
+import { getDevicePixelRatio } from "./getDevicePixelRatio";
 
 type CanvasResizeListener = (canvas: HTMLCanvasElement) => void;
 

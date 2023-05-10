@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
+    "@xstate/react": "^3.0.1",
     "firebase": "^9.9.1",
     "nanoid": "^4.0.0",
     "preact": "^10.10.0",
@@ -59,7 +60,8 @@
     "rambda": "^7.1.4",
     "react-color": "^2.19.3",
     "react-redux": "^8.0.2",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "xstate": "^4.35.1"
   },
   "alias": {
     "react": "preact/compat",

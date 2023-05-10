@@ -17,11 +17,9 @@ const MapCanvasContainer = () => {
   const currentMap = useAppSelector(selectCurrentMap);
   const imgPath = mapData.maps[currentMap].imgPath;
   const markers = useAppSelector(selectMarkers);
-  const isTrackPad = useAppSelector(selectIsTrackPad);
   const dispatch = useAppDispatch();
   const addMarkerDispatch = compose(dispatch, addMarker);
   const removeMarkersDispatch = compose(dispatch, removeMarkers);
-  const onSwitchToTrackPadDispatch = compose(dispatch, switchToTrackPad);
 
   return (
     <MapCanvas
@@ -29,8 +27,6 @@ const MapCanvasContainer = () => {
       markers={markers}
       addMarker={addMarkerDispatch}
       removeMarkers={removeMarkersDispatch}
-      isTrackPad={isTrackPad}
-      onSwitchToTrackPad={onSwitchToTrackPadDispatch}
     />
   );
 };

@@ -1,5 +1,4 @@
 import { Coords, ExtractMarker, Marker } from "../../../types";
-import { ViewportState } from "./viewportReducer/state";
 
 export const getDevicePixelRatio = () => {
   return window?.devicePixelRatio || 1;
@@ -20,19 +19,6 @@ export const getCloseMarkers = (
     })
     .filter((m) => m.type !== "extraction")
     .map((m) => m.id);
-};
-
-export const getViewportCoords = (
-  clickCoords: Coords,
-  viewportState: ViewportState
-): Coords => {
-  const x = Math.round(
-    (clickCoords.x - viewportState.pos.x) / viewportState.scale
-  );
-  const y = Math.round(
-    (clickCoords.y - viewportState.pos.y) / viewportState.scale
-  );
-  return { x, y };
 };
 
 export const distance = (one: Coords, two: Coords) => {

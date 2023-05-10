@@ -3,16 +3,6 @@ import { getDevicePixelRatio } from "./utils";
 
 type CanvasResizeListener = (canvas: HTMLCanvasElement) => void;
 
-const resizeHandler = (canvas: HTMLCanvasElement) => {
-  const parent = canvas.parentElement;
-  if (parent) {
-    canvas.width = parent.clientWidth * getDevicePixelRatio();
-    canvas.height = parent.clientHeight * getDevicePixelRatio();
-    canvas.style.width = `${parent.clientWidth}px`;
-    canvas.style.height = `${parent.clientHeight}px`;
-  }
-};
-
 export const useCanvasWithResizeHandler = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvasSize, setCanvasSize] = useState({
@@ -21,11 +11,10 @@ export const useCanvasWithResizeHandler = () => {
     cssW: "100px",
     cssH: "100px",
   });
-  // const listeners = useRef<CanvasResizeListener[]>([resizeHandler]);
   const listeners = useRef<CanvasResizeListener[]>([]);
 
   const resizeCanvas = () => {
-    // listeners.current.forEach((f) => canvasRef.current && f(canvasRef.current));
+    listeners.current.forEach((f) => canvasRef.current && f(canvasRef.current));
     if (canvasRef.current) {
       const parent = canvasRef.current.parentElement;
       if (parent) {
@@ -47,7 +36,7 @@ export const useCanvasWithResizeHandler = () => {
   // Resize canvas after initial load
   useLayoutEffect(() => {
     resizeCanvas();
-  }, [canvasRef.current]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", resizeCanvas);

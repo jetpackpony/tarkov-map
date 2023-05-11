@@ -29,17 +29,6 @@ const Canvas = ({ imgObj, markers, addMarker, removeMarkers }: CanvasProps) => {
   });
   const viewportState = useSelector(service, selectViewport);
 
-  // Update viewport on canvas resize
-  useEffect(() => {
-    service.send({
-      type: "RESET_CANVAS",
-      payload: {
-        canvasSize,
-        imgSize: { w: imgObj.width, h: imgObj.height },
-      },
-    });
-  }, [canvasSize, imgObj, service]);
-
   const sendPointerEvent = useCallback(
     (e: PointerEvent) => {
       if (isPointerEventType(e.type)) {
@@ -82,6 +71,11 @@ const Canvas = ({ imgObj, markers, addMarker, removeMarkers }: CanvasProps) => {
       },
     });
   }, [canvasSize, imgObj, service]);
+
+  // Update viewport on canvas resize or image change
+  useEffect(() => {
+    sendResetEvent();
+  }, [sendResetEvent]);
 
   useEffect(() => {
     if (!imgObj || !canvasRef.current) return;

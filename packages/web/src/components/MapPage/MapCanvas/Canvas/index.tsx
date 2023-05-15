@@ -1,7 +1,6 @@
 import { h } from "preact";
 import { useCallback, useEffect } from "preact/compat";
 import styles from "./canvas.module.css";
-import { draw } from "./drawing";
 import { Coords, ExtractMarker, Marker } from "../../../../types";
 import { useCanvasWithResizeHandler } from "./useCanvasWithResizeHandler";
 import { useInterpret, useSelector } from "@xstate/react";
@@ -12,6 +11,7 @@ import {
 import { isPointerEventType } from "./canvasStateMachine/types";
 import { getDevicePixelRatio } from "./getDevicePixelRatio";
 import { makeLeftClickAction } from "./canvasStateMachine/actions";
+import { useDrawCanvasDebounced } from "./useDrawCanvasDebounced";
 
 interface CanvasProps {
   imgObj: HTMLImageElement;
@@ -77,10 +77,7 @@ const Canvas = ({ imgObj, markers, addMarker, removeMarkers }: CanvasProps) => {
     sendResetEvent();
   }, [sendResetEvent]);
 
-  useEffect(() => {
-    if (!imgObj || !canvasRef.current) return;
-    draw(canvasRef.current, imgObj, viewportState, markers);
-  }, [viewportState, markers, canvasRef, imgObj]);
+  useDrawCanvasDebounced(viewportState, markers, canvasRef, imgObj);
 
   return (
     <canvas

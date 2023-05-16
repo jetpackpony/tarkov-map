@@ -3,17 +3,8 @@ import { useCallback, useEffect } from "preact/compat";
 import styles from "./canvas.module.css";
 import { Coords, ExtractMarker, Marker } from "../../../../types";
 import { useCanvasWithResizeHandler } from "./useCanvasWithResizeHandler";
-import { useInterpret, useSelector } from "@xstate/react";
-import {
-  canvasMachine,
-  selectViewport,
-} from "./canvasStateMachine/canvas.machine";
-import { makeLeftClickAction } from "./canvasStateMachine/actions";
 import { useDrawCanvasDebounced } from "./useDrawCanvasDebounced";
-import {
-  wrapPointerEvent,
-  wrapWheelEvent,
-} from "./canvasStateMachine/eventWrappers";
+import { useCanvasMachine } from "./canvasStateMachine/useCanvasMachine";
 
 interface CanvasProps {
   imgObj: HTMLImageElement;
@@ -24,44 +15,19 @@ interface CanvasProps {
 
 const Canvas = ({ imgObj, markers, addMarker, removeMarkers }: CanvasProps) => {
   const { canvasRef, canvasSize } = useCanvasWithResizeHandler();
-  const service = useInterpret(canvasMachine, {
-    actions: {
-      leftClick: makeLeftClickAction(addMarker, removeMarkers, markers),
-    },
-  });
-  const viewportState = useSelector(service, selectViewport);
-
-  const sendPointerEvent = useCallback(
-    (e: PointerEvent) => {
-      const wrapper = wrapPointerEvent(e);
-      wrapper && service.send(wrapper);
-    },
-    [service]
-  );
-  const sendWheelEvent = useCallback(
-    (e: WheelEvent) => {
-      e.preventDefault();
-      const wrapper = wrapWheelEvent(e);
-      wrapper && service.send(wrapper);
-    },
-    [service]
-  );
-  const sendResetEvent = useCallback(() => {
-    service.send({
-      type: "RESET_CANVAS",
-      payload: {
-        canvasSize,
-        imgSize: { w: imgObj.width, h: imgObj.height },
-      },
-    });
-  }, [canvasSize, imgObj, service]);
+  const { viewportState, sendPointerEvent, sendWheelEvent, sendResetEvent } =
+    useCanvasMachine(markers, addMarker, removeMarkers);
 
   // Update viewport on canvas resize or image change
   useEffect(() => {
-    sendResetEvent();
-  }, [sendResetEvent]);
+    sendResetEvent(canvasSize, imgObj);
+  }, [sendResetEvent, canvasSize, imgObj]);
 
   useDrawCanvasDebounced(viewportState, markers, canvasRef, imgObj);
+
+  const onBlur = useCallback(() => {
+    sendResetEvent(canvasSize, imgObj);
+  }, [sendResetEvent, canvasSize, imgObj]);
 
   return (
     <canvas
@@ -81,7 +47,7 @@ const Canvas = ({ imgObj, markers, addMarker, removeMarkers }: CanvasProps) => {
       onPointerMove={sendPointerEvent}
       onPointerLeave={sendPointerEvent}
       onWheel={sendWheelEvent}
-      onBlur={sendResetEvent}
+      onBlur={onBlur}
     />
   );
 };

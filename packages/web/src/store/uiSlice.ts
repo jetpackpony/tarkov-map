@@ -10,7 +10,6 @@ export interface UIState {
   currentMap: MapName;
   markerColor: Color;
   lang: Language;
-  isTrackPad: boolean;
   loading: boolean;
   session: Session | null;
 }
@@ -20,7 +19,6 @@ const initialState: UIState = {
   // currentMap: MapName.CustomsHiddenStashes
   markerColor: "#ff0000",
   lang: Language.EN,
-  isTrackPad: false,
   loading: false,
   session: null,
 };
@@ -34,12 +32,6 @@ export const uiSlice = createSlice({
     },
     changeMarkerColor: (state, action: PayloadAction<{ color: Color }>) => {
       state.markerColor = action.payload.color;
-    },
-    switchToTrackPad: (
-      state,
-      action: PayloadAction<{ isTrackPad: boolean }>
-    ) => {
-      state.isTrackPad = action.payload.isTrackPad;
     },
     updateSessionLastAccess: (
       state,
@@ -68,16 +60,11 @@ export const uiSlice = createSlice({
   },
 });
 
-export const {
-  changeMarkerColor,
-  switchToTrackPad,
-  updateSessionLastAccess,
-  selectLanguage,
-} = uiSlice.actions;
+export const { changeMarkerColor, updateSessionLastAccess, selectLanguage } =
+  uiSlice.actions;
 
 export const selectCurrentMap = (state: AppState) => state.ui.currentMap;
 export const selectMarkerColor = (state: AppState) => state.ui.markerColor;
-export const selectIsTrackPad = (state: AppState) => state.ui.isTrackPad;
 export const selectCurrentSessionId = (state: AppState) => state.ui.session?.id;
 export const selectCurrentSession = (state: AppState) => state.ui.session;
 export const selectIsLoading = (state: AppState) => state.ui.loading;

@@ -8,6 +8,11 @@ export interface Coords {
   y: number;
 }
 
+export interface Dimentions {
+  w: number;
+  h: number;
+}
+
 export const isObject = (obj: unknown): obj is Record<string, unknown> => {
   return typeof obj === "object" && obj !== null;
 };

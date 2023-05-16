@@ -8,10 +8,12 @@ import {
   canvasMachine,
   selectViewport,
 } from "./canvasStateMachine/canvas.machine";
-import { isPointerEventType } from "./canvasStateMachine/types";
-import { getDevicePixelRatio } from "./getDevicePixelRatio";
 import { makeLeftClickAction } from "./canvasStateMachine/actions";
 import { useDrawCanvasDebounced } from "./useDrawCanvasDebounced";
+import {
+  wrapPointerEvent,
+  wrapWheelEvent,
+} from "./canvasStateMachine/eventWrappers";
 
 interface CanvasProps {
   imgObj: HTMLImageElement;
@@ -31,34 +33,16 @@ const Canvas = ({ imgObj, markers, addMarker, removeMarkers }: CanvasProps) => {
 
   const sendPointerEvent = useCallback(
     (e: PointerEvent) => {
-      if (isPointerEventType(e.type)) {
-        service.send({
-          type: e.type,
-          pointerEvent: {
-            pointerId: e.pointerId,
-            clientX: e.clientX * getDevicePixelRatio(),
-            clientY: e.clientY * getDevicePixelRatio(),
-          },
-        });
-      }
+      const wrapper = wrapPointerEvent(e);
+      wrapper && service.send(wrapper);
     },
     [service]
   );
   const sendWheelEvent = useCallback(
     (e: WheelEvent) => {
-      if (e.type === "wheel") {
-        e.preventDefault();
-        service.send({
-          type: e.type,
-          wheelEvent: {
-            clientX: e.clientX * getDevicePixelRatio(),
-            clientY: e.clientY * getDevicePixelRatio(),
-            ctrlKey: e.ctrlKey,
-            deltaX: e.deltaX * getDevicePixelRatio(),
-            deltaY: e.deltaY * getDevicePixelRatio(),
-          },
-        });
-      }
+      e.preventDefault();
+      const wrapper = wrapWheelEvent(e);
+      wrapper && service.send(wrapper);
     },
     [service]
   );

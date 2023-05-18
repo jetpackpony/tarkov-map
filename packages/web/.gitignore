@@ -12,3 +12,6 @@ reports/
 
 # env
 .env
+
+# Temp directory for new images
+tmpImages/

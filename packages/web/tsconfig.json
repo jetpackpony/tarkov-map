@@ -24,5 +24,5 @@
     "jsxImportSource": "preact",
     "sourceMap": true
   },
-  "include": ["src"]
+  "include": ["src", "scripts"]
 }

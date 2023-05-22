@@ -3,8 +3,8 @@ import { ExtractData } from "../../../types";
 import { Language } from "../../../language";
 
 const sortByName = (lang: Language) =>
-  sortBy(
-    compose(toLower, defaultTo(""), path<ExtractData, string>(["names", lang]))
+  sortBy<ExtractData>(
+    compose(toLower, defaultTo(""), path<string>(["names", lang]))
   );
 export const groupExtracts = (extracts: ExtractData[], lang: Language) => {
   const res = extracts.reduce(

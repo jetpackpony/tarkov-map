@@ -10,7 +10,8 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "lint": "eslint .",
-    "compress-images": "ts-node --esm ./scripts/compressImages.mts"
+    "compress-images": "ts-node --esm ./scripts/compressImages.mts",
+    "update-dependencies": "ncu --interactive --format group"
   },
   "keywords": [],
   "author": "",

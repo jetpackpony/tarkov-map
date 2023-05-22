@@ -5,16 +5,7 @@ import {
   initContext,
   isTrackpadPannig,
   isTrackpadZooming,
-  panWithPointer,
-  panWithTrackpad,
-  pointerMove,
-  pointerDown,
-  pointerLeave,
-  pointerUp,
-  resetCanvas,
-  zoomWithPinch,
-  zoomWithTrackpad,
-  zoomWithWheel,
+  canvasMachineActions,
 } from "./actions";
 
 export const selectViewport = (state: typeof canvasMachine) =>
@@ -102,23 +93,7 @@ export const canvasMachine = createMachine(
     },
   },
   {
-    actions: {
-      pointerDown,
-      pointerUp,
-      pointerLeave,
-      pointerMove,
-      panWithPointer,
-      panWithTrackpad,
-      zoomWithTrackpad,
-      zoomWithWheel,
-      zoomWithPinch,
-      leftClick: () => {
-        console.error(
-          "Need to override leftClick aciton implementation when instantiating the machine"
-        );
-      },
-      resetCanvas,
-    },
+    actions: canvasMachineActions as any, // TODO: Remove this after updating to xstate v5
     guards: {
       hasMovedFromInitialPoint,
       isTrackpadZooming,

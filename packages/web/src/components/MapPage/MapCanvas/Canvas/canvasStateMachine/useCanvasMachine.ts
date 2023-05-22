@@ -18,7 +18,7 @@ export const useCanvasMachine = (
   const service = useInterpret(canvasMachine, {
     actions: {
       leftClick: makeLeftClickAction(addMarker, removeMarkers, markers),
-    },
+    } as any, // TODO: Remove this after updating to xstate v5
   });
   const viewportState = useSelector(service, selectViewport);
 

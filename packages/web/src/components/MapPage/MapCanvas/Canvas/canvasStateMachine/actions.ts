@@ -1,5 +1,5 @@
 import { assign } from "xstate";
-import { send, pure } from "xstate/lib/actions";
+import { pure, raise } from "xstate/lib/actions";
 import {
   Coords,
   Dimentions,
@@ -26,6 +26,7 @@ import {
 } from "./viewport/calculations";
 import {
   CanvasMachineContext,
+  CanvasMachineEvent,
   PointerData,
   PointerEventWrapper,
   PointerMoveEvent,
@@ -47,75 +48,83 @@ export const initContext = (
   };
 };
 
-export const pointerDown = pure<CanvasMachineContext, PointerEventWrapper>(
-  (ctx: CanvasMachineContext, event: PointerEventWrapper) => {
-    ctx.activePointers.set(event.pointerEvent.pointerId, {
-      initialPos: {
+export const pointerDown = pure<
+  CanvasMachineContext,
+  PointerEventWrapper,
+  CanvasMachineEvent
+>((ctx: CanvasMachineContext, event: PointerEventWrapper) => {
+  ctx.activePointers.set(event.pointerEvent.pointerId, {
+    initialPos: {
+      x: event.pointerEvent.clientX,
+      y: event.pointerEvent.clientY,
+    },
+    prevPos: {
+      x: event.pointerEvent.clientX,
+      y: event.pointerEvent.clientY,
+    },
+    event: event.pointerEvent,
+  });
+  if (ctx.activePointers.size > 1) {
+    const pointers = Array.from(ctx.activePointers.values());
+    ctx.pointerDistance = distance(pointers[0].prevPos, pointers[1].prevPos);
+  }
+  return raise({
+    type: "ADD_POINTER",
+    payload: { pointerId: event.pointerEvent.pointerId },
+  });
+});
+
+export const pointerUp = pure<
+  CanvasMachineContext,
+  PointerEventWrapper,
+  CanvasMachineEvent
+>((ctx: CanvasMachineContext, event: PointerEventWrapper) => {
+  ctx.activePointers.delete(event.pointerEvent.pointerId);
+  return raise({
+    type: "REMOVE_POINTER",
+    payload: {
+      coords: {
         x: event.pointerEvent.clientX,
         y: event.pointerEvent.clientY,
       },
-      prevPos: {
-        x: event.pointerEvent.clientX,
-        y: event.pointerEvent.clientY,
-      },
-      event: event.pointerEvent,
-    });
-    if (ctx.activePointers.size > 1) {
-      const pointers = Array.from(ctx.activePointers.values());
-      ctx.pointerDistance = distance(pointers[0].prevPos, pointers[1].prevPos);
-    }
-    return send({
-      type: "ADD_POINTER",
-      payload: { pointerId: event.pointerEvent.pointerId },
-    });
-  }
-);
+    },
+  });
+});
 
-export const pointerUp = pure<CanvasMachineContext, PointerEventWrapper>(
-  (ctx: CanvasMachineContext, event: PointerEventWrapper) => {
-    ctx.activePointers.delete(event.pointerEvent.pointerId);
-    return send({
-      type: "REMOVE_POINTER",
-      payload: {
-        coords: {
-          x: event.pointerEvent.clientX,
-          y: event.pointerEvent.clientY,
-        },
-      },
-    });
-  }
-);
+export const pointerLeave = pure<
+  CanvasMachineContext,
+  PointerEventWrapper,
+  CanvasMachineEvent
+>((ctx: CanvasMachineContext, event: PointerEventWrapper) => {
+  ctx.activePointers.delete(event.pointerEvent.pointerId);
+  return raise({
+    type: "LEAVE_POINTER",
+    payload: { pointerId: event.pointerEvent.pointerId },
+  });
+});
 
-export const pointerLeave = pure<CanvasMachineContext, PointerEventWrapper>(
-  (ctx: CanvasMachineContext, event: PointerEventWrapper) => {
-    ctx.activePointers.delete(event.pointerEvent.pointerId);
-    return send({
-      type: "LEAVE_POINTER",
-      payload: { pointerId: event.pointerEvent.pointerId },
-    });
+export const pointerMove = pure<
+  CanvasMachineContext,
+  PointerEventWrapper,
+  CanvasMachineEvent
+>((ctx: CanvasMachineContext, event: PointerEventWrapper) => {
+  const pointer = ctx.activePointers.get(event.pointerEvent.pointerId);
+  if (!pointer) {
+    return;
   }
-);
-
-export const pointerMove = pure<CanvasMachineContext, PointerEventWrapper>(
-  (ctx: CanvasMachineContext, event: PointerEventWrapper) => {
-    const pointer = ctx.activePointers.get(event.pointerEvent.pointerId);
-    if (!pointer) {
-      return;
-    }
-    const { clientX, clientY } = event.pointerEvent;
-    const deltaX = pointer.prevPos.x - clientX;
-    const deltaY = pointer.prevPos.y - clientY;
-    pointer.prevPos = { x: clientX, y: clientY };
-    return send({
-      type: "POINTER_MOVE",
-      payload: {
-        deltaX,
-        deltaY,
-        pointerId: event.pointerEvent.pointerId,
-      },
-    });
-  }
-);
+  const { clientX, clientY } = event.pointerEvent;
+  const deltaX = pointer.prevPos.x - clientX;
+  const deltaY = pointer.prevPos.y - clientY;
+  pointer.prevPos = { x: clientX, y: clientY };
+  return raise({
+    type: "POINTER_MOVE",
+    payload: {
+      deltaX,
+      deltaY,
+      pointerId: event.pointerEvent.pointerId,
+    },
+  });
+});
 
 export const resetCanvas = assign(
   (ctx: CanvasMachineContext, event: ResetCanvasEvent) => {
@@ -251,4 +260,22 @@ export const makeLeftClickAction = (
       }
     }
   };
+};
+
+export const canvasMachineActions = {
+  pointerDown,
+  pointerUp,
+  pointerLeave,
+  pointerMove,
+  panWithPointer,
+  panWithTrackpad,
+  zoomWithTrackpad,
+  zoomWithWheel,
+  zoomWithPinch,
+  leftClick: () => {
+    console.error(
+      "Need to override leftClick aciton implementation when instantiating the machine"
+    );
+  },
+  resetCanvas,
 };

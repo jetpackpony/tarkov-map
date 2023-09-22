@@ -15,7 +15,7 @@ declare module "*.module.css" {
 
 interface ObjectConstructor {
   keys<T>(
-    o: T
+    o: T,
   ): T extends object
     ? (keyof T)[]
     : T extends number
@@ -24,7 +24,7 @@ interface ObjectConstructor {
     ? string[]
     : never;
   entries<T, V>(
-    o: T
+    o: T,
   ): T extends object
     ? [keyof T, T[keyof T]][]
     : T extends number

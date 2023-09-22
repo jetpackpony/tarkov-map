@@ -24,7 +24,7 @@ readdir(SOURCE_IMG_DIR, (err, files) => {
     const input = path.join(SOURCE_IMG_DIR, fileName);
     const output = path.join(
       OUTPUT_IMG_DIR,
-      `${path.parse(fileName).name}.webp`
+      `${path.parse(fileName).name}.webp`,
     );
 
     exec(
@@ -44,7 +44,7 @@ readdir(SOURCE_IMG_DIR, (err, files) => {
         }
         console.log(`stdout: ${stdout}`);
         console.error(`stderr: ${stderr}`);
-      }
+      },
     );
   });
 });

@@ -51,7 +51,7 @@ const initFirebase = () => {
       sessionCollectionRef,
       mapObjectListeners,
       sessionListeners,
-      currentListeners
+      currentListeners,
     ),
     addMapObjectListener: addMapObjectListener(mapObjectListeners),
     addSessionListener: addSessionListener(sessionListeners),

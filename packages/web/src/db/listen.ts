@@ -20,7 +20,7 @@ export const listen =
     sessionCollectionRef: CollectionReference<DocumentData>,
     mapObjectListeners: DBMapObjectListener[],
     sessionListeners: DBSessionListener[],
-    currentListeners: Unsubscribe[]
+    currentListeners: Unsubscribe[],
   ) =>
   (sessionId: string): Unsubscribe[] => {
     // Unsub from all current updates
@@ -45,8 +45,8 @@ export const listen =
               }
             }
           });
-        }
-      )
+        },
+      ),
     );
     currentListeners.push(
       onSnapshot(doc(sessionCollectionRef, sessionId), (docSnapshot) => {
@@ -54,7 +54,7 @@ export const listen =
         if (isSessionInDB(session)) {
           sessionListeners.forEach((f) => f(sessionDBToSession(session)));
         }
-      })
+      }),
     );
     return currentListeners;
   };

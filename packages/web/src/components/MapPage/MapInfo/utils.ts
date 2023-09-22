@@ -4,7 +4,7 @@ import { Language } from "../../../language";
 
 const sortByName = (lang: Language) =>
   sortBy<ExtractData>(
-    compose(toLower, defaultTo(""), path<string>(["names", lang]))
+    compose(toLower, defaultTo(""), path<string>(["names", lang])),
   );
 export const groupExtracts = (extracts: ExtractData[], lang: Language) => {
   const res = extracts.reduce(
@@ -17,7 +17,7 @@ export const groupExtracts = (extracts: ExtractData[], lang: Language) => {
       }
       return acc;
     },
-    { pmc: [], scav: [] } as { pmc: ExtractData[]; scav: ExtractData[] }
+    { pmc: [], scav: [] } as { pmc: ExtractData[]; scav: ExtractData[] },
   );
 
   res.pmc = sortByName(lang)(res.pmc);

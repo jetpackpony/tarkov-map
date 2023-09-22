@@ -19,12 +19,12 @@ const defaultViewport = {
 export const initViewport = (
   canvasSize: Dimentions = { w: 0, h: 0 },
   imgSize: Dimentions = { w: 0, h: 0 },
-  viewportState: ViewportState = defaultViewport
+  viewportState: ViewportState = defaultViewport,
 ): ViewportState => {
   const scale = clampScale(
     canvasSize,
     imgSize,
-    viewportState?.scale || MIN_SCALE
+    viewportState?.scale || MIN_SCALE,
   );
   const pos = {
     x: clampPos(canvasSize.w, imgSize.w, scale, viewportState?.pos.x || 0),
@@ -41,7 +41,7 @@ export const initViewport = (
 export const panViewport = (
   viewportState: ViewportState,
   deltaX: number,
-  deltaY: number
+  deltaY: number,
 ): ViewportState => {
   const { pos, scale, canvasSize, imgSize } = viewportState;
   return {
@@ -56,13 +56,13 @@ export const panViewport = (
 export const zoomViewport = (
   viewportState: ViewportState,
   cursorPos: Coords,
-  deltaY: number
+  deltaY: number,
 ): ViewportState => {
   const { pos, scale, canvasSize, imgSize } = viewportState;
   const newScale = clampScale(
     canvasSize,
     imgSize,
-    scale - (scale / MAX_SCALE + MIN_SCALE) * deltaY
+    scale - (scale / MAX_SCALE + MIN_SCALE) * deltaY,
   );
   // Update viewport position postion on zoom
   const newPos = {

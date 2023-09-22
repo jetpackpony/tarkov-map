@@ -4,7 +4,7 @@ import { Color, Coords, isColor, isCoords, isObject } from "../types";
 
 export type DBMapObjectListener = (
   type: DocumentChangeType,
-  data: MapObject
+  data: MapObject,
 ) => void;
 export type DBSessionListener = (session: Session) => void;
 

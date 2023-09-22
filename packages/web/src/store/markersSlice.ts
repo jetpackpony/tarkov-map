@@ -44,18 +44,18 @@ export const markersSlice = createSlice({
         id: string;
         coords: Coords;
         color: Color;
-      }>
+      }>,
     ) => {
       const { id, coords, color, mapName } = action.payload;
       state[mapName].markers.push({ id, coords, color, type: "user" });
     },
     eraseMarkers: (
       state,
-      action: PayloadAction<{ mapName: MapName; ids: string[] }>
+      action: PayloadAction<{ mapName: MapName; ids: string[] }>,
     ) => {
       const { mapName, ids } = action.payload;
       state[mapName].markers = state[mapName].markers.filter(
-        (m) => !ids.includes(m.id)
+        (m) => !ids.includes(m.id),
       );
     },
     clearMap: (state, action: PayloadAction<{ mapId: MapName }>) => {
@@ -68,7 +68,7 @@ export const markersSlice = createSlice({
     },
     selectExtract: (
       state,
-      action: PayloadAction<{ mapName: MapName; extId: string }>
+      action: PayloadAction<{ mapName: MapName; extId: string }>,
     ) => {
       const { mapName, extId } = action.payload;
       const selectedExtracts = state[mapName].selectedExtracts;
@@ -79,7 +79,7 @@ export const markersSlice = createSlice({
     },
     unselectExtract: (
       state,
-      action: PayloadAction<{ mapName: MapName; extId: string }>
+      action: PayloadAction<{ mapName: MapName; extId: string }>,
     ) => {
       const { mapName, extId } = action.payload;
       const selectedExtracts = state[mapName].selectedExtracts;

@@ -2,7 +2,7 @@ import { useEffect, useState, TargetedEvent } from "preact/compat";
 
 export const useImageLoader = (
   imgPath: string,
-  onLoad?: (img: HTMLImageElement) => void
+  onLoad?: (img: HTMLImageElement) => void,
 ) => {
   const [imgObj, setImgObj] = useState<HTMLImageElement | null>(null);
   useEffect(() => {

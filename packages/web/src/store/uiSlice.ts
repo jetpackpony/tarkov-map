@@ -35,7 +35,7 @@ export const uiSlice = createSlice({
     },
     updateSessionLastAccess: (
       state,
-      action: PayloadAction<{ sessionId: string; lastAccess: string }>
+      action: PayloadAction<{ sessionId: string; lastAccess: string }>,
     ) => {
       if (state.session && state.session.id === action.payload.sessionId) {
         state.session.lastAccess = action.payload.lastAccess;
@@ -92,7 +92,7 @@ export const loadSession = createAsyncThunk<
         selectCurrentSessionId(getState()) !== sessionId
       );
     },
-  }
+  },
 );
 
 export const selectMap =

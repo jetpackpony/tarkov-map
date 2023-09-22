@@ -18,7 +18,7 @@ export const subscribeToDBUpdates = (db: DB, dispatch: AppDispatch) => {
             id: item.id,
             coords: item.data.coords,
             color: item.data.color,
-          })
+          }),
         );
       }
       if (item.type === "ext") {
@@ -42,7 +42,7 @@ export const subscribeToDBUpdates = (db: DB, dispatch: AppDispatch) => {
       updateSessionLastAccess({
         sessionId: session.id,
         lastAccess: session.lastAccess,
-      })
+      }),
     );
   });
 };

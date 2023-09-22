@@ -13,7 +13,7 @@ import { wrapPointerEvent, wrapWheelEvent } from "./eventWrappers";
 export const useCanvasMachine = (
   markers: (Marker | ExtractMarker)[],
   addMarker: (coords: Coords) => void,
-  removeMarkers: (ids: string[]) => void
+  removeMarkers: (ids: string[]) => void,
 ) => {
   const service = useInterpret(canvasMachine, {
     actions: {
@@ -27,7 +27,7 @@ export const useCanvasMachine = (
       const wrapper = wrapPointerEvent(e);
       wrapper && service.send(wrapper);
     },
-    [service]
+    [service],
   );
   const sendWheelEvent = useCallback(
     (e: WheelEvent) => {
@@ -35,7 +35,7 @@ export const useCanvasMachine = (
       const wrapper = wrapWheelEvent(e);
       wrapper && service.send(wrapper);
     },
-    [service]
+    [service],
   );
   const sendResetEvent = useCallback(
     (canvasSize: Dimentions, imgObj: HTMLImageElement) => {
@@ -47,7 +47,7 @@ export const useCanvasMachine = (
         },
       });
     },
-    [service]
+    [service],
   );
 
   return {

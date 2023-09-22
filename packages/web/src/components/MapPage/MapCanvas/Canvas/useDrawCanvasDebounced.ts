@@ -7,7 +7,7 @@ export const useDrawCanvasDebounced = (
   viewportState: ViewportState,
   markers: (Marker | ExtractMarker)[],
   canvasRef: Ref<HTMLCanvasElement>,
-  imgObj: HTMLImageElement
+  imgObj: HTMLImageElement,
 ) => {
   const drawing = useRef(false);
   const drawFunction = useRef<() => void>(() => null);

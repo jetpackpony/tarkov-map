@@ -32,16 +32,16 @@ module.exports = (env) => ({
     new webpack.DefinePlugin({
       "process.env.OFFLINE": JSON.stringify(process.env.OFFLINE),
       "process.env.FIREBASE_API_KEY": JSON.stringify(
-        process.env.FIREBASE_API_KEY
+        process.env.FIREBASE_API_KEY,
       ),
       "process.env.FIREBASE_PROJECT_ID": JSON.stringify(
-        process.env.FIREBASE_PROJECT_ID
+        process.env.FIREBASE_PROJECT_ID,
       ),
       "process.env.SESSION_COLLECTION_PROD": JSON.stringify(
-        process.env.SESSION_COLLECTION_PROD
+        process.env.SESSION_COLLECTION_PROD,
       ),
       "process.env.SESSION_COLLECTION_DEV": JSON.stringify(
-        process.env.SESSION_COLLECTION_DEV
+        process.env.SESSION_COLLECTION_DEV,
       ),
     }),
   ],

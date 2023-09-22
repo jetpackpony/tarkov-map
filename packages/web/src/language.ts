@@ -52,7 +52,7 @@ export const useLanguage = () => {
       const trans = resources[currentLang].translation;
       return handle in trans ? trans[handle] : handle;
     },
-    [currentLang]
+    [currentLang],
   );
 
   return {

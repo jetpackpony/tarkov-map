@@ -24,7 +24,7 @@ export const addMarker =
     sessionId: string,
     markerId: string,
     mapName: MapName,
-    data: MarkerData
+    data: MarkerData,
   ): Promise<void> => {
     const mapObject: MarkerMapObject = {
       id: markerId,
@@ -34,7 +34,7 @@ export const addMarker =
     };
     return setDoc(
       getMarkerDoc(sessionCollectionRef)(sessionId, markerId),
-      mapObject
+      mapObject,
     );
   };
 
@@ -69,8 +69,8 @@ export const clearMap =
     const res = await getDocs(
       query(
         collection(sessionCollectionRef, sessionId, "mapObjects"),
-        where("map", "==", mapName)
-      )
+        where("map", "==", mapName),
+      ),
     );
     return Promise.all(res.docs.map((doc) => deleteDoc(doc.ref)));
   };

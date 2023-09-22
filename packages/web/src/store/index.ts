@@ -26,7 +26,7 @@ const makeStore = (db: DB | null) => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         updateSessionLastAccessMiddleware,
-        saveStateToLocalstorageMiddleware
+        saveStateToLocalstorageMiddleware,
       ),
   });
 

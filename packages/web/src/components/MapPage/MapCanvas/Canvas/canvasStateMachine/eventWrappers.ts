@@ -6,7 +6,7 @@ import {
 } from "./types";
 
 export const wrapPointerEvent = (
-  e: PointerEvent
+  e: PointerEvent,
 ): PointerEventWrapper | null => {
   if (!isPointerEventType(e.type)) {
     return null;

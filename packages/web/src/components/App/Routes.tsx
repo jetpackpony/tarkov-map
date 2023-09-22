@@ -19,7 +19,7 @@ const buildQueryParams = (
   });
   const res = Object.entries(args).reduce(
     (acc, [key, value]) => `${acc}${key}=${value !== undefined ? value : ""}&`,
-    ""
+    "",
   );
   return res.substring(0, res.length - 1);
 };
@@ -38,7 +38,7 @@ const Routes = () => {
                 route(
                   `${args.path}?${buildQueryParams(args.matches, {
                     sessionId: session.id,
-                  })}`
+                  })}`,
                 );
               }
             })

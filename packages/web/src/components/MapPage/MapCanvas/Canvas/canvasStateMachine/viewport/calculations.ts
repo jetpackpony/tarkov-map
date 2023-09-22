@@ -14,7 +14,7 @@ export const clampValue = (value: number, min: number, max: number) =>
 export const clampScale = (
   canvasSize: Dimentions,
   imgSize: Dimentions,
-  scale: number
+  scale: number,
 ) => {
   const minWScale = (canvasSize.w - SCALE_BORDER) / imgSize.w;
   const minHScale = (canvasSize.h - SCALE_BORDER) / imgSize.h;
@@ -32,7 +32,7 @@ export const clampPos = (
   canvasLen: number,
   imgLen: number,
   scale: number,
-  pos: number
+  pos: number,
 ) => {
   const imgCanvasLenDiff = canvasLen - imgLen * scale;
   if (imgCanvasLenDiff < PAN_BORDER * 2) {
@@ -47,14 +47,14 @@ export const clampPos = (
 
 export const getImageCoords = (
   viewportCoords: Coords,
-  viewportState: ViewportState
+  viewportState: ViewportState,
 ): Coords | null => {
   const imageCoords = {
     x: Math.round(
-      (viewportCoords.x - viewportState.pos.x) / viewportState.scale
+      (viewportCoords.x - viewportState.pos.x) / viewportState.scale,
     ),
     y: Math.round(
-      (viewportCoords.y - viewportState.pos.y) / viewportState.scale
+      (viewportCoords.y - viewportState.pos.y) / viewportState.scale,
     ),
   };
   // If the click is off the image, ignore
@@ -87,7 +87,7 @@ const maxY = 15 * getDevicePixelRatio();
 export const getCloseMarkers = (
   scale: number,
   markers: (Marker | ExtractMarker)[],
-  { x, y }: Coords
+  { x, y }: Coords,
 ) => {
   return markers
     .filter((m) => {

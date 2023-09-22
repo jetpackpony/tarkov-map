@@ -38,7 +38,7 @@ import {
 export const initContext = (
   canvasSize?: Dimentions,
   imgSize?: Dimentions,
-  viewportState?: ViewportState
+  viewportState?: ViewportState,
 ): CanvasMachineContext => {
   return {
     activePointers: new Map<number, PointerData>(),
@@ -130,12 +130,12 @@ export const resetCanvas = assign(
   (ctx: CanvasMachineContext, event: ResetCanvasEvent) => {
     const { canvasSize, imgSize } = event.payload;
     return initContext(canvasSize, imgSize, ctx.viewportState);
-  }
+  },
 );
 
 export const panWithPointer = (
   ctx: CanvasMachineContext,
-  event: PointerMoveEvent
+  event: PointerMoveEvent,
 ) => {
   const { deltaX, deltaY } = event.payload;
   ctx.viewportState = panViewport(ctx.viewportState, deltaX, deltaY);
@@ -143,7 +143,7 @@ export const panWithPointer = (
 
 export const panWithTrackpad = (
   ctx: CanvasMachineContext,
-  event: WheelEventWrapper
+  event: WheelEventWrapper,
 ) => {
   const { deltaX, deltaY } = event.wheelEvent;
   ctx.viewportState = panViewport(ctx.viewportState, deltaX, deltaY);
@@ -151,7 +151,7 @@ export const panWithTrackpad = (
 
 export const zoomWithTrackpad = (
   ctx: CanvasMachineContext,
-  event: WheelEventWrapper
+  event: WheelEventWrapper,
 ) => {
   const { clientX, clientY, deltaY } = event.wheelEvent;
   const delta = deltaY * TRACKPAD_SCALE_MULTIPLIER;
@@ -161,13 +161,13 @@ export const zoomWithTrackpad = (
       x: clientX,
       y: clientY,
     },
-    delta
+    delta,
   );
 };
 
 export const zoomWithWheel = (
   ctx: CanvasMachineContext,
-  event: WheelEventWrapper
+  event: WheelEventWrapper,
 ) => {
   if (!ctx.isTrackPad) {
     const { clientX, clientY, deltaY } = event.wheelEvent;
@@ -178,7 +178,7 @@ export const zoomWithWheel = (
         x: clientX,
         y: clientY,
       },
-      delta
+      delta,
     );
   }
 };
@@ -196,14 +196,14 @@ export const zoomWithPinch = (ctx: CanvasMachineContext) => {
       x: middle.x,
       y: middle.y,
     },
-    delta
+    delta,
   );
   ctx.pointerDistance = newDistance;
 };
 
 export const hasMovedFromInitialPoint = (
   ctx: CanvasMachineContext,
-  event: PointerMoveEvent
+  event: PointerMoveEvent,
 ) => {
   const pointer = ctx.activePointers.get(event.payload.pointerId);
   if (!pointer) return false;
@@ -216,7 +216,7 @@ export const hasMovedFromInitialPoint = (
 
 export const isTrackpadZooming = (
   ctx: CanvasMachineContext,
-  event: WheelEventWrapper
+  event: WheelEventWrapper,
 ) => {
   if (event.wheelEvent.deltaX !== 0) {
     ctx.isTrackPad = true;
@@ -230,7 +230,7 @@ export const isTrackpadZooming = (
 
 export const isTrackpadPannig = (
   ctx: CanvasMachineContext,
-  event: WheelEventWrapper
+  event: WheelEventWrapper,
 ) => {
   if (ctx.isTrackPad || event.wheelEvent.deltaX !== 0) {
     ctx.isTrackPad = true;
@@ -242,7 +242,7 @@ export const isTrackpadPannig = (
 export const makeLeftClickAction = (
   addMarker: (coords: Coords) => void,
   removeMarkers: (ids: string[]) => void,
-  markers: (Marker | ExtractMarker)[]
+  markers: (Marker | ExtractMarker)[],
 ) => {
   return (ctx: CanvasMachineContext, event: RemovePoinerEvent) => {
     const viewportCoords = event.payload.coords;
@@ -251,7 +251,7 @@ export const makeLeftClickAction = (
       const closeMarkers = getCloseMarkers(
         ctx.viewportState.scale,
         markers,
-        imageCoords
+        imageCoords,
       );
       if (closeMarkers.length > 0) {
         removeMarkers(closeMarkers);
@@ -274,7 +274,7 @@ export const canvasMachineActions = {
   zoomWithPinch,
   leftClick: () => {
     console.error(
-      "Need to override leftClick aciton implementation when instantiating the machine"
+      "Need to override leftClick aciton implementation when instantiating the machine",
     );
   },
   resetCanvas,

@@ -77,6 +77,7 @@ export enum MapGroupId {
   Lighthouse = "lighthouse",
   Reserve = "reserve",
   Shoreline = "shoreline",
+  Streets = "streets",
   Woods = "woods",
 }
 

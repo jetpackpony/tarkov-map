@@ -14,6 +14,7 @@ import FactoryMain from "./FactoryMain";
 import LabsMain from "./LabsMain";
 import LighthouseMain from "./LighthouseMain";
 import LighthouseHiddenStashes from "./LighthouseHiddenStashes";
+import StreetsMain from "./StreetsMain";
 import { AllMapData } from "../../types";
 
 export enum MapName {
@@ -31,6 +32,7 @@ export enum MapName {
   ShorelineHiddenStashes = "shoreline-hidden-stashes",
   ShorelineKeys = "shoreline-keys",
   ShorelineResort = "shoreline-resort",
+  StreetsMain = "streets-main",
   WoodsMain = "woods-main",
   WoodsCaches = "woods-caches",
 }
@@ -51,6 +53,7 @@ const mapData: AllMapData = {
     [MapName.ShorelineHiddenStashes]: ShorelineHiddenStashes,
     [MapName.ShorelineKeys]: ShorelineKeys,
     [MapName.ShorelineResort]: ShorelineResort,
+    [MapName.StreetsMain]: StreetsMain,
     [MapName.WoodsMain]: WoodsMain,
     [MapName.WoodsCaches]: WoodsCaches,
   },

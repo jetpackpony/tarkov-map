@@ -18,6 +18,7 @@ export const useCanvasMachine = (
   const service = useInterpret(canvasMachine, {
     actions: {
       leftClick: makeLeftClickAction(addMarker, removeMarkers, markers),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any, // TODO: Remove this after updating to xstate v5
   });
   const viewportState = useSelector(service, selectViewport);

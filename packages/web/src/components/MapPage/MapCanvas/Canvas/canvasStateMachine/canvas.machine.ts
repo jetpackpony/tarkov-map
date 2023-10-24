@@ -93,6 +93,7 @@ export const canvasMachine = createMachine(
     },
   },
   {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     actions: canvasMachineActions as any, // TODO: Remove this after updating to xstate v5
     guards: {
       hasMovedFromInitialPoint,

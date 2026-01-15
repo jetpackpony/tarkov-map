@@ -1,17 +1,17 @@
 import { MapGroupId } from "../../types";
-import lighthouseMainImg from "../../mapImages/LighthouseMain.webp";
+import img from "../../mapImages/Terminal2D.webp";
 
 const mapData = {
-  groupId: MapGroupId.Lighthouse,
+  groupId: MapGroupId.Terminal,
   groupName: {
-    en: "Lighthouse",
-    ru: "Маяк",
+    en: "Terminal",
+    ru: "Терминал",
   },
   title: {
     en: "Main",
     ru: "Главная",
   },
-  imgPath: lighthouseMainImg,
+  imgPath: img,
   extracts: [],
 };
 

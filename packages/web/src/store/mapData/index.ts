@@ -1,61 +1,91 @@
-import CustomsMain from "./CustomsMain";
+import CustomsDorms from "./CustomsDorms";
 import CustomsHiddenStashes from "./CustomsHiddenStashes";
-import ShorelineMain from "./ShorelineMain";
+import CustomsMain from "./CustomsMain";
+import FactoryMain from "./FactoryMain";
+import GroundZero from "./GroundZero";
+import InterchangeHiddenStashes from "./InterchangeHiddenStashes";
+import InterchangeMain from "./InterchangeMainNew";
+import InterchangeMainOld from "./InterchangeMainOld";
+import LabsMain from "./LabsMain";
+import Labyrinth from "./Labyrinth";
+import LighthouseHiddenStashes from "./LighthouseHiddenStashes";
+import LighthouseMain2D from "./LighthouseMain2D";
+import LighthouseMain3D from "./LighthouseMain3D";
+import ReserveKeysAndDoors from "./ReserveKeysAndDoors";
+import ReserveMain2D from "./ReserveMain2D";
+import ReserveMain3D from "./ReserveMain3D";
 import ShorelineHiddenStashes from "./ShorelineHiddenStashes";
 import ShorelineKeys from "./ShorelineKeys";
+import ShorelineMain2D from "./ShorelineMain2D";
+import ShorelineMain3D from "./ShorelineMain3D";
 import ShorelineResort from "./ShorelineResort";
-import InterchangeMain from "./InterchangeMain";
-import InterchangeHiddenStashes from "./InterchangeHiddenStashes";
-import WoodsMain from "./WoodsMain";
+import StreetsMain2D from "./StreetsMain2D";
+import StreetsMain3D from "./StreetsMain3D";
+import Terminal from "./Terminal";
 import WoodsCaches from "./WoodsCaches";
-import ReserveMain from "./ReserveMain";
-import ReserveKeysAndDoors from "./ReserveKeysAndDoors";
-import FactoryMain from "./FactoryMain";
-import LabsMain from "./LabsMain";
-import LighthouseMain from "./LighthouseMain";
-import LighthouseHiddenStashes from "./LighthouseHiddenStashes";
-import StreetsMain from "./StreetsMain";
+import WoodsMain2D from "./WoodsMain2D";
+import WoodsMain3D from "./WoodsMain3D";
 import { AllMapData } from "../../types";
 
 export enum MapName {
-  CustomsMain = "customs-main",
-  CustomsHiddenStashes = "customs-hidden-stashes",
-  FactoryMain = "factory-main",
-  InterchangeMain = "interchange-main",
-  InterchangeHiddenStashes = "interchange-hidden-stashes",
-  LabsMain = "labs-main",
-  LighthouseMain = "lighthouse-main",
-  LighthouseHiddenStashes = "lighthouse-hidden-stashes",
-  ReserveMain = "reserve-main",
-  ReserveKeysAndDoors = "reserve-keys-and-doors",
-  ShorelineMain = "shoreline-main",
-  ShorelineHiddenStashes = "shoreline-hidden-stashes",
-  ShorelineKeys = "shoreline-keys",
-  ShorelineResort = "shoreline-resort",
-  StreetsMain = "streets-main",
-  WoodsMain = "woods-main",
-  WoodsCaches = "woods-caches",
+  CustomsDorms = "CustomsDorms",
+  CustomsHiddenStashes = "CustomsHiddenStashes",
+  CustomsMain = "CustomsMain",
+  FactoryMain = "FactoryMain",
+  GroundZero = "GroundZero",
+  InterchangeHiddenStashes = "InterchangeHiddenStashes",
+  InterchangeMain = "InterchangeMain",
+  InterchangeMainOld = "InterchangeMainOld",
+  LabsMain = "LabsMain",
+  Labyrinth = "Labyrinth",
+  LighthouseHiddenStashes = "LighthouseHiddenStashes",
+  LighthouseMain2D = "LighthouseMain2D",
+  LighthouseMain3D = "LighthouseMain3D",
+  ReserveKeysAndDoors = "ReserveKeysAndDoors",
+  ReserveMain2D = "ReserveMain2D",
+  ReserveMain3D = "ReserveMain3D",
+  ShorelineHiddenStashes = "ShorelineHiddenStashes",
+  ShorelineKeys = "ShorelineKeys",
+  ShorelineMain2D = "ShorelineMain2D",
+  ShorelineMain3D = "ShorelineMain3D",
+  ShorelineResort = "ShorelineResort",
+  StreetsMain2D = "StreetsMain2D",
+  StreetsMain3D = "StreetsMain3D",
+  Terminal = "Terminal",
+  WoodsCaches = "WoodsCaches",
+  WoodsMain2D = "WoodsMain2D",
+  WoodsMain3D = "WoodsMain3D",
 }
 
 const mapData: AllMapData = {
   maps: {
-    [MapName.CustomsMain]: CustomsMain,
+    [MapName.CustomsDorms]: CustomsDorms,
     [MapName.CustomsHiddenStashes]: CustomsHiddenStashes,
+    [MapName.CustomsMain]: CustomsMain,
     [MapName.FactoryMain]: FactoryMain,
-    [MapName.InterchangeMain]: InterchangeMain,
+    [MapName.GroundZero]: GroundZero,
     [MapName.InterchangeHiddenStashes]: InterchangeHiddenStashes,
+    [MapName.InterchangeMain]: InterchangeMain,
+    [MapName.InterchangeMainOld]: InterchangeMainOld,
     [MapName.LabsMain]: LabsMain,
-    [MapName.LighthouseMain]: LighthouseMain,
+    [MapName.Labyrinth]: Labyrinth,
     [MapName.LighthouseHiddenStashes]: LighthouseHiddenStashes,
-    [MapName.ReserveMain]: ReserveMain,
+    [MapName.LighthouseMain2D]: LighthouseMain2D,
+    [MapName.LighthouseMain3D]: LighthouseMain3D,
     [MapName.ReserveKeysAndDoors]: ReserveKeysAndDoors,
-    [MapName.ShorelineMain]: ShorelineMain,
+    [MapName.ReserveMain2D]: ReserveMain2D,
+    [MapName.ReserveMain3D]: ReserveMain3D,
     [MapName.ShorelineHiddenStashes]: ShorelineHiddenStashes,
     [MapName.ShorelineKeys]: ShorelineKeys,
+    [MapName.ShorelineMain2D]: ShorelineMain2D,
+    [MapName.ShorelineMain3D]: ShorelineMain3D,
     [MapName.ShorelineResort]: ShorelineResort,
-    [MapName.StreetsMain]: StreetsMain,
-    [MapName.WoodsMain]: WoodsMain,
+    [MapName.StreetsMain2D]: StreetsMain2D,
+    [MapName.StreetsMain3D]: StreetsMain3D,
+    [MapName.Terminal]: Terminal,
     [MapName.WoodsCaches]: WoodsCaches,
+    [MapName.WoodsMain2D]: WoodsMain2D,
+    [MapName.WoodsMain3D]: WoodsMain3D,
   },
 };
 

@@ -72,12 +72,15 @@ export interface AllMapData {
 export enum MapGroupId {
   Customs = "customs",
   Factory = "factory",
+  GroundZero = "groundzero",
   Interchange = "interchange",
   Labs = "labs",
+  Labyrinth = "labyrinth",
   Lighthouse = "lighthouse",
   Reserve = "reserve",
   Shoreline = "shoreline",
   Streets = "streets",
+  Terminal = "terminal",
   Woods = "woods",
 }
 

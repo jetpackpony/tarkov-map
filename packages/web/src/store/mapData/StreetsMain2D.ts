@@ -1,5 +1,5 @@
 import { MapGroupId } from "../../types";
-import img from "../../mapImages/StreetsMain.webp";
+import img from "../../mapImages/StreetsOfTarkov2D.webp";
 
 const mapData = {
   groupId: MapGroupId.Streets,
@@ -8,8 +8,8 @@ const mapData = {
     ru: "Улицы Таркова",
   },
   title: {
-    en: "Main",
-    ru: "Главная",
+    en: "Main 2D",
+    ru: "Главная 2D",
   },
   imgPath: img,
   extracts: [],

@@ -1,5 +1,5 @@
 import { MapGroupId } from "../../types";
-import img from "../../mapImages/WoodsMain.webp";
+import img from "../../mapImages/Woods3D.webp";
 
 const mapData = {
   groupId: MapGroupId.Woods,
@@ -8,8 +8,8 @@ const mapData = {
     ru: "Лес ",
   },
   title: {
-    en: "Main",
-    ru: "Главная",
+    en: "Main 3D",
+    ru: "Главная 3D",
   },
   imgPath: img,
   extracts: [],

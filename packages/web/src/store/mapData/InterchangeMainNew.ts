@@ -1,5 +1,5 @@
 import { MapGroupId } from "../../types";
-import img from "../../mapImages/InterchangeMain.webp";
+import img from "../../mapImages/InterchangeMainNew.webp";
 
 const mapData = {
   groupId: MapGroupId.Interchange,
@@ -8,8 +8,8 @@ const mapData = {
     ru: "Развязка",
   },
   title: {
-    en: "Main",
-    ru: "Главная",
+    en: "Main (New)",
+    ru: "Главная (Новая)",
   },
   imgPath: img,
   extracts: [],

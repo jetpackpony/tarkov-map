@@ -1,5 +1,5 @@
 import { MapGroupId } from "../../types";
-import img from "../../mapImages/ReserveMain.webp";
+import img from "../../mapImages/ReserveMain3D.webp";
 
 const mapData = {
   groupId: MapGroupId.Reserve,
@@ -8,8 +8,8 @@ const mapData = {
     ru: "Резерв ",
   },
   title: {
-    en: "Main",
-    ru: "Главная",
+    en: "Main 3D",
+    ru: "Главная 3D",
   },
   imgPath: img,
   extracts: [],
